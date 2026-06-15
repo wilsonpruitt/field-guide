@@ -83,3 +83,38 @@ export async function publishedFor(conferenceId: string, targetType: TargetType,
     notes: top.filter((c) => c.type === "COMMENT" || c.type === "PERSPECTIVE"),
   };
 }
+
+// ── Reader interactions on published contributions (signed-in) ──
+
+/** Endorse a published contribution as helpful. Idempotent per person; the
+ *  first endorsement credits the author's reputation. */
+export async function endorseOp(contributionId: string, conferenceId: string, profileId: string) {
+  const c = await prisma.contribution.findFirst({
+    where: { id: contributionId, conferenceId, status: "PUBLISHED" },
+    select: { id: true, authorId: true },
+  });
+  if (!c) return { ok: false as const, error: "Not found." };
+  const existing = await prisma.endorsement.findUnique({
+    where: { contributionId_profileId_kind: { contributionId: c.id, profileId, kind: "helpful" } },
+  });
+  if (existing) return { ok: true as const, already: true };
+
+  await prisma.endorsement.create({ data: { contributionId: c.id, profileId, kind: "helpful" } });
+  // Credit the author (not for self-endorsement, not for anonymous authors).
+  if (c.authorId && c.authorId !== profileId) {
+    const { awardReputation } = await import("@/lib/moderation");
+    await awardReputation(conferenceId, c.authorId, 1, "endorsed as helpful", c.id);
+  }
+  return { ok: true as const };
+}
+
+/** Flag a published contribution for steward review. */
+export async function flagOp(contributionId: string, conferenceId: string, profileId: string, reason: string) {
+  const c = await prisma.contribution.findFirst({
+    where: { id: contributionId, conferenceId, status: "PUBLISHED" },
+    select: { id: true },
+  });
+  if (!c) return { ok: false as const, error: "Not found." };
+  await prisma.flag.create({ data: { contributionId: c.id, profileId, reason: reason.slice(0, 300) } });
+  return { ok: true as const };
+}

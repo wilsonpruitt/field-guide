@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { getViewer } from "@/lib/community";
+import { TL } from "@/lib/moderation";
 
 export default async function ConferenceLayout({
   children,
@@ -11,6 +13,8 @@ export default async function ConferenceLayout({
   const { conference } = await params;
   const conf = await getConference(conference);
   const base = `/${conf.slug}`;
+  const viewer = await getViewer(conf.id);
+  const isModerator = (viewer?.trustLevel ?? 0) >= TL.EDITOR;
 
   return (
     <div className="fg-shell">
@@ -25,6 +29,7 @@ export default async function ConferenceLayout({
           <Link href={`${base}/process`}>How it works</Link>
           <Link href={`${base}/motions`}>Motions</Link>
           <Link href={`${base}/discipline`}>Discipline</Link>
+          {isModerator && <Link href={`${base}/moderate`}>Steward&rsquo;s desk</Link>}
         </nav>
       </header>
       <main className="fg-main">{children}</main>

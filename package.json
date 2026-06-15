@@ -11,7 +11,8 @@
     "db:generate": "dotenv -e .env.local -- prisma generate",
     "db:studio": "dotenv -e .env.local -- prisma studio",
     "db:seed": "dotenv -e .env.local -- tsx prisma/seed.ts",
-    "db:rls": "dotenv -e .env.local -- prisma db execute --file supabase/rls.sql --schema prisma/schema.prisma"
+    "db:rls": "dotenv -e .env.local -- prisma db execute --file supabase/rls.sql --schema prisma/schema.prisma",
+    "grant-trust": "dotenv -e .env.local -- tsx scripts/grant-trust.ts"
   },
   "prisma": {
     "schema": "prisma/schema.prisma"

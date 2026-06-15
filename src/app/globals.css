@@ -303,6 +303,38 @@ ul.bare li:last-child { border-bottom: 0; }
 .sched-tag.t-information { color: var(--warn); border-color: transparent; background: var(--warn-bg); }
 .sched-tag.t-worship { color: var(--ok); border-color: transparent; background: var(--ok-bg); }
 
+/* ---------- Reader interactions (endorse / flag) ---------- */
+.contrib-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .4rem; }
+.contrib-actions.muted { font-size: .78rem; }
+.contrib-btn { font: inherit; font-size: .76rem; padding: .12rem .55rem; border: 1px solid var(--slate-200);
+  border-radius: 999px; background: var(--parchment); color: var(--fen); cursor: pointer; }
+.contrib-btn:hover:not(:disabled) { border-color: var(--reed); }
+.contrib-btn:disabled { opacity: .6; cursor: default; }
+.flag-row { display: inline-flex; gap: .35rem; align-items: center; }
+.flag-input { font: inherit; font-size: .8rem; padding: .25rem .5rem; border: 1px solid var(--slate-200);
+  border-radius: 6px; background: var(--ivory); min-width: 12rem; }
+
+/* ---------- Steward's desk (moderation queue) ---------- */
+.mod-list { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .8rem; }
+.mod-item { border: 1px solid var(--slate-100); background: var(--ivory); border-radius: 10px; padding: .8rem 1rem; }
+.mod-item.is-done { color: var(--fg-quiet); font-style: italic; background: var(--sunken); }
+.mod-meta { display: flex; justify-content: space-between; gap: .5rem; flex-wrap: wrap; margin-bottom: .3rem; }
+.mod-kind { font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; color: var(--fen-mist); }
+.mod-target { font-size: .76rem; }
+.mod-body { margin: .2rem 0; color: var(--ink); }
+.mod-flags { list-style: none; padding: .4rem 0 0; margin: .3rem 0 0; font-size: .84rem; color: var(--slate-600); }
+.mod-flags li { padding: .1rem 0; }
+.mod-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .55rem; }
+.btn-ok, .btn-no { font: inherit; font-size: .82rem; font-weight: 500; padding: .35rem .9rem; border-radius: 6px; cursor: pointer; }
+.btn-ok { background: var(--fen); color: var(--ivory); border: 1px solid var(--fen); }
+.btn-ok:hover:not(:disabled) { background: var(--fen-mist); }
+.btn-no { background: var(--parchment); color: var(--danger); border: 1px solid var(--slate-200); }
+.btn-no:hover:not(:disabled) { border-color: var(--danger); }
+.btn-ok:disabled, .btn-no:disabled { opacity: .5; cursor: default; }
+.mod-err { font-size: .8rem; color: var(--danger); }
+.mod-member { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.mod-member .mod-actions { margin-top: 0; }
+
 /* ---------- Hub cards (conference home) ---------- */
 .hub { list-style: none; padding: 0; margin: 1.4rem 0; display: grid; gap: .7rem;
   grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }

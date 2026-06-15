@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
+import { getViewer, endorseOp, flagOp } from "@/lib/community";
 import type { ContributionType, TargetType, PerspectiveStance } from "@prisma/client";
 
 export type SubmitResult = { ok: boolean; status?: "PUBLISHED" | "PENDING"; error?: string };
@@ -106,4 +107,47 @@ export async function submitContribution(
     revalidatePath(`/${conferenceSlug}/${SECTION[targetType]}/${base}`);
   }
   return { ok: true, status };
+}
+
+// Resolve conference + signed-in viewer for a reader interaction.
+async function viewerFor(conferenceSlug: string) {
+  const conference = await prisma.conference.findUnique({ where: { slug: conferenceSlug } });
+  if (!conference) return { error: "Unknown conference." as const };
+  const viewer = await getViewer(conference.id);
+  if (!viewer) return { error: "Please sign in first." as const };
+  return { conferenceId: conference.id, viewer };
+}
+
+function revalidateTarget(conferenceSlug: string, targetType: TargetType, targetRef: string) {
+  revalidatePath(`/${conferenceSlug}/${SECTION[targetType]}/${targetRef.split("#")[0]}`);
+}
+
+export async function endorseContribution(
+  conferenceSlug: string,
+  contributionId: string,
+  targetType: TargetType,
+  targetRef: string,
+): Promise<SubmitResult> {
+  const ctx = await viewerFor(conferenceSlug);
+  if ("error" in ctx) return { ok: false, error: ctx.error };
+  const res = await endorseOp(contributionId, ctx.conferenceId, ctx.viewer.userId);
+  if (!res.ok) return { ok: false, error: res.error };
+  revalidateTarget(conferenceSlug, targetType, targetRef);
+  return { ok: true };
+}
+
+export async function flagContribution(
+  conferenceSlug: string,
+  contributionId: string,
+  targetType: TargetType,
+  targetRef: string,
+  reason: string,
+): Promise<SubmitResult> {
+  const ctx = await viewerFor(conferenceSlug);
+  if ("error" in ctx) return { ok: false, error: ctx.error };
+  if (reason.trim().length < 3) return { ok: false, error: "Add a brief reason." };
+  const res = await flagOp(contributionId, ctx.conferenceId, ctx.viewer.userId, reason.trim());
+  if (!res.ok) return { ok: false, error: res.error };
+  revalidateTarget(conferenceSlug, targetType, targetRef);
+  return { ok: true };
 }
