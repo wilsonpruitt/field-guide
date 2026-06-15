@@ -446,5 +446,23 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Develops and deploys resources for the mission of the local church and the restoring of congregational vitality."
+  },
+  {
+    "slug": "board-of-ordained-ministry",
+    "name": "Board of Ordained Ministry",
+    "alsoKnownAs": null,
+    "type": "BOARD",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶634"
+    ],
+    "membershipSize": null,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Oversees the conference's relationship with its clergy — examining and recommending candidates for licensed and ordained ministry, and guiding their formation and continuing care. Elected for the quadrennium; at least six elders and deacons in full connection, with lay members."
   }
 ]
