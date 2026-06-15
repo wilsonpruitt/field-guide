@@ -1,4 +1,6 @@
 import { getConference } from "@/lib/conference";
+import { pick } from "@/lib/lang";
+import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 
 // The Book of Discipline glossary, in full. Paragraph references across the
@@ -11,17 +13,22 @@ export default async function DisciplinePage({
   params: Promise<{ conference: string }>;
 }) {
   const { conference } = await params;
-  const conf = await getConference(conference);
+  const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
   const paras = await prisma.bodParagraph.findMany({ orderBy: { number: "asc" } });
   const edition = paras[0]?.edition ?? "2020/2024";
 
   return (
     <>
-      <p className="eyebrow">Reference</p>
-      <h1>The Book of Discipline</h1>
+      <p className="eyebrow">{pick(lang, "Reference", "Referencia")}</p>
+      <h1>{pick(lang, "The Book of Discipline", "El Libro de Disciplina")}</h1>
       <p className="lede">
-        The paragraphs of <em>The Book of Discipline {edition}</em> that the guide refers to, in
-        full. References elsewhere in {conf.name} link here.
+        {pick(lang, "The paragraphs of ", "Los párrafos de ")}
+        <em>{pick(lang, "The Book of Discipline", "El Libro de Disciplina")} {edition}</em>
+        {pick(
+          lang,
+          ` that the guide refers to, in full. References elsewhere in ${conf.name} link here.`,
+          ` a los que se refiere la guía, en su totalidad. Las referencias en otras partes de ${conf.name} enlazan aquí.`,
+        )}
       </p>
 
       <ul className="bod-list">
@@ -33,8 +40,10 @@ export default async function DisciplinePage({
             </p>
             <p className="bod-text">{p.fullText ?? p.excerpt}</p>
             <p className="bod-src">
-              The Book of Discipline {p.edition}, ¶{p.number}
-              {p.source === "PLENARY" ? " · via Plenary" : " · scanned supplement"}
+              {pick(lang, "The Book of Discipline", "El Libro de Disciplina")} {p.edition}, ¶{p.number}
+              {p.source === "PLENARY"
+                ? pick(lang, " · via Plenary", " · vía Plenary")
+                : pick(lang, " · scanned supplement", " · suplemento escaneado")}
             </p>
           </li>
         ))}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { pick, type Lang } from "@/lib/lang";
 
 export type MotionData = {
   key: string; intent: string; say: string;
@@ -10,20 +11,27 @@ export type MotionData = {
 };
 
 const GROUPS = [
-  { key: "PRIVILEGED", label: "Privileged" },
-  { key: "SUBSIDIARY", label: "Subsidiary" },
-  { key: "INCIDENTAL", label: "Incidental" },
-  { key: "MAIN", label: "Main" },
-  { key: "BRING_BACK", label: "Bring back" },
+  { key: "PRIVILEGED", label: "Privileged", labelEs: "Privilegiadas" },
+  { key: "SUBSIDIARY", label: "Subsidiary", labelEs: "Subsidiarias" },
+  { key: "INCIDENTAL", label: "Incidental", labelEs: "Incidentales" },
+  { key: "MAIN", label: "Main", labelEs: "Principales" },
+  { key: "BRING_BACK", label: "Bring back", labelEs: "Reabrir" },
 ] as const;
-const LABEL: Record<string, string> = Object.fromEntries(GROUPS.map((g) => [g.key, g.label]));
 
-const voteLabel = (v: MotionData["vote"]) =>
-  v === "TWO_THIRDS" ? "Two-thirds vote" : v === "MAJORITY" ? "Majority vote" : "No vote — chair rules";
+const voteLabel = (lang: Lang, v: MotionData["vote"]) =>
+  v === "TWO_THIRDS"
+    ? pick(lang, "Two-thirds vote", "Dos tercios")
+    : v === "MAJORITY"
+      ? pick(lang, "Majority vote", "Mayoría")
+      : pick(lang, "No vote — chair rules", "Sin voto — decide la presidencia");
 
-export default function MotionsHelper({ motions }: { motions: MotionData[] }) {
+export default function MotionsHelper({ motions, lang }: { motions: MotionData[]; lang: Lang }) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("all");
+
+  const LABEL: Record<string, string> = Object.fromEntries(
+    GROUPS.map((g) => [g.key, pick(lang, g.label, g.labelEs)]),
+  );
 
   const sorted = useMemo(
     () => [...motions].sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99)),
@@ -47,19 +55,27 @@ export default function MotionsHelper({ motions }: { motions: MotionData[] }) {
         <input
           className="motion-search"
           type="search"
-          placeholder="e.g. table, amend, adjourn, end debate…"
+          placeholder={pick(
+            lang,
+            "e.g. table, amend, adjourn, end debate…",
+            "p. ej. posponer, enmendar, levantar la sesión, cerrar el debate…",
+          )}
           autoComplete="off"
-          aria-label="Search motions by what you want to do"
+          aria-label={pick(
+            lang,
+            "Search motions by what you want to do",
+            "Buscar mociones por lo que quieres hacer",
+          )}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
-        <div className="chips" role="group" aria-label="Filter by kind">
+        <div className="chips" role="group" aria-label={pick(lang, "Filter by kind", "Filtrar por tipo")}>
           <button
             className={`chip${cat === "all" ? " is-active" : ""}`}
             aria-pressed={cat === "all"}
             onClick={() => setCat("all")}
           >
-            All
+            {pick(lang, "All", "Todas")}
           </button>
           {GROUPS.map((g) => (
             <button
@@ -68,13 +84,21 @@ export default function MotionsHelper({ motions }: { motions: MotionData[] }) {
               aria-pressed={cat === g.key}
               onClick={() => setCat(g.key)}
             >
-              {g.label}
+              {pick(lang, g.label, g.labelEs)}
             </button>
           ))}
         </div>
       </div>
 
-      {shown.length === 0 && <p className="muted">No motion matches that. Try a different word.</p>}
+      {shown.length === 0 && (
+        <p className="muted">
+          {pick(
+            lang,
+            "No motion matches that. Try a different word.",
+            "Ninguna moción coincide. Prueba con otra palabra.",
+          )}
+        </p>
+      )}
 
       <ul className="motion-cards">
         {shown.map((m) => (
@@ -88,10 +112,10 @@ export default function MotionsHelper({ motions }: { motions: MotionData[] }) {
             </div>
             <p className="mc-say">“{m.say}”</p>
             <ul className="mc-badges">
-              <li className={m.second ? "yes" : "no"}>{m.second ? "Needs a second" : "No second needed"}</li>
-              <li className={m.debatable ? "yes" : "no"}>{m.debatable ? "Debatable" : "Not debatable"}</li>
-              <li className={m.amendable ? "yes" : "no"}>{m.amendable ? "Amendable" : "Not amendable"}</li>
-              <li className="vote">{voteLabel(m.vote)}</li>
+              <li className={m.second ? "yes" : "no"}>{m.second ? pick(lang, "Needs a second", "Requiere apoyo") : pick(lang, "No second needed", "No requiere apoyo")}</li>
+              <li className={m.debatable ? "yes" : "no"}>{m.debatable ? pick(lang, "Debatable", "Debatible") : pick(lang, "Not debatable", "No debatible")}</li>
+              <li className={m.amendable ? "yes" : "no"}>{m.amendable ? pick(lang, "Amendable", "Enmendable") : pick(lang, "Not amendable", "No enmendable")}</li>
+              <li className="vote">{voteLabel(lang, m.vote)}</li>
             </ul>
             {m.note && <p className="mc-note">{m.note}</p>}
           </li>
@@ -99,11 +123,13 @@ export default function MotionsHelper({ motions }: { motions: MotionData[] }) {
       </ul>
 
       <section className="ladder">
-        <h2>Order of precedence</h2>
+        <h2>{pick(lang, "Order of precedence", "Orden de precedencia")}</h2>
         <p>
-          When more than one motion is pending, a motion higher on this ladder can be made while a
-          lower one is on the floor — not the other way around. (Non-ranking motions aren&rsquo;t on
-          the ladder; they&rsquo;re handled when they arise.)
+          {pick(
+            lang,
+            "When more than one motion is pending, a motion higher on this ladder can be made while a lower one is on the floor — not the other way around. (Non-ranking motions aren’t on the ladder; they’re handled when they arise.)",
+            "Cuando hay más de una moción pendiente, una moción más alta en esta escala puede hacerse mientras una más baja está sobre la mesa — no al revés. (Las mociones sin rango no están en la escala; se atienden cuando surgen.)",
+          )}
         </p>
         <ol className="ladder-list">
           {ladder.map((m) => (

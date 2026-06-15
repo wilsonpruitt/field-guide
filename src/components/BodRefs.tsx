@@ -2,6 +2,7 @@
 // carrying the paragraph title + excerpt. Refs not in the corpus render as plain
 // text. `paras` is a number→entry map the page builds once from BodParagraph.
 import { Fragment } from "react";
+import { pick, type Lang } from "@/lib/lang";
 
 export type BodPara = { number: number; title: string | null; excerpt: string; source: string };
 
@@ -17,12 +18,14 @@ export default function BodRefs({
   paras,
   pill = false,
   disciplineBase,
+  lang = "en",
 }: {
   refs: string[];
   paras: Record<string, BodPara>;
   pill?: boolean;
   /** e.g. "/riotexas/discipline" — when set, refs link to the full paragraph. */
   disciplineBase?: string;
+  lang?: Lang;
 }) {
   const items = refs.map((r) => parse(r, paras));
   return (
@@ -45,11 +48,11 @@ export default function BodRefs({
                 <span className="bp-body">{it.entry.excerpt}</span>
                 <span className="bp-src">
                   The Book of Discipline 2020/2024, ¶{it.entry.number}
-                  {it.entry.source === "PLENARY" ? " · via Plenary" : ""}
+                  {it.entry.source === "PLENARY" ? pick(lang, " · via Plenary", " · vía Plenary") : ""}
                 </span>
                 {disciplineBase && (
                   <a className="bp-more" href={`${disciplineBase}#p${it.entry.number}`}>
-                    Read ¶{it.entry.number} in full →
+                    {pick(lang, `Read ¶${it.entry.number} in full →`, `Leer ¶${it.entry.number} completo →`)}
                   </a>
                 )}
               </span>

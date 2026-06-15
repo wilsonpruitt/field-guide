@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { proposeEdit } from "@/app/[conference]/actions";
+import { pick, type Lang } from "@/lib/lang";
 
 type TargetType = "BODY" | "AGENDA" | "PROCESS" | "ACTION" | "INFO";
 type Field = { key: string; label: string; current: string };
@@ -14,12 +15,14 @@ export default function EditProposal({
   targetRef,
   signedIn,
   fields,
+  lang,
 }: {
   conference: string;
   targetType: TargetType;
   targetRef: string;
   signedIn: boolean;
   fields: Field[];
+  lang: Lang;
 }) {
   const [open, setOpen] = useState(false);
   const [fieldKey, setFieldKey] = useState(fields[0]?.key ?? "");
@@ -40,28 +43,28 @@ export default function EditProposal({
     start(async () => {
       const res = await proposeEdit(conference, targetType, targetRef, fieldKey, text, rationale);
       if (res.ok) setDone(true);
-      else setError(res.error ?? "Something went wrong.");
+      else setError(res.error ?? pick(lang, "Something went wrong.", "Algo salió mal."));
     });
 
   return (
     <div className="edit-proposal">
       {done ? (
-        <p className="ask-status">Thanks — your suggested edit was sent to the stewards for review.</p>
+        <p className="ask-status">{pick(lang, "Thanks — your suggested edit was sent to the stewards for review.", "Gracias — tu edición sugerida se envió a los custodios para revisión.")}</p>
       ) : (
         <>
           <button type="button" className="ask-toggle" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
-            Suggest an edit →
+            {pick(lang, "Suggest an edit →", "Sugerir una edición →")}
           </button>
           {open && (
             <div className="ask-form">
               {!signedIn ? (
-                <p className="muted">Editing the guide text is for signed-in members, so changes carry a name. Please sign in.</p>
+                <p className="muted">{pick(lang, "Editing the guide text is for signed-in members, so changes carry a name. Please sign in.", "Editar el texto de la guía es para miembros con sesión iniciada, para que los cambios lleven un nombre. Por favor inicia sesión.")}</p>
               ) : (
                 <>
                   {fields.length > 1 && (
                     <div className="ask-row">
                       <label className="stance-label">
-                        Edit
+                        {pick(lang, "Edit", "Editar")}
                         <select className="stance-select" value={fieldKey} onChange={(e) => chooseField(e.target.value)}>
                           {fields.map((f) => (
                             <option key={f.key} value={f.key}>{f.label}</option>
@@ -75,7 +78,7 @@ export default function EditProposal({
                     maxLength={8000}
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    placeholder="The corrected or improved text"
+                    placeholder={pick(lang, "The corrected or improved text", "El texto corregido o mejorado")}
                   />
                   <input
                     type="text"
@@ -83,15 +86,15 @@ export default function EditProposal({
                     maxLength={1000}
                     value={rationale}
                     onChange={(e) => setRationale(e.target.value)}
-                    placeholder="Why this change? (optional)"
+                    placeholder={pick(lang, "Why this change? (optional)", "¿Por qué este cambio? (opcional)")}
                   />
                   <div className="ask-row">
                     <button className="ask-submit" disabled={pending} onClick={submit}>
-                      {pending ? "Sending…" : "Propose edit"}
+                      {pending ? pick(lang, "Sending…", "Enviando…") : pick(lang, "Propose edit", "Proponer edición")}
                     </button>
                     {error && <span className="mod-err">{error}</span>}
                   </div>
-                  <p className="ask-status">Edits are applied by a steward after review.</p>
+                  <p className="ask-status">{pick(lang, "Edits are applied by a steward after review.", "Las ediciones las aplica un custodio tras la revisión.")}</p>
                 </>
               )}
             </div>

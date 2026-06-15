@@ -2,6 +2,7 @@
 // Committee on Nominations report. `boards` is paired with body names/slugs by
 // the page so each row links to the body.
 import Link from "next/link";
+import { pick, type Lang } from "@/lib/lang";
 
 type Election = {
   total_to_elect: number; slate_presented: string; substitution_deadline: string;
@@ -18,11 +19,13 @@ export default function NominationsSlate({
   boards,
   source,
   conference,
+  lang,
 }: {
   data: NominationsData;
   boards: SlateBoard[];
   source: string;
   conference: string;
+  lang: Lang;
 }) {
   const e = data.election;
   const ds = data.diversity_scan;
@@ -31,25 +34,25 @@ export default function NominationsSlate({
   return (
     <section className="per-year">
       <div className="py-head">
-        <h2>This year&rsquo;s slate</h2>
+        <h2>{pick(lang, "This year’s slate", "La lista de este año")}</h2>
         <span className="py-source">{source}</span>
       </div>
 
       <div className="py-stats">
         <div className="stat">
-          <span className="stat-label">Seats up for election</span>
+          <span className="stat-label">{pick(lang, "Seats up for election", "Cargos en elección")}</span>
           <span className="stat-value">{e.total_to_elect}</span>
-          <span className="stat-sub">across {withSeats} boards</span>
+          <span className="stat-sub">{pick(lang, `across ${withSeats} boards`, `en ${withSeats} juntas`)}</span>
         </div>
         <div className="stat">
-          <span className="stat-label">Slate presented</span>
+          <span className="stat-label">{pick(lang, "Slate presented", "Lista presentada")}</span>
           <span className="stat-value" style={{ fontSize: "1.05rem" }}>{e.slate_presented}</span>
-          <span className="stat-sub">substitutions by {e.substitution_deadline}</span>
+          <span className="stat-sub">{pick(lang, `substitutions by ${e.substitution_deadline}`, `sustituciones antes del ${e.substitution_deadline}`)}</span>
         </div>
         <div className="stat">
-          <span className="stat-label">Ratified</span>
+          <span className="stat-label">{pick(lang, "Ratified", "Ratificada")}</span>
           <span className="stat-value" style={{ fontSize: "1.05rem" }}>{e.ratification}</span>
-          <span className="stat-sub">including floor substitutions</span>
+          <span className="stat-sub">{pick(lang, "including floor substitutions", "incluidas las sustituciones desde el pleno")}</span>
         </div>
       </div>
 
@@ -58,7 +61,7 @@ export default function NominationsSlate({
       <div className="roster-scroll">
         <table className="roster-table slate-table">
           <thead>
-            <tr><th>Board</th><th>Seats</th><th>Proposed nominees</th></tr>
+            <tr><th>{pick(lang, "Board", "Junta")}</th><th>{pick(lang, "Seats", "Cargos")}</th><th>{pick(lang, "Proposed nominees", "Candidatos propuestos")}</th></tr>
           </thead>
           <tbody>
             {boards.map((b) => (
@@ -73,13 +76,18 @@ export default function NominationsSlate({
       </div>
 
       <details className="py-trend">
-        <summary>Conference-wide diversity scan (pre-election)</summary>
+        <summary>{pick(lang, "Conference-wide diversity scan (pre-election)", "Panorama de diversidad de la conferencia (pre-elección)")}</summary>
         <p className="py-source">{ds.note}</p>
         <div className="scan-grid">
-          {([["Status", ds.status], ["Gender", ds.gender], ["District", ds.district], ["Race / ethnicity", ds.race]] as [string, string[][]][]).map(
+          {([
+            [pick(lang, "Status", "Estatus"), ds.status],
+            [pick(lang, "Gender", "Género"), ds.gender],
+            [pick(lang, "District", "Distrito"), ds.district],
+            [pick(lang, "Race / ethnicity", "Raza o etnia"), ds.race],
+          ] as [string, string[][]][]).map(
             ([label, rows]) => (
               <table className="roster-table" key={label}>
-                <thead><tr><th>{label}</th><th>No. / total</th><th>%</th></tr></thead>
+                <thead><tr><th>{label}</th><th>{pick(lang, "No. / total", "No. / total")}</th><th>%</th></tr></thead>
                 <tbody>
                   {rows.map((r, i) => (
                     <tr key={i}><td>{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td></tr>

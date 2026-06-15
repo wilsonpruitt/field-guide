@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
-import { getLang, pick } from "@/lib/lang";
+import { pick } from "@/lib/lang";
+import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 
 export default async function InformationIndex({

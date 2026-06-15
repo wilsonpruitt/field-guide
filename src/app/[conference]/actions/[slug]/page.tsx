@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getConference, getBodParas } from "@/lib/conference";
-import { getLang, pick } from "@/lib/lang";
+import { pick } from "@/lib/lang";
+import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import ActionPerspectives from "@/components/ActionPerspectives";
@@ -34,7 +35,7 @@ export default async function ActionDetail({
 
   return (
     <>
-      <p className="eyebrow">For conference action{item.category ? ` · ${item.category}` : ""}</p>
+      <p className="eyebrow">{pick(lang, "For conference action", "Para acción de la conferencia")}{item.category ? ` · ${item.category}` : ""}</p>
       <h1>{pick(lang, item.title, item.titleEs)}</h1>
       {item.number && <p className="title-italic">{item.number} · {item.year}</p>}
       <p>{pick(lang, item.summary, item.summaryEs)}</p>
@@ -44,8 +45,8 @@ export default async function ActionDetail({
       )}
       {item.bodRefs.length > 0 && (
         <p className="ref-line">
-          <span className="ref-label">Book of Discipline</span>{" "}
-          <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} />
+          <span className="ref-label">{pick(lang, "Book of Discipline", "Libro de Disciplina")}</span>{" "}
+          <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} />
         </p>
       )}
 
@@ -54,10 +55,11 @@ export default async function ActionDetail({
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{pick(lang, item.contentMd, item.contentMdEs)}</ReactMarkdown>
         </article>
       )}
-      {item.source && <p className="py-source">Source: {item.source}</p>}
+      {item.source && <p className="py-source">{pick(lang, "Source", "Fuente")}: {item.source}</p>}
 
       <EditProposal
         conference={conf.slug}
+        lang={lang}
         targetType="ACTION"
         targetRef={slug}
         signedIn={signedIn}

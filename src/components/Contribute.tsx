@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { submitContribution, type SubmitResult } from "@/app/[conference]/actions";
+import { pick, type Lang } from "@/lib/lang";
 
 type Common = {
   conference: string;
@@ -9,18 +10,21 @@ type Common = {
   targetRef: string;
   signedIn: boolean;
   autoPublish: boolean;
+  lang: Lang;
 };
 
-const STANCES: [string, string][] = [
-  ["", "Just a note"],
-  ["IN_FAVOR", "In favor"],
-  ["CONCERN", "A concern"],
-  ["CLARIFICATION", "A clarification"],
-  ["ALTERNATIVE", "An alternative"],
+const stances = (lang: Lang): [string, string][] => [
+  ["", pick(lang, "Just a note", "Solo una nota")],
+  ["IN_FAVOR", pick(lang, "In favor", "A favor")],
+  ["CONCERN", pick(lang, "A concern", "Una inquietud")],
+  ["CLARIFICATION", pick(lang, "A clarification", "Una aclaración")],
+  ["ALTERNATIVE", pick(lang, "An alternative", "Una alternativa")],
 ];
 
-const successCopy = (status?: "PUBLISHED" | "PENDING") =>
-  status === "PUBLISHED" ? "Posted — thanks for adding to the guide." : "Thanks — it'll appear here once it's reviewed.";
+const successCopy = (lang: Lang, status?: "PUBLISHED" | "PENDING") =>
+  status === "PUBLISHED"
+    ? pick(lang, "Posted — thanks for adding to the guide.", "Publicado — gracias por aportar a la guía.")
+    : pick(lang, "Thanks — it'll appear here once it's reviewed.", "Gracias — aparecerá aquí una vez que se revise.");
 
 /** One form: a question, a note/perspective, or an inline answer. */
 function ContributeForm({
@@ -34,6 +38,7 @@ function ContributeForm({
   targetRef,
   signedIn,
   autoPublish,
+  lang,
 }: Common & {
   mode: "question" | "note" | "answer";
   parentId?: string;
@@ -49,10 +54,12 @@ function ContributeForm({
   );
 
   const type = mode === "question" ? "QUESTION" : mode === "answer" ? "ANSWER" : stance ? "PERSPECTIVE" : "COMMENT";
-  const reviewNote = autoPublish ? "Posts to the guide right away." : "It'll be reviewed before it appears.";
+  const reviewNote = autoPublish
+    ? pick(lang, "Posts to the guide right away.", "Se publica en la guía de inmediato.")
+    : pick(lang, "It'll be reviewed before it appears.", "Se revisará antes de aparecer.");
 
   if (state?.ok) {
-    return <p className="ask-status">{successCopy(state.status)}</p>;
+    return <p className="ask-status">{successCopy(lang, state.status)}</p>;
   }
 
   return (
@@ -81,7 +88,7 @@ function ContributeForm({
               <label className="stance-label">
                 This is…
                 <select value={stance} onChange={(e) => setStance(e.target.value)} className="stance-select">
-                  {STANCES.map(([v, label]) => (
+                  {stances(lang).map(([v, label]) => (
                     <option key={v} value={v}>{label}</option>
                   ))}
                 </select>
@@ -91,12 +98,12 @@ function ContributeForm({
 
           <div className="ask-row">
             {!signedIn && (
-              <input type="text" name="authorName" placeholder="Your name (optional)" maxLength={80} autoComplete="name" />
+              <input type="text" name="authorName" placeholder={pick(lang, "Your name (optional)", "Tu nombre (opcional)")} maxLength={80} autoComplete="name" />
             )}
             {/* Honeypot — must stay empty. */}
             <input type="text" name="website" className="ask-hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <button type="submit" className="ask-submit" disabled={pending}>
-              {pending ? "Sending…" : "Send"}
+              {pending ? pick(lang, "Sending…", "Enviando…") : pick(lang, "Send", "Enviar")}
             </button>
           </div>
           <p className="ask-status" role="status" aria-live="polite">
@@ -110,19 +117,20 @@ function ContributeForm({
 
 /** Bottom-of-page block: ask a question + share a note/perspective. */
 export default function Contribute(props: Common) {
+  const { lang } = props;
   return (
     <div className="contribute">
       <ContributeForm
         {...props}
         mode="question"
-        toggleLabel="Ask a question about this →"
-        placeholder="What would you like to know about this?"
+        toggleLabel={pick(lang, "Ask a question about this →", "Hacer una pregunta sobre esto →")}
+        placeholder={pick(lang, "What would you like to know about this?", "¿Qué te gustaría saber sobre esto?")}
       />
       <ContributeForm
         {...props}
         mode="note"
-        toggleLabel="Share a note or perspective →"
-        placeholder="Add context, a concern, or another way of seeing this."
+        toggleLabel={pick(lang, "Share a note or perspective →", "Compartir una nota o perspectiva →")}
+        placeholder={pick(lang, "Add context, a concern, or another way of seeing this.", "Aporta contexto, una inquietud u otra manera de ver esto.")}
       />
     </div>
   );
@@ -130,12 +138,13 @@ export default function Contribute(props: Common) {
 
 /** Inline answer form, shown under an open question. */
 export function AnswerForm(props: Common & { parentId: string }) {
+  const { lang } = props;
   return (
     <ContributeForm
       {...props}
       mode="answer"
-      toggleLabel="Answer this →"
-      placeholder="Share what you know — sources welcome."
+      toggleLabel={pick(lang, "Answer this →", "Responder esto →")}
+      placeholder={pick(lang, "Share what you know — sources welcome.", "Comparte lo que sepas — se agradecen las fuentes.")}
       inline
     />
   );

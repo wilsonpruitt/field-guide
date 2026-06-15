@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getConference, getBodParas } from "@/lib/conference";
-import { getLang, pick } from "@/lib/lang";
+import { pick } from "@/lib/lang";
+import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import Community from "@/components/Community";
@@ -49,8 +50,8 @@ export default async function InfoDetail({
       )}
       {item.bodRefs.length > 0 && (
         <p className="ref-line">
-          <span className="ref-label">Book of Discipline</span>{" "}
-          <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} />
+          <span className="ref-label">{es ? "Libro de Disciplina" : "Book of Discipline"}</span>{" "}
+          <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} />
         </p>
       )}
 
@@ -63,6 +64,7 @@ export default async function InfoDetail({
 
       <EditProposal
         conference={conf.slug}
+        lang={lang}
         targetType="INFO"
         targetRef={slug}
         signedIn={signedIn}

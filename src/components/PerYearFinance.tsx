@@ -1,6 +1,8 @@
 // The live finance data plate — mirrored from the Río Texas Atlas. Renders the
 // latest audited year plus a year-by-year trend. No fabrication: a collection
 // rate shows only when the journal-sourced apportionment ask is present.
+import { pick, type Lang } from "@/lib/lang";
+
 const ATLAS = "https://riotexas.wrootlabs.com/conference";
 
 export type FinanceRow = {
@@ -13,7 +15,7 @@ const usd = (n?: number) =>
   n == null ? "—" : n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 const pct = (n: number) => `${n > 0 ? "+" : ""}${n.toFixed(0)}%`;
 
-export default function PerYearFinance({ rows: input }: { rows: FinanceRow[] }) {
+export default function PerYearFinance({ rows: input, lang }: { rows: FinanceRow[]; lang: Lang }) {
   const rows = [...input].sort((a, b) => a.data_year - b.data_year);
   const latest = rows.at(-1);
   const first = rows[0];
@@ -32,55 +34,58 @@ export default function PerYearFinance({ rows: input }: { rows: FinanceRow[] }) 
   return (
     <section className="per-year">
       <div className="py-head">
-        <h2>What&rsquo;s up this year</h2>
+        <h2>{pick(lang, "What’s up this year", "Lo destacado este año")}</h2>
         <span className="py-source">
-          Audited figures · {latest.data_year} · <a href={ATLAS}>via the Atlas</a>
+          {pick(lang, "Audited figures", "Cifras auditadas")} · {latest.data_year} · <a href={ATLAS}>{pick(lang, "via the Atlas", "vía el Atlas")}</a>
         </span>
       </div>
 
       <div className="py-stats">
         <a className="stat" href={ATLAS}>
-          <span className="stat-label">Apportionment received</span>
+          <span className="stat-label">{pick(lang, "Apportionment received", "Prorrateo recibido")}</span>
           <span className="stat-value">{usd(latest.apportionment_rev)}</span>
           {apportDrop != null && first && (
-            <span className="stat-sub">{pct(apportDrop)} since {first.data_year}</span>
+            <span className="stat-sub">{pct(apportDrop)} {pick(lang, "since", "desde")} {first.data_year}</span>
           )}
         </a>
         {collectionRate != null && (
           <a className="stat" href={ATLAS}>
-            <span className="stat-label">Collection rate</span>
+            <span className="stat-label">{pick(lang, "Collection rate", "Tasa de recaudación")}</span>
             <span className="stat-value">{collectionRate.toFixed(1)}%</span>
-            <span className="stat-sub">of {usd(latest.apportionment_ask)} apportioned, all funds</span>
+            <span className="stat-sub">{pick(lang, `of ${usd(latest.apportionment_ask)} apportioned, all funds`, `de ${usd(latest.apportionment_ask)} prorrateado, todos los fondos`)}</span>
           </a>
         )}
         <a className="stat" href={ATLAS}>
-          <span className="stat-label">Total revenue</span>
+          <span className="stat-label">{pick(lang, "Total revenue", "Ingresos totales")}</span>
           <span className="stat-value">{usd(latest.total_rev)}</span>
         </a>
         <a className="stat" href={ATLAS}>
-          <span className="stat-label">Total expenses</span>
+          <span className="stat-label">{pick(lang, "Total expenses", "Gastos totales")}</span>
           <span className="stat-value">{usd(latest.total_exp)}</span>
         </a>
         <a className="stat" href={ATLAS}>
-          <span className="stat-label">Net assets, year end</span>
+          <span className="stat-label">{pick(lang, "Net assets, year end", "Activos netos, fin de año")}</span>
           <span className="stat-value">{usd(latest.net_assets_eoy)}</span>
         </a>
       </div>
 
       {latest.preliminary && (
         <p className="py-note">
-          {latest.data_year} revenue figures are <strong>preliminary</strong> (pre-final audit); the
-          collection rate is from the CF&amp;A report.
+          {pick(
+            lang,
+            <>{latest.data_year} revenue figures are <strong>preliminary</strong> (pre-final audit); the collection rate is from the CF&amp;A report.</>,
+            <>Las cifras de ingresos de {latest.data_year} son <strong>preliminares</strong> (antes de la auditoría final); la tasa de recaudación proviene del informe de la CF&amp;A.</>,
+          )}
         </p>
       )}
 
       <details className="py-trend">
         <summary>
-          Apportionment received &amp; collection rate, {first?.data_year}–{latest.data_year}
+          {pick(lang, "Apportionment received & collection rate", "Prorrateo recibido y tasa de recaudación")}, {first?.data_year}–{latest.data_year}
         </summary>
         <table>
           <thead>
-            <tr><th>Year</th><th>Received</th><th>vs. prior</th><th>Collected</th></tr>
+            <tr><th>{pick(lang, "Year", "Año")}</th><th>{pick(lang, "Received", "Recibido")}</th><th>{pick(lang, "vs. prior", "vs. anterior")}</th><th>{pick(lang, "Collected", "Recaudado")}</th></tr>
           </thead>
           <tbody>
             {rows.map((r, i) => {
@@ -99,8 +104,11 @@ export default function PerYearFinance({ rows: input }: { rows: FinanceRow[] }) 
           </tbody>
         </table>
         <p className="py-source">
-          Collection rate is CF&amp;A&rsquo;s stated share on all funds. Full interactive revenue
-          view, including the inflation-pegged baseline, on <a href={ATLAS}>the Atlas →</a>
+          {pick(
+            lang,
+            <>Collection rate is CF&amp;A&rsquo;s stated share on all funds. Full interactive revenue view, including the inflation-pegged baseline, on <a href={ATLAS}>the Atlas →</a></>,
+            <>La tasa de recaudación es la proporción declarada por la CF&amp;A sobre todos los fondos. Vista interactiva completa de ingresos, incluida la base ajustada por inflación, en <a href={ATLAS}>el Atlas →</a></>,
+          )}
         </p>
       </details>
     </section>

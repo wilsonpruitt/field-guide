@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { pick } from "@/lib/lang";
+import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 
 export default async function ActionsIndex({
@@ -8,7 +10,7 @@ export default async function ActionsIndex({
   params: Promise<{ conference: string }>;
 }) {
   const { conference } = await params;
-  const conf = await getConference(conference);
+  const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
 
   const latest = await prisma.actionItem.findFirst({
     where: { conferenceId: conf.id },
@@ -33,16 +35,18 @@ export default async function ActionsIndex({
 
   return (
     <>
-      <p className="eyebrow">For conference action{year ? ` · ${year}` : ""}</p>
-      <h1>Up for a vote</h1>
+      <p className="eyebrow">{pick(lang, "For conference action", "Para acción de la conferencia")}{year ? ` · ${year}` : ""}</p>
+      <h1>{pick(lang, "Up for a vote", "Para votación")}</h1>
       <p className="lede">
-        The reports and resolutions conference is asked to approve this year, from the pre-conference
-        report. Read what each one does, then weigh in — say whether you&rsquo;re for it, raise a
-        concern, ask for a clarification, or offer an alternative.
+        {pick(
+          lang,
+          "The reports and resolutions conference is asked to approve this year, from the pre-conference report. Read what each one does, then weigh in — say whether you’re for it, raise a concern, ask for a clarification, or offer an alternative.",
+          "Los informes y resoluciones que se pide a la conferencia aprobar este año, del informe previo a la conferencia. Lee qué hace cada uno y luego opina — di si lo apoyas, plantea una inquietud, pide una aclaración u ofrece una alternativa.",
+        )}
       </p>
 
       {items.length === 0 ? (
-        <p className="muted">No action items posted yet for this year.</p>
+        <p className="muted">{pick(lang, "No action items posted yet for this year.", "Aún no hay puntos de acción publicados para este año.")}</p>
       ) : (
         groups.map((g) => (
           <section key={g.category}>
