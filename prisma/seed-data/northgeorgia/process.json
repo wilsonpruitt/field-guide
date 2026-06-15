@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "motions",
+    "title": "Making a motion",
+    "order": 20,
+    "summary": "What to say when you want to speak, change, pause, or object — and whether it needs a second, is debatable, or takes two-thirds.",
+    "contentMd": "Business on the floor moves by **motion.** The interactive helper on *Motions* turns \"what do you want to do?\" into the words to say, whether a second is needed, whether it's debatable or amendable, and the vote required.\n\nThe basics:\n\n- **Get recognized** — go to a microphone and wait for the bishop (the chair) to recognize you. State your name and church/charge.\n- **Make your motion** — \"I move that…\" A motion usually needs a **second** before it can be discussed.\n- **Debate** — speeches alternate for and against; the chair manages the queue.\n- **Vote** — most questions pass by a **majority**; some (amending the Standing Rules, suspending the rules) take **two-thirds.**\n\nWhere the Standing Rules and Discipline are silent, the conference follows the most recent edition of *Robert's Rules of Order.*",
+    "bodRefs": [],
+    "rulesRefs": []
+  },
+  {
+    "slug": "consent-agenda",
+    "title": "The Consent Agenda",
+    "order": 30,
+    "summary": "How routine reports are adopted without floor debate — and how any member can pull an item out.",
+    "contentMd": "To expedite business, **North Georgia Standing Rule C.7** provides for a **Consent Agenda**: routine or non-controversial reports are bundled and adopted *without verbal action by the conference,* and included in the Conference Journal.\n\nIn the 2026 handbook, every report marked with an **asterisk (\\*)** is on the Consent Agenda. It is **presented Thursday** in the opening session, and on **Friday** members may **request removal** of any item.\n\n- **Read the starred reports carefully beforehand.** Unless an item is removed, all of them are accepted and approved by consent.\n- **Pulling an item out is ordinary and expected** — a removed report is simply scheduled for the floor as time permits, where it becomes a normal, debatable item.\n\nConsent-agenda procedures are published in advance, consistent with the Book of Discipline (¶¶603–604).",
+    "bodRefs": ["¶604"],
+    "rulesRefs": ["C.7"]
+  },
+  {
+    "slug": "resolutions",
+    "title": "Resolutions",
+    "order": 40,
+    "summary": "How the conference speaks — the structure of a resolution and how it reaches the floor.",
+    "contentMd": "A **resolution** is how the conference takes a formal position or directs an action. Resolutions follow a familiar shape:\n\n- a series of **WHEREAS** clauses that lay out the facts and warrants; and\n- one or more **THEREFORE, BE IT RESOLVED** clauses that state what the conference actually decides.\n\nThis year's resolutions include the two **Unification** resolutions (the Plan of Union and the Joint Distributing Committee), the **Voting Rights** resolution, the **Rental/Housing Allowance** resolutions for 2027, and **property resolutions** from the floor. Each is listed under *Up for a vote* with its full text, a plain-language summary, and the Discipline references it cites.\n\nResolutions are debated and amended like any main motion and adopted by majority vote unless a higher bar applies.",
+    "bodRefs": [],
+    "rulesRefs": []
+  },
+  {
+    "slug": "membership",
+    "title": "Who is a member of Annual Conference",
+    "order": 50,
+    "summary": "Clergy and lay members, the voting body, and the delegate elections that run through the session.",
+    "contentMd": "The Annual Conference is composed of **clergy members** and an **equal number of lay members.** Each charge elects lay member(s); additional lay members balance the clergy count, and a roster of officers and youth/young-adult representatives is seated as well. Voting membership requires registration (there is a $30 fee for the 2026 session).\n\n## This year: delegate elections\n\nThe 2026 session elects North Georgia's **delegates to the 2028 General Conference and the Southeastern Jurisdictional Conference.** Clergy members elect the clergy delegates; lay members elect the lay delegates, in equal number. **Balloting runs throughout the session** — see *Up for a vote → Election of Delegates.*",
+    "bodRefs": ["¶32", "¶34"],
+    "rulesRefs": []
+  }
+]

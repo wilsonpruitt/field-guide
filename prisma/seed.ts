@@ -3,8 +3,18 @@ import { join } from 'node:path';
 import { PrismaClient, Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
-const DIR = join(__dirname, 'seed-data');
-const load = <T>(name: string): T => JSON.parse(readFileSync(join(DIR, `${name}.json`), 'utf8')) as T;
+const ROOT = join(__dirname, 'seed-data');
+/** Load a required snapshot file from `dir`. */
+const load = <T>(dir: string, name: string): T =>
+  JSON.parse(readFileSync(join(dir, `${name}.json`), 'utf8')) as T;
+/** Load an optional snapshot file; return `fallback` if the file is absent. */
+const loadOpt = <T>(dir: string, name: string, fallback: T): T => {
+  try {
+    return JSON.parse(readFileSync(join(dir, `${name}.json`), 'utf8')) as T;
+  } catch {
+    return fallback;
+  }
+};
 
 // ── snapshot shapes (ported from the Río Texas ac-guide; see prisma/seed-data/) ──
 type BodyRow = {
@@ -57,32 +67,22 @@ type ContributionRow = {
 };
 type BodRow = { number: number; title?: string | null; excerpt: string; source: 'PLENARY' | 'BOD_PDF'; edition?: string };
 
-async function main() {
-  // ── Tenant #1 — Río Texas ──
+type ConferenceSeed = { slug: string; name: string; disciplineEdition: string; dir: string };
+
+/** Seed (or update) one conference tenant from its snapshot directory. Every
+ *  per-conference file is optional, so a conference can be onboarded with only
+ *  the materials available today (e.g. a session before its journal lands). */
+async function seedConference({ slug, name, disciplineEdition, dir }: ConferenceSeed) {
   const conf = await prisma.conference.upsert({
-    where: { slug: 'riotexas' },
-    update: { name: 'Río Texas Annual Conference' },
-    create: { slug: 'riotexas', name: 'Río Texas Annual Conference', disciplineEdition: '2020/2024' },
+    where: { slug },
+    update: { name },
+    create: { slug, name, disciplineEdition },
   });
   const conferenceId = conf.id;
-  console.log(`✓ Conference: ${conf.name} (/${conf.slug})`);
-
-  // ── Book of Discipline glossary (denomination-wide, shared) ──
-  // Short `excerpt` powers hover popovers; `fullText` (from the BoD PDF, keyed
-  // by ¶ number) powers the full-paragraph reference page.
-  const bod = load<BodRow[]>('bod');
-  const fullText = load<Record<string, string>>('bod-fulltext');
-  for (const p of bod) {
-    const data = {
-      title: p.title ?? null, excerpt: p.excerpt, fullText: fullText[String(p.number)] ?? null,
-      source: p.source, edition: p.edition ?? '2020/2024',
-    };
-    await prisma.bodParagraph.upsert({ where: { number: p.number }, update: data, create: { number: p.number, ...data } });
-  }
-  console.log(`✓ BoD paragraphs: ${bod.length} (${Object.keys(fullText).length} with full text)`);
+  console.log(`\n▶ Conference: ${conf.name} (/${conf.slug})`);
 
   // ── Bodies (two passes: create, then wire parents by slug) ──
-  const agencies = load<BodyRow[]>('agencies');
+  const agencies = loadOpt<BodyRow[]>(dir, 'agencies', []);
   const bodyIdBySlug = new Map<string, string>();
   for (const a of agencies) {
     const data = {
@@ -106,10 +106,10 @@ async function main() {
     const parentId = bodyIdBySlug.get(a.parentSlug);
     if (parentId) await prisma.body.update({ where: { id: bodyIdBySlug.get(a.slug)! }, data: { parentId } });
   }
-  console.log(`✓ Bodies: ${agencies.length}`);
+  console.log(`  ✓ Bodies: ${agencies.length}`);
 
   // ── Agenda items ──
-  const agenda = load<AgendaRow[]>('agenda');
+  const agenda = loadOpt<AgendaRow[]>(dir, 'agenda', []);
   for (const it of agenda) {
     const data = {
       title: it.title, order: it.order, summary: it.summary, contentMd: it.contentMd ?? '',
@@ -121,10 +121,10 @@ async function main() {
       update: data, create: { conferenceId, slug: it.slug, ...data },
     });
   }
-  console.log(`✓ Agenda items: ${agenda.length}`);
+  console.log(`  ✓ Agenda items: ${agenda.length}`);
 
   // ── Process pages ──
-  const process = load<ProcessRow[]>('process');
+  const process = loadOpt<ProcessRow[]>(dir, 'process', []);
   for (const p of process) {
     const data = {
       title: p.title, order: p.order ?? 0, summary: p.summary, contentMd: p.contentMd ?? '',
@@ -135,10 +135,10 @@ async function main() {
       update: data, create: { conferenceId, slug: p.slug, ...data },
     });
   }
-  console.log(`✓ Process pages: ${process.length}`);
+  console.log(`  ✓ Process pages: ${process.length}`);
 
   // ── Motions ──
-  const motions = load<MotionRow[]>('motions');
+  const motions = loadOpt<MotionRow[]>(dir, 'motions', []);
   for (const m of motions) {
     const data = {
       intent: m.intent, say: m.say, category: m.category, rank: m.rank ?? null,
@@ -149,10 +149,10 @@ async function main() {
       update: data, create: { conferenceId, key: m.key, ...data },
     });
   }
-  console.log(`✓ Motions: ${motions.length}`);
+  console.log(`  ✓ Motions: ${motions.length}`);
 
   // ── Rosters (+ members; replace members on each run) ──
-  const rosters = load<RosterRow[]>('rosters');
+  const rosters = loadOpt<RosterRow[]>(dir, 'rosters', []);
   for (const r of rosters) {
     const roster = await prisma.roster.upsert({
       where: { conferenceId_bodySlug_year: { conferenceId, bodySlug: r.bodySlug, year: r.year } },
@@ -170,13 +170,13 @@ async function main() {
       })),
     });
   }
-  console.log(`✓ Rosters: ${rosters.length} (${rosters.reduce((n, r) => n + r.members.length, 0)} members)`);
+  console.log(`  ✓ Rosters: ${rosters.length} (${rosters.reduce((n, r) => n + r.members.length, 0)} members)`);
 
-  // ── Per-year instances (finance series + nominations slate) ──
+  // ── Per-year instances (finance series + nominations slate + schedule) ──
   const perYear = [
-    ...load<PerYearRow[]>('finance'),
-    ...load<PerYearRow[]>('nominations'),
-    ...load<PerYearRow[]>('schedule'),
+    ...loadOpt<PerYearRow[]>(dir, 'finance', []),
+    ...loadOpt<PerYearRow[]>(dir, 'nominations', []),
+    ...loadOpt<PerYearRow[]>(dir, 'schedule', []),
   ];
   for (const py of perYear) {
     await prisma.perYearInstance.upsert({
@@ -185,10 +185,10 @@ async function main() {
       create: { conferenceId, kind: py.kind, year: py.year, source: py.source ?? null, data: py.data as Prisma.InputJsonValue },
     });
   }
-  console.log(`✓ Per-year instances: ${perYear.length}`);
+  console.log(`  ✓ Per-year instances: ${perYear.length}`);
 
   // ── Action items (this year's "For Conference Action" reports) ──
-  const actions = load<ActionRow[]>('actions');
+  const actions = loadOpt<ActionRow[]>(dir, 'actions', []);
   for (const a of actions) {
     const data = {
       order: a.order ?? 0, number: a.number ?? null, title: a.title, titleEs: a.titleEs ?? null,
@@ -202,10 +202,10 @@ async function main() {
       update: data, create: { conferenceId, year: a.year, slug: a.slug, ...data },
     });
   }
-  console.log(`✓ Action items: ${actions.length}`);
+  console.log(`  ✓ Action items: ${actions.length}`);
 
   // ── Information reports (this year's "For Information Only" reports, bilingual) ──
-  const infos = load<InfoRow[]>('info-reports');
+  const infos = loadOpt<InfoRow[]>(dir, 'info-reports', []);
   for (const r of infos) {
     const data = {
       order: r.order ?? 0, number: r.number ?? null, title: r.title, titleEs: r.titleEs ?? null,
@@ -219,10 +219,10 @@ async function main() {
       update: data, create: { conferenceId, year: r.year, slug: r.slug, ...data },
     });
   }
-  console.log(`✓ Info reports: ${infos.length}`);
+  console.log(`  ✓ Info reports: ${infos.length}`);
 
   // ── Seed community contributions (illustrative published notes ported from ac-guide) ──
-  const contributions = load<ContributionRow[]>('contributions');
+  const contributions = loadOpt<ContributionRow[]>(dir, 'contributions', []);
   for (const c of contributions) {
     const data = {
       conferenceId, type: c.type, targetType: c.targetType, targetRef: c.targetRef,
@@ -232,7 +232,29 @@ async function main() {
     };
     await prisma.contribution.upsert({ where: { id: c.id }, update: data, create: { id: c.id, ...data } });
   }
-  console.log(`✓ Contributions: ${contributions.length}`);
+  console.log(`  ✓ Contributions: ${contributions.length}`);
+}
+
+async function main() {
+  // ── Book of Discipline glossary (denomination-wide, shared across all tenants) ──
+  // Short `excerpt` powers hover popovers; `fullText` (from the BoD PDF, keyed
+  // by ¶ number) powers the full-paragraph reference page.
+  const bod = load<BodRow[]>(ROOT, 'bod');
+  const fullText = load<Record<string, string>>(ROOT, 'bod-fulltext');
+  for (const p of bod) {
+    const data = {
+      title: p.title ?? null, excerpt: p.excerpt, fullText: fullText[String(p.number)] ?? null,
+      source: p.source, edition: p.edition ?? '2020/2024',
+    };
+    await prisma.bodParagraph.upsert({ where: { number: p.number }, update: data, create: { number: p.number, ...data } });
+  }
+  console.log(`✓ BoD paragraphs: ${bod.length} (${Object.keys(fullText).length} with full text)`);
+
+  // ── Tenants ──
+  // Río Texas (tenant #1) reads from the seed-data root; each additional
+  // conference reads from its own subdirectory.
+  await seedConference({ slug: 'riotexas', name: 'Río Texas Annual Conference', disciplineEdition: '2020/2024', dir: ROOT });
+  await seedConference({ slug: 'northgeorgia', name: 'North Georgia Annual Conference', disciplineEdition: '2020/2024', dir: join(ROOT, 'northgeorgia') });
 }
 
 main()

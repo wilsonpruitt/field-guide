@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getConference } from "@/lib/conference";
+import { getConference, atlasFor } from "@/lib/conference";
 import { getViewer } from "@/lib/community";
 import { TL } from "@/lib/moderation";
 import { pick } from "@/lib/lang";
@@ -18,6 +18,7 @@ export default async function ConferenceLayout({
   const base = `/${conf.slug}`;
   const [viewer, lang] = await Promise.all([getViewer(conf.id), getLang()]);
   const isModerator = (viewer?.trustLevel ?? 0) >= TL.EDITOR;
+  const atlas = atlasFor(conf.slug);
 
   return (
     <div className="fg-shell">
@@ -47,8 +48,12 @@ export default async function ConferenceLayout({
         <p>
           <Link href="/walkthrough">{pick(lang, "How this guide works", "Cómo funciona esta guía")}</Link> ·{" "}
           {conf.name} · {pick(lang, "community field guide", "guía comunitaria")} ·{" "}
-          {pick(lang, "the numbers via", "los números vía")}{" "}
-          <a href="https://riotexas.wrootlabs.com">{pick(lang, "the Atlas", "el Atlas")}</a> ·{" "}
+          {atlas && (
+            <>
+              {pick(lang, "the numbers via", "los números vía")}{" "}
+              <a href={atlas}>{pick(lang, "the Atlas", "el Atlas")}</a> ·{" "}
+            </>
+          )}
           {pick(lang, "a", "una guía de")}{" "}
           <a href="https://wrootlabs.com">Wroot Labs</a>
           {pick(lang, " guide.", ".")}

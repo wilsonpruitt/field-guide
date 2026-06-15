@@ -1,0 +1,37 @@
+[
+  {
+    "kind": "FINANCE",
+    "year": 2023,
+    "source": "2026 CFA Addendum (208.d Net Assets) — 12/31/2023 audited",
+    "data": {
+      "data_year": 2023,
+      "net_assets_eoy": 115115667,
+      "source": "audit-2023"
+    }
+  },
+  {
+    "kind": "FINANCE",
+    "year": 2024,
+    "source": "2026 CFA Addendum — 12/31/2024 audited net assets; collection rate from CFA report",
+    "data": {
+      "data_year": 2024,
+      "collection_rate": 92.8,
+      "net_assets_eoy": 150660233,
+      "source": "audit-2024"
+    }
+  },
+  {
+    "kind": "FINANCE",
+    "year": 2025,
+    "source": "2026 CFA Addendum (208 + 208.d) — apportionment received and net assets unaudited",
+    "data": {
+      "data_year": 2025,
+      "apportionment_rev": 9900000,
+      "apportionment_ask": 11043808,
+      "collection_rate": 89.7,
+      "net_assets_eoy": 170595172,
+      "source": "cfa-addendum-2026",
+      "preliminary": true
+    }
+  }
+]

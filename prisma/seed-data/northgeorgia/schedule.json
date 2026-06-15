@@ -1,0 +1,100 @@
+[
+  {
+    "kind": "SCHEDULE",
+    "year": 2026,
+    "source": "2026 NGC Annual Conference Session Handbook + Agenda Update (page 12)",
+    "data": {
+      "title": "160th Session of the North Georgia Annual Conference",
+      "dates": "June 18–20, 2026 · The Classic Center, Athens",
+      "days": [
+        {
+          "date": "2026-06-17",
+          "label": "Wednesday, June 17",
+          "items": [
+            { "time": "4:00 pm", "title": "Clergy Executive Session", "type": "business" }
+          ]
+        },
+        {
+          "date": "2026-06-18",
+          "label": "Thursday, June 18",
+          "items": [
+            { "time": "8:00 am", "title": "Youth Members / Offering Assignments — Grand Hall 1", "type": "administrative" },
+            { "time": "8:30 am", "title": "Lay Candidate Forum — Grand Hall", "type": "information" },
+            { "time": "9:45 am", "title": "Pre-Service Music", "type": "worship" },
+            { "time": "10:00 am", "title": "Session One — Opening Worship (Preacher: Bishop Robin Dease)", "type": "worship" },
+            { "time": "10:45 am", "title": "Call to Order — 160th Session", "type": "business" },
+            { "time": "10:50 am", "title": "Organization of Conference", "type": "business" },
+            { "time": "11:00 am", "title": "Standing Rules Committee — to present", "type": "business", "spine": "actions/standing-rules-2026" },
+            { "time": "11:10 am", "title": "Consent Agenda — to present", "type": "business", "spine": "process/consent-agenda" },
+            { "time": "11:20 am", "title": "Voting Demonstration & Ballot #1", "type": "voting", "spine": "actions/delegate-elections-2028" },
+            { "time": "11:30 am", "title": "Board of Ordained Ministry: Presentation of Candidates", "type": "business", "spine": "agencies/board-of-ordained-ministry" },
+            { "time": "11:45 am", "title": "Historic Examination for Admission into Full Connection", "type": "business" },
+            { "time": "12:10 pm", "title": "Report of Ballot #1 · Ballot #2", "type": "voting", "spine": "actions/delegate-elections-2028" },
+            { "time": "12:30 pm", "title": "Adjournment", "type": "closing" },
+            { "time": "2:00 pm", "title": "Session Two — Call to Order", "type": "business" },
+            { "time": "2:15 pm", "title": "Reporting and Balloting continue", "type": "voting", "spine": "actions/delegate-elections-2028" },
+            { "time": "2:30 pm", "title": "Committee on Nominations — to present", "type": "business", "spine": "actions/nominations-report-2026" },
+            { "time": "2:50 pm", "title": "North Georgia Housing and Homeless", "type": "business" },
+            { "time": "3:05 pm", "title": "Salary Equalization Task Force Update", "type": "business" },
+            { "time": "3:20 pm", "title": "Murphy Harpst", "type": "business" },
+            { "time": "3:35 pm", "title": "Common Table Report: One Georgia Task Force", "type": "business", "spine": "actions/georgia-unification-plan" },
+            { "time": "5:15 pm", "title": "Adjournment", "type": "closing" },
+            { "time": "7:30 pm", "title": "Session Three — Service of Licensure, Commissioning, and Ordination (Preacher: Bishop Héctor A. Burgos-Núñez)", "type": "worship" }
+          ]
+        },
+        {
+          "date": "2026-06-19",
+          "label": "Friday, June 19",
+          "items": [
+            { "time": "7:30 am", "title": "Service of Holy Communion — Grand Hall 2-3", "type": "worship" },
+            { "time": "8:15 am", "title": "Gathering Music", "type": "worship" },
+            { "time": "8:30 am", "title": "Session Four — Call to Order & Morning Devotion", "type": "business" },
+            { "time": "8:45 am", "title": "Reporting and Balloting continue", "type": "voting", "spine": "actions/delegate-elections-2028" },
+            { "time": "9:00 am", "title": "CFA Report (2027 Budget)", "type": "business", "spine": "actions/conference-budget-2027" },
+            { "time": "9:30 am", "title": "Barnes Evaluation and Administration Team", "type": "business", "spine": "agencies/barnes-evaluation-administrative-team" },
+            { "time": "9:45 am", "title": "Disaster Response", "type": "business", "spine": "agencies/disaster-response-ministries" },
+            { "time": "10:00 am", "title": "Blessing of Mari Ellyzsa Valencia (Global Ministries)", "type": "worship" },
+            { "time": "10:10 am", "title": "United Methodist Men & Scouting Ministry", "type": "business" },
+            { "time": "10:25 am", "title": "United Women in Faith", "type": "business" },
+            { "time": "10:40 am", "title": "Consent Agenda — remove any requested items", "type": "business", "spine": "process/consent-agenda" },
+            { "time": "10:55 am", "title": "Pension and Health Benefits", "type": "business", "spine": "actions/pension-health-recommendations-2026" },
+            { "time": "11:30 am", "title": "Recognition of Retirees", "type": "recognition" },
+            { "time": "12:00 pm", "title": "Adjournment", "type": "closing" },
+            { "time": "2:00 pm", "title": "Session Five — Service of Remembrance (Preacher: Vance Ross) & Conference Special Offering", "type": "worship" },
+            { "time": "3:30 pm", "title": "Call to Order of Business Session", "type": "business" },
+            { "time": "3:40 pm", "title": "Trustees", "type": "business", "spine": "agencies/board-of-trustees" },
+            { "time": "3:55 pm", "title": "Conference Safe Sanctuary Policy", "type": "business" },
+            { "time": "4:10 pm", "title": "Equitable Compensation", "type": "business", "spine": "actions/equitable-compensation-2027" },
+            { "time": "4:25 pm", "title": "Wellroot Family Services", "type": "business" },
+            { "time": "4:35 pm", "title": "Wesley Woods", "type": "business" },
+            { "time": "4:45 pm", "title": "Laity Address", "type": "business" },
+            { "time": "5:00 pm", "title": "Standing Rules", "type": "business", "spine": "actions/standing-rules-2026" },
+            { "time": "5:10 pm", "title": "Property Resolutions", "type": "voting", "spine": "actions/property-resolutions" },
+            { "time": "5:30 pm", "title": "Adjournment", "type": "closing" },
+            { "time": "7:30 pm", "title": "Session Six — Voting Session (subject to cancellation if voting has concluded)", "type": "voting", "spine": "actions/delegate-elections-2028" }
+          ]
+        },
+        {
+          "date": "2026-06-20",
+          "label": "Saturday, June 20",
+          "items": [
+            { "time": "7:30 am", "title": "Service of Holy Communion — Grand Hall 2-3", "type": "worship" },
+            { "time": "8:20 am", "title": "Gathering Music", "type": "worship" },
+            { "time": "8:30 am", "title": "Session Seven — Call to Order & Morning Devotion (Bishop Dease)", "type": "business" },
+            { "time": "8:45 am", "title": "Episcopacy Committee", "type": "business", "spine": "agencies/committee-on-episcopacy" },
+            { "time": "9:00 am", "title": "North Georgia Camping and Retreat Ministries", "type": "business" },
+            { "time": "9:15 am", "title": "Committee on the Status and Role of Women", "type": "business", "spine": "agencies/commission-status-role-women" },
+            { "time": "9:30 am", "title": "Faith Connection Federal Credit Union Scholarship", "type": "business" },
+            { "time": "9:40 am", "title": "Georgia United Methodist Foundation", "type": "business" },
+            { "time": "9:50 am", "title": "UM Commission on Higher Education — Francis Asbury Award", "type": "recognition" },
+            { "time": "10:00 am", "title": "Future Dates & Sites of Annual Conference", "type": "information" },
+            { "time": "10:15 am", "title": "Marian Wilder Award — Aldersgate Homes", "type": "recognition" },
+            { "time": "10:20 am", "title": "Committee on Nominations — to Vote", "type": "voting", "spine": "actions/nominations-report-2026" },
+            { "time": "10:30 am", "title": "Service of Word and Table & Fixing of Appointments (Preacher: Max Vincent)", "type": "worship" },
+            { "time": "12:00 pm", "title": "Adjournment of the 160th Session", "type": "closing" }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "slug": "unification",
+    "title": "Georgia Unification",
+    "order": 5,
+    "summary": "The once-in-a-generation question before the 2026 session: whether to merge North and South Georgia into one new Georgia Conference.",
+    "contentMd": "## What it is\n\nFor the first time in decades, North Georgia is being asked to vote on **redrawing its own boundaries** — merging with the **South Georgia Conference** to form a single new **Georgia Conference of The United Methodist Church.**\n\nThe two conferences already share an episcopal area under one bishop. After eighteen months of study by the **Connectional Table** and the **One Georgia Task Force**, the **Plan of Union** comes to both 2026 sessions.\n\n## What conference actually votes on\n\nTwo linked resolutions (see *Up for a vote*):\n\n1. **The Plan of Union** — adopting the plan that would govern the new conference's creation and structure, and entreating the Southeastern Jurisdiction to realign the boundaries and authorize a *Unifying Conference.*\n2. **The Joint Distributing Committee** — the ¶1507 committee that would equitably divide pensions, funds, property, and liabilities between the two conferences.\n\n## If it passes\n\nThe Southeastern Jurisdiction is asked to call a **special session in summer 2026** to approve the realignment; a **joint Unifying Conference** would then organize the new conference for operation in **2027**. The 2027 budget before this session is deliberately a *North Georgia–only* budget precisely because a unified budget would be built later by both conferences.\n\n*The full Plan of Union is published at [georgiaumc.org/resolution](https://www.georgiaumc.org/resolution).*",
+    "votesOn": "ACTION",
+    "bodySlug": "common-table",
+    "bodRefs": ["¶41", "¶1507"],
+    "rulesRefs": []
+  },
+  {
+    "slug": "finance",
+    "title": "Council on Finance & Administration",
+    "order": 30,
+    "summary": "The budget and the money votes — apportionments, the collection rate, reserves, and how the conference funds shared ministry.",
+    "contentMd": "This is the evergreen explainer. The specific dollar figures for any given year are a *per-year instance* (shown below), not baked into this page.\n\n## A little vocabulary\n\n- **Apportionment** — each church's requested share of the ministry the conference does together. A portion *asked,* not a bill.\n- **CFA (CF&A)** — the Council on Finance and Administration, which builds the budget and sets apportionments.\n- **Collection rate** — the share of the apportioned amount that actually comes in. The conference remits to the General Church only what it collects.\n- **For Conference Action** vs. **For Information Only** — whether the body votes on it.\n\n## The North Georgia picture\n\nApportionments have fallen for seven straight years (a cumulative effect of reductions from 2020 through 2026), made possible by responsible funding mechanisms — the **Barnes Fund** and external grants — that carry core conference functions while keeping the burden on local churches low. Even so, North Georgia remains the **third-highest conference in the United States** by apportionment giving to the General Church.\n\nThe **2027 budget** is up for a vote this year — see *Up for a vote → 2027 Conference Apportionment Budget.* The audited figures and trend are below.",
+    "votesOn": "ACTION",
+    "bodySlug": "council-on-finance-administration",
+    "bodRefs": ["¶611", "¶614"],
+    "rulesRefs": [],
+    "perYear": "FINANCE"
+  },
+  {
+    "slug": "standing-rules",
+    "title": "Committee on Standing Rules",
+    "order": 10,
+    "summary": "The conference's own operating manual — presented and amended in the first business session.",
+    "contentMd": "## What it is\n\nThe **Standing Rules** are the conference's own operating manual. They sit *below* the Book of Discipline but *above* Robert's Rules: where the Discipline is silent, the Standing Rules decide how the conference organizes leadership, who may bring business, and how the session runs. The **Committee on Standing Rules** maintains them and reports in the first business session.\n\n## This year\n\nThe committee brings the **2026 Standing Rules** for adoption, including a **Standing Rules Working Group** recommendation to rewrite the leadership sections to refer readers to the Book of Discipline — anticipating harmonized *Georgia Conference* rules under unification. See *Up for a vote → 2026 Standing Rules.*\n\n## How a rule changes\n\nA revision needs a **two-thirds vote.** The rules can also be **suspended** for a single purpose by a two-thirds vote.",
+    "votesOn": "ACTION",
+    "bodySlug": null,
+    "bodRefs": ["¶604"],
+    "rulesRefs": []
+  }
+]

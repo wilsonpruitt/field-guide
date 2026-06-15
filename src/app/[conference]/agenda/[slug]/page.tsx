@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SpineContent from "@/components/SpineContent";
-import { getConference, getBodParas, votesLabel } from "@/lib/conference";
+import { getConference, getBodParas, votesLabel, atlasFor } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
@@ -49,7 +49,14 @@ export default async function AgendaDetail({
       where: { conferenceId: conf.id, kind: "FINANCE" },
       orderBy: { year: "asc" },
     });
-    perYear = <PerYearFinance rows={rows.map((r) => r.data as FinanceRow)} lang={lang} />;
+    const atlas = atlasFor(conf.slug);
+    perYear = (
+      <PerYearFinance
+        rows={rows.map((r) => r.data as FinanceRow)}
+        lang={lang}
+        atlasUrl={atlas ? `${atlas}/conference` : undefined}
+      />
+    );
   } else if (item.perYear === "NOMINATIONS") {
     const [slate, rosters, bodies] = await Promise.all([
       prisma.perYearInstance.findFirst({ where: { conferenceId: conf.id, kind: "NOMINATIONS" } }),

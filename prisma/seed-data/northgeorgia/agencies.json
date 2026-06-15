@@ -1,0 +1,168 @@
+[
+  {
+    "slug": "common-table",
+    "name": "The Common Table (Connectional Table)",
+    "alsoKnownAs": "One Georgia Task Force",
+    "type": "UNITING_TABLE",
+    "bodRefs": ["¶608"],
+    "membershipSize": null,
+    "votesOn": "ACTION",
+    "accountableTo": "Annual Conference",
+    "summary": "North Georgia's connectional leadership table, which coordinates the conference's vision and ministries. Through the One Georgia Task Force it has led the eighteen-month study toward unification with the South Georgia Conference, and it brings the Plan of Union and the Joint Distributing Committee resolutions to the 2026 session."
+  },
+  {
+    "slug": "council-on-finance-administration",
+    "name": "Council on Finance and Administration",
+    "alsoKnownAs": "CFA / CF&A",
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶611", "¶612", "¶613", "¶614"],
+    "membershipSize": null,
+    "votesOn": "ACTION",
+    "accountableTo": "Annual Conference",
+    "summary": "The steward of the conference's finances. CFA develops the annual apportionment budget, sets and administers apportionments, oversees the conference treasurer/CFO function, and reports on collections, reserves, and net assets. It brings the 2027 budget for conference action."
+  },
+  {
+    "slug": "board-of-trustees",
+    "name": "Conference Board of Trustees",
+    "alsoKnownAs": "CBOT",
+    "type": "BOARD",
+    "bodRefs": ["¶2512", "¶2549"],
+    "membershipSize": 12,
+    "votesOn": "INFORMATION",
+    "accountableTo": "Annual Conference",
+    "summary": "Holds and oversees the real property and other assets entrusted to the conference, including the United Methodist Center in Duluth, the episcopal residence, and the property of closed and discontinued churches. Net proceeds from closed-church property flow into the Barnes Fund. The Board reports for information; property resolutions are taken up as floor business."
+  },
+  {
+    "slug": "board-of-pension-health-benefits",
+    "name": "Conference Board of Pension & Health Benefits",
+    "alsoKnownAs": null,
+    "type": "BOARD",
+    "bodRefs": ["¶639", "¶1504"],
+    "membershipSize": null,
+    "votesOn": "ACTION",
+    "accountableTo": "Annual Conference",
+    "summary": "Administers clergy retirement and health benefits — CRSP, MPP, the pre-1982 plan, and the retiree Health Reimbursement Account — and brings the annual recommendations, the Comprehensive Benefit Funding Plan, and the rental/housing-allowance resolutions for conference action."
+  },
+  {
+    "slug": "commission-on-equitable-compensation",
+    "name": "Commission on Equitable Compensation",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶625"],
+    "membershipSize": null,
+    "votesOn": "ACTION",
+    "accountableTo": "Annual Conference",
+    "summary": "Sets and administers the conference minimum compensation and the standards for pastoral support — the accountable reimbursement plan, parsonage and housing-allowance standards, and the arrearage policy. The Equitable Compensation Fund undergirds the Discipline's guarantee of security of appointment."
+  },
+  {
+    "slug": "center-for-clergy-excellence",
+    "name": "Center for Clergy Excellence",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶635"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "The conference office supporting clergy across the arc of ministry — candidacy, credentialing, the orders of deacons and elders, the fellowship of licensed local pastors, and continuing excellence in ministry. It houses the work of the Board of Ordained Ministry."
+  },
+  {
+    "slug": "board-of-ordained-ministry",
+    "name": "Board of Ordained Ministry",
+    "alsoKnownAs": "BOM",
+    "type": "BOARD",
+    "parentSlug": "center-for-clergy-excellence",
+    "bodRefs": ["¶635"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Credentials clergy and presents candidates for licensing, commissioning, and ordination. It conducts the Historic Examination for admission into full connection and coordinates support, continuing education, and the orders of deacons and elders."
+  },
+  {
+    "slug": "committee-on-episcopacy",
+    "name": "Committee on the Episcopacy",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶637"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Supports the bishop and the work of the episcopal office and relates to the Jurisdictional Committee on the Episcopacy. With the Georgia Area now under shared episcopal supervision, it carries particular significance in the unification season."
+  },
+  {
+    "slug": "connectional-ministries",
+    "name": "Connectional Ministries",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶608"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "The conference's ministry coordination office — discipleship, advocacy, congregational development, and the connectional life of the conference. Includes the conference's Safe Sanctuary policy for reducing the risk of abuse in ministry programs and events."
+  },
+  {
+    "slug": "committee-on-nominations",
+    "name": "Committee on Nominations",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶610"],
+    "membershipSize": null,
+    "votesOn": "ACTION",
+    "accountableTo": "Annual Conference",
+    "summary": "Proposes the people who fill the conference's elected boards, commissions, and teams, working toward inclusiveness across clergy and laity, gender, age, district, and racial and ethnic representation. Presents its slate for information and then for a vote."
+  },
+  {
+    "slug": "board-of-laity",
+    "name": "Conference Board of Laity",
+    "alsoKnownAs": null,
+    "type": "BOARD",
+    "bodRefs": ["¶631"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Leads and equips the ministry of the laity across the conference, including Lay Servant Ministries, and brings the Laity Address to the session."
+  },
+  {
+    "slug": "commission-status-role-women",
+    "name": "Commission on the Status and Role of Women",
+    "alsoKnownAs": "COSROW",
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶644"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Works toward the full and equal participation of women in the life and leadership of the conference and the local church, and monitors the Church's practice against that commitment."
+  },
+  {
+    "slug": "commission-on-religion-and-race",
+    "name": "Commission on Religion and Race",
+    "alsoKnownAs": "CCORR",
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": ["¶643"],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Holds the conference accountable for racial justice and the full participation of racial and ethnic persons in the Church's life, consistent with the Constitution's commitment to work against threats to racial justice."
+  },
+  {
+    "slug": "barnes-evaluation-administrative-team",
+    "name": "Barnes Evaluation and Administrative Team",
+    "alsoKnownAs": "BEAT",
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": [],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Stewards the Charles Barnes Fund for Church Development — the conference's largest designated fund — directing innovative-ministry grants, emerging-congregation and ethnic-ministry grants, and church-property revitalization grants. The Barnes Fund and external grants are why the conference has been able to reduce apportionments for seven straight years."
+  },
+  {
+    "slug": "disaster-response-ministries",
+    "name": "Disaster Response Ministries",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "bodRefs": [],
+    "membershipSize": null,
+    "votesOn": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Coordinates the conference's preparation and response to disasters, in connection with UMCOR and local churches as staging and relief points."
+  }
+]
