@@ -39,6 +39,14 @@ export default async function Home() {
       <h1 className="mt-1 font-serif text-4xl leading-tight text-fen">
         Understand it. Ask about it. Talk it through.
       </h1>
+      <p className="mt-3 text-sm">
+        <Link
+          href="/walkthrough"
+          className="text-fen underline decoration-reed underline-offset-4 hover:text-ink"
+        >
+          How Field Guide works →
+        </Link>
+      </p>
 
       <h2 className="mt-10 font-serif text-2xl text-fen">Conferences</h2>
       <ul className="mt-3">

@@ -283,6 +283,24 @@ ul.bare li:last-child { border-bottom: 0; }
 .ask-submit:disabled { opacity: .6; cursor: default; }
 .ask-status { margin: .5rem 0 0; font-size: .85rem; color: var(--fen-mist); }
 
+/* ---------- Walkthrough / about page ---------- */
+.walkthrough { max-width: var(--measure); }
+.walkthrough h1 { font-family: var(--font-serif); font-weight: 500; font-size: 2.3rem; line-height: 1.1;
+  color: var(--fen); margin: .2rem 0 .6rem; }
+.walkthrough h2 { padding-top: 1.3rem; border-top: 1px solid var(--slate-100); }
+.walkthrough strong { color: var(--fen); font-weight: 600; }
+.walkthrough hr { border: 0; border-top: 1px solid var(--slate-200); margin: 2.2rem 0; }
+.walkthrough code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .82em;
+  background: var(--ivory); border: 1px solid var(--slate-100); border-radius: 4px; padding: .05em .35em; }
+.walkthrough blockquote { border-left: 3px solid var(--reed); background: var(--ivory); margin: 1.2rem 0;
+  padding: .5rem 1.1rem; border-radius: 0 6px 6px 0; color: var(--fen-mist); }
+.walkthrough blockquote p { margin: .3rem 0; }
+.walkthrough table { border-collapse: collapse; width: 100%; margin: 1.2rem 0; font-size: .9rem; }
+.walkthrough th, .walkthrough td { text-align: left; padding: .45rem .65rem;
+  border-bottom: 1px solid var(--slate-100); vertical-align: top; }
+.walkthrough th { font-family: var(--font-sans); font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--fen-mist); font-weight: 600; }
+
 /* ---------- Language toggle ---------- */
 .lang-toggle { display: inline-flex; align-items: center; gap: .3rem; font-size: .82rem; }
 .lang-toggle button { font: inherit; background: none; border: 0; padding: 0 .15rem; cursor: pointer;
