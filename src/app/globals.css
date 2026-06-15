@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
+/* ── Fen & Ink — Wroot Labs design system (ported from the Astro guide) ──
+   Parchment surface, EB Garamond display + Inter UI, one reed accent. */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --fen: #2c3e4a;
+  --fen-mist: #5b6b76;
+  --ink: #1a2128;
+  --reed: #c9a86a;
+  --reed-deep: #a98748;
+  --parchment: #f7f3ec;
+  --ivory: #fbf8f1;
+  --sunken: #efeae0;
+  --slate-100: #e7e2d7;
+  --slate-200: #d6d0c2;
+  --slate-300: #b6b0a2;
+  --slate-600: #54595e;
+  --fg-quiet: #7a7e81;
+  --ok: #5b7a4e;
+  --ok-bg: #eaedd7;
+  --warn: #b07a2b;
+  --warn-bg: #f4e8cf;
+  --danger: #8c3a2e;
+  --info: #3f5c73;
+  --info-bg: #dce4ea;
+  --focus-ring: rgba(44, 62, 74, 0.35);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--parchment);
+  --color-foreground: var(--ink);
+  --color-fen: var(--fen);
+  --color-fen-mist: var(--fen-mist);
+  --color-ink: var(--ink);
+  --color-reed: var(--reed);
+  --color-reed-deep: var(--reed-deep);
+  --color-parchment: var(--parchment);
+  --color-ivory: var(--ivory);
+  --color-sunken: var(--sunken);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-600: var(--slate-600);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --font-serif: "EB Garamond", "Adobe Garamond Pro", Garamond, Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(201, 168, 106, 0.35);
+  color: var(--ink);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

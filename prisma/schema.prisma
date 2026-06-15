@@ -1,0 +1,359 @@
+// Field Guide — multi-conference platform.
+// Shared DB; every tenant row carries conferenceId and is isolated by Supabase
+// Row-Level Security (RLS policies live in SQL migrations, not here).
+// The Book of Discipline glossary is denomination-wide (no conferenceId).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")      // pooled (PgBouncer, :6543) for the app
+  directUrl = env("DIRECT_URL")        // direct (:5432) for migrations
+}
+
+// ───────────────────────── Tenancy ─────────────────────────
+
+model Conference {
+  id                String   @id @default(cuid())
+  slug              String   @unique          // URL segment: /riotexas
+  name              String
+  disciplineEdition String   @default("2020/2024")
+  createdAt         DateTime @default(now())
+
+  bodies        Body[]
+  agendaItems   AgendaItem[]
+  processPages  ProcessPage[]
+  motions       Motion[]
+  rosters       Roster[]
+  perYear       PerYearInstance[]
+  memberships   ConferenceMembership[]
+  contributions Contribution[]
+}
+
+// ──────────────────── Spine (per conference) ────────────────────
+// Seeded from each conference's Standing Rules / journal; editable later
+// through the edit-proposal flow.
+
+enum BodyType {
+  UNITING_TABLE
+  VISION_TEAM
+  ADMINISTRATIVE_AGENCY
+  REVIEW_COMMITTEE
+  BOARD
+}
+
+enum VotesOn {
+  ACTION
+  INFORMATION
+  BOTH
+}
+
+model Body {
+  id             String     @id @default(cuid())
+  conferenceId   String
+  conference     Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  slug           String
+  name           String
+  alsoKnownAs    String?
+  type           BodyType
+  parentId       String?
+  parent         Body?      @relation("BodyParent", fields: [parentId], references: [id])
+  children       Body[]     @relation("BodyParent")
+  bodRefs        String[]   @default([])
+  membershipSize Int?
+  relatesTo      String[]   @default([])
+  alsoFulfills   Json?      // [{ name, bodRefs[] }]
+  subBodies      Json?      // [{ name, bodRefs[], membershipSize?, note? }]
+  votesOn        VotesOn?
+  agendaOrder    Int?
+  accountableTo  String     @default("Annual Conference")
+  summary        String?
+
+  @@unique([conferenceId, slug])
+  @@index([conferenceId])
+}
+
+enum PerYearKind {
+  FINANCE
+  NOMINATIONS
+}
+
+model AgendaItem {
+  id           String      @id @default(cuid())
+  conferenceId String
+  conference   Conference  @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  slug         String
+  title        String
+  order        Int
+  summary      String
+  contentMd    String      @default("")
+  votesOn      VotesOn?
+  bodySlug     String?     // links to a Body in the same conference
+  bodRefs      String[]    @default([])
+  rulesRefs    String[]    @default([])
+  perYear      PerYearKind?
+  updatedAt    DateTime    @updatedAt
+
+  @@unique([conferenceId, slug])
+  @@index([conferenceId])
+}
+
+model ProcessPage {
+  id           String     @id @default(cuid())
+  conferenceId String
+  conference   Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  slug         String
+  title        String
+  order        Int        @default(0)
+  summary      String
+  contentMd    String     @default("")
+  bodRefs      String[]   @default([])
+  rulesRefs    String[]   @default([])
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([conferenceId, slug])
+  @@index([conferenceId])
+}
+
+enum MotionCategory {
+  PRIVILEGED
+  SUBSIDIARY
+  INCIDENTAL
+  MAIN
+  BRING_BACK
+}
+
+enum MotionVote {
+  MAJORITY
+  TWO_THIRDS
+  NONE
+}
+
+model Motion {
+  id           String         @id @default(cuid())
+  conferenceId String
+  conference   Conference     @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  key          String
+  intent       String
+  say          String
+  category     MotionCategory
+  rank         Int?
+  second       Boolean
+  debatable    Boolean
+  amendable    Boolean
+  vote         MotionVote
+  note         String?
+
+  @@unique([conferenceId, key])
+  @@index([conferenceId])
+}
+
+model Roster {
+  id           String         @id @default(cuid())
+  conferenceId String
+  conference   Conference     @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  bodySlug     String         // the Body this roster is for
+  year         Int
+  source       String
+  toElect      Int            @default(0)
+  byOffice     Boolean        @default(false)
+  note         String?
+  members      RosterMember[]
+
+  @@unique([conferenceId, bodySlug, year])
+  @@index([conferenceId])
+}
+
+model RosterMember {
+  id         String  @id @default(cuid())
+  rosterId   String
+  roster     Roster  @relation(fields: [rosterId], references: [id], onDelete: Cascade)
+  orderIndex Int
+  name       String
+  position   String?
+  klass      String? // "Class 2030" year for staggered boards
+  district   String? // N / C / S / RTC
+  status     String? // CL / L
+  gender     String?
+  race       String?
+  office     String? // for by-office bodies
+  holder     String? // current holder for by-office bodies
+  nominee    Boolean @default(false)
+  vacant     Boolean @default(false)
+  note       String?
+
+  @@index([rosterId])
+}
+
+model PerYearInstance {
+  id           String      @id @default(cuid())
+  conferenceId String
+  conference   Conference  @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  kind         PerYearKind
+  year         Int
+  source       String?
+  data         Json        // finance series / nominations slate payload
+
+  @@unique([conferenceId, kind, year])
+  @@index([conferenceId])
+}
+
+// ──────────────── Book of Discipline (denomination-wide, shared) ────────────────
+
+enum BodSource {
+  PLENARY
+  BOD_PDF
+}
+
+model BodParagraph {
+  number  Int       @id        // ¶ number
+  title   String?
+  excerpt String
+  source  BodSource
+  edition String    @default("2020/2024")
+}
+
+// ──────────────────── Community (per conference) ────────────────────
+
+enum ProfileRole {
+  DELEGATE
+  CLERGY
+  LAY
+  VISITOR
+  STAFF
+}
+
+// One person across the platform; mirrors auth.users.id (Supabase).
+model Profile {
+  id          String   @id // = auth.users.id (uuid)
+  email       String?
+  displayName String
+  defaultRole ProfileRole @default(VISITOR)
+  createdAt   DateTime @default(now())
+
+  memberships   ConferenceMembership[]
+  contributions Contribution[]
+  endorsements  Endorsement[]
+  flags         Flag[]
+}
+
+// A person's standing WITHIN one conference — trust + reputation are scoped here.
+model ConferenceMembership {
+  id           String      @id @default(cuid())
+  conferenceId String
+  conference   Conference  @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  profileId    String
+  profile      Profile     @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  role         ProfileRole @default(VISITOR)
+  district     String?
+  trustLevel   Int         @default(1) // 0 visitor, 1 member, 2 regular, 3 editor, 4 steward
+  reputation   Int         @default(0)
+  createdAt    DateTime    @default(now())
+
+  reputationEvents ReputationEvent[]
+
+  @@unique([conferenceId, profileId])
+  @@index([conferenceId])
+}
+
+enum ContributionType {
+  QUESTION
+  ANSWER
+  COMMENT
+  PERSPECTIVE
+  EDIT_PROPOSAL
+}
+
+enum TargetType {
+  BODY
+  AGENDA
+  PROCESS
+}
+
+enum ContributionStatus {
+  PENDING
+  PUBLISHED
+  REJECTED
+  SUPERSEDED
+}
+
+enum PerspectiveStance {
+  IN_FAVOR
+  CONCERN
+  CLARIFICATION
+  ALTERNATIVE
+}
+
+model Contribution {
+  id           String             @id @default(cuid())
+  conferenceId String
+  conference   Conference         @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  type         ContributionType
+  targetType   TargetType
+  targetRef    String             // spine slug, optionally "slug#anchor"
+  parentId     String?            // threading (answers/replies)
+  parent       Contribution?      @relation("Thread", fields: [parentId], references: [id])
+  replies      Contribution[]     @relation("Thread")
+
+  authorId   String?  // null = anonymous submission
+  author     Profile? @relation(fields: [authorId], references: [id])
+  authorName String?  // shown for anonymous
+
+  body          String
+  stance        PerspectiveStance? // for PERSPECTIVE
+  proposedField String?            // for EDIT_PROPOSAL (which field/section)
+  proposedText  String?            // for EDIT_PROPOSAL (the suggested text)
+
+  status      ContributionStatus @default(PENDING)
+  reviewedById String?
+  createdAt   DateTime           @default(now())
+  publishedAt DateTime?
+
+  endorsements Endorsement[]
+  flags        Flag[]
+  repEvents    ReputationEvent[]
+
+  @@index([conferenceId, targetType, targetRef, status])
+  @@index([conferenceId, status])
+}
+
+model Endorsement {
+  id             String       @id @default(cuid())
+  contributionId String
+  contribution   Contribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+  profileId      String
+  profile        Profile      @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  kind           String       @default("helpful")
+  createdAt      DateTime     @default(now())
+
+  @@unique([contributionId, profileId, kind])
+  @@index([contributionId])
+}
+
+model Flag {
+  id             String       @id @default(cuid())
+  contributionId String
+  contribution   Contribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+  profileId      String
+  profile        Profile      @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  reason         String
+  resolved       Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+
+  @@index([contributionId])
+}
+
+model ReputationEvent {
+  id             String               @id @default(cuid())
+  membershipId   String
+  membership     ConferenceMembership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  delta          Int
+  reason         String
+  contributionId String?
+  contribution   Contribution?        @relation(fields: [contributionId], references: [id])
+  createdAt      DateTime             @default(now())
+
+  @@index([membershipId])
+}
