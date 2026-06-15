@@ -14,6 +14,7 @@ const stanceLabel = (lang: Lang, stance: string): string =>
     ALTERNATIVE: pick(lang, "Alternative", "Alternativa"),
   })[stance] ?? stance;
 const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+const deSlug = (s: string) => s.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());
 
 function Note({
   n, conference, targetType, targetRef, signedIn, lang,
@@ -21,8 +22,9 @@ function Note({
   n: PublicContribution; conference: string; targetType: TargetType; targetRef: string; signedIn: boolean; lang: Lang;
 }) {
   return (
-    <div className="note">
+    <div className="note" id={`c-${n.id}`}>
       {n.stance && <span className="stance-tag">{stanceLabel(lang, n.stance)}</span>}
+      {n.anchor && <span className="anno-on">{pick(lang, "On", "Sobre")}: {deSlug(n.anchor)}</span>}
       <p>{n.body}</p>
       <p className="who">— {n.authorLabel}, {fmt(n.createdAt)}</p>
       <ContribActions
@@ -43,11 +45,13 @@ export default async function Community({
   conferenceSlug,
   targetType,
   targetRef,
+  sections = [],
 }: {
   conferenceId: string;
   conferenceSlug: string;
   targetType: TargetType;
   targetRef: string;
+  sections?: { title: string; slug: string }[];
 }) {
   const [pub, viewer, lang] = await Promise.all([
     publishedFor(conferenceId, targetType, targetRef),
@@ -62,6 +66,7 @@ export default async function Community({
     signedIn: !!viewer,
     autoPublish: !!viewer?.autoPublish,
     lang,
+    sections,
   };
 
   return (
@@ -79,7 +84,8 @@ export default async function Community({
         <section>
           <h2>{pick(lang, "Questions", "Preguntas")}</h2>
           {pub.questions.map((q) => (
-            <div key={q.id} className={`q ${q.replies.length ? "answered" : ""}`}>
+            <div key={q.id} id={`c-${q.id}`} className={`q ${q.replies.length ? "answered" : ""}`}>
+              {q.anchor && <span className="anno-on">{pick(lang, "On", "Sobre")}: {deSlug(q.anchor)}</span>}
               <p><strong>{q.body}</strong></p>
               <p className="who">— {q.authorLabel}, {fmt(q.createdAt)}</p>
               {q.replies.map((a) => (

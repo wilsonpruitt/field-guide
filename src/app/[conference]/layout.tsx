@@ -45,6 +45,7 @@ export default async function ConferenceLayout({
       <main className="fg-main">{children}</main>
       <footer className="fg-site">
         <p>
+          <Link href="/walkthrough">{pick(lang, "How this guide works", "Cómo funciona esta guía")}</Link> ·{" "}
           {conf.name} · {pick(lang, "community field guide", "guía comunitaria")} ·{" "}
           {pick(lang, "the numbers via", "los números vía")}{" "}
           <a href="https://riotexas.wrootlabs.com">{pick(lang, "the Atlas", "el Atlas")}</a> ·{" "}

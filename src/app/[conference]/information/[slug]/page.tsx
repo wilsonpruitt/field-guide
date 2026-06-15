@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
@@ -9,7 +8,8 @@ import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import Community from "@/components/Community";
 import EditProposal from "@/components/EditProposal";
-import { getViewer } from "@/lib/community";
+import { getViewer, anchorsFor } from "@/lib/community";
+import { extractSections } from "@/lib/sections";
 
 export default async function InfoDetail({
   params,
@@ -35,6 +35,8 @@ export default async function InfoDetail({
   const es = lang === "es";
   const content = pick(lang, item.contentMd, item.contentMdEs);
   const signedIn = !!(await getViewer(conf.id));
+  const anchors = await anchorsFor(conf.id, "INFO", slug);
+  const sections = extractSections(content || "");
 
   return (
     <>
@@ -56,9 +58,7 @@ export default async function InfoDetail({
       )}
 
       {content && (
-        <article>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-        </article>
+        <SpineContent content={content} anchors={anchors} lang={lang} />
       )}
       {item.source && <p className="py-source">{es ? "Fuente" : "Source"}: {item.source}</p>}
 
@@ -74,7 +74,7 @@ export default async function InfoDetail({
         ]}
       />
 
-      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="INFO" targetRef={slug} />
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="INFO" targetRef={slug} sections={sections} />
     </>
   );
 }

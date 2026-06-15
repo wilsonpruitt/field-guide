@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
@@ -8,7 +7,8 @@ import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import Community from "@/components/Community";
 import EditProposal from "@/components/EditProposal";
-import { getViewer } from "@/lib/community";
+import { getViewer, anchorsFor } from "@/lib/community";
+import { extractSections } from "@/lib/sections";
 
 export default async function ProcessDetail({
   params,
@@ -25,6 +25,8 @@ export default async function ProcessDetail({
 
   const paras = await getBodParas();
   const signedIn = !!(await getViewer(conf.id));
+  const anchors = await anchorsFor(conf.id, "PROCESS", slug);
+  const sections = extractSections(page.contentMd);
 
   return (
     <>
@@ -38,9 +40,7 @@ export default async function ProcessDetail({
       )}
 
       {page.contentMd && (
-        <article>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{page.contentMd}</ReactMarkdown>
-        </article>
+        <SpineContent content={page.contentMd} anchors={anchors} lang={lang} />
       )}
 
       <EditProposal
@@ -55,7 +55,7 @@ export default async function ProcessDetail({
         ]}
       />
 
-      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PROCESS" targetRef={slug} />
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PROCESS" targetRef={slug} sections={sections} />
     </>
   );
 }

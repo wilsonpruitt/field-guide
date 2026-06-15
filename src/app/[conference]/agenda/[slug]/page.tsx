@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas, votesLabel } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
@@ -11,7 +10,8 @@ import PerYearFinance, { type FinanceRow } from "@/components/PerYearFinance";
 import NominationsSlate, { type NominationsData, type SlateBoard } from "@/components/NominationsSlate";
 import Community from "@/components/Community";
 import EditProposal from "@/components/EditProposal";
-import { getViewer } from "@/lib/community";
+import { getViewer, anchorsFor } from "@/lib/community";
+import { extractSections } from "@/lib/sections";
 
 const votesLabelEs = (v?: string | null) =>
   v === "INFORMATION" ? "Solo para información"
@@ -39,6 +39,8 @@ export default async function AgendaDetail({
       : Promise.resolve(null),
   ]);
   const signedIn = !!(await getViewer(conf.id));
+  const anchors = await anchorsFor(conf.id, "AGENDA", slug);
+  const sections = extractSections(item.contentMd);
 
   // Per-year data plate, if this item carries one.
   let perYear: React.ReactNode = null;
@@ -99,9 +101,7 @@ export default async function AgendaDetail({
       )}
 
       {item.contentMd && (
-        <article>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.contentMd}</ReactMarkdown>
-        </article>
+        <SpineContent content={item.contentMd} anchors={anchors} lang={lang} />
       )}
 
       {perYear}
@@ -118,7 +118,7 @@ export default async function AgendaDetail({
         ]}
       />
 
-      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="AGENDA" targetRef={slug} />
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="AGENDA" targetRef={slug} sections={sections} />
     </>
   );
 }

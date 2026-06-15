@@ -11,6 +11,7 @@ type Common = {
   signedIn: boolean;
   autoPublish: boolean;
   lang: Lang;
+  sections?: { title: string; slug: string }[];
 };
 
 const stances = (lang: Lang): [string, string][] => [
@@ -39,6 +40,7 @@ function ContributeForm({
   signedIn,
   autoPublish,
   lang,
+  sections,
 }: Common & {
   mode: "question" | "note" | "answer";
   parentId?: string;
@@ -48,12 +50,14 @@ function ContributeForm({
 }) {
   const [open, setOpen] = useState(false);
   const [stance, setStance] = useState("");
+  const [section, setSection] = useState("");
   const [state, formAction, pending] = useActionState<SubmitResult | null, FormData>(
     submitContribution,
     null,
   );
 
   const type = mode === "question" ? "QUESTION" : mode === "answer" ? "ANSWER" : stance ? "PERSPECTIVE" : "COMMENT";
+  const submitRef = mode !== "answer" && section ? `${targetRef}#${section}` : targetRef;
   const reviewNote = autoPublish
     ? pick(lang, "Posts to the guide right away.", "Se publica en la guía de inmediato.")
     : pick(lang, "It'll be reviewed before it appears.", "Se revisará antes de aparecer.");
@@ -76,12 +80,26 @@ function ContributeForm({
         <form className="ask-form" action={formAction}>
           <input type="hidden" name="conferenceSlug" value={conference} />
           <input type="hidden" name="targetType" value={targetType} />
-          <input type="hidden" name="targetRef" value={targetRef} />
+          <input type="hidden" name="targetRef" value={submitRef} />
           <input type="hidden" name="type" value={type} />
           {parentId && <input type="hidden" name="parentId" value={parentId} />}
           {mode === "note" && <input type="hidden" name="stance" value={stance} />}
 
           <textarea name="body" rows={inline ? 2 : 3} maxLength={4000} required placeholder={placeholder} />
+
+          {mode !== "answer" && sections && sections.length > 0 && (
+            <div className="ask-row">
+              <label className="stance-label">
+                {pick(lang, "About", "Sobre")}
+                <select value={section} onChange={(e) => setSection(e.target.value)} className="stance-select">
+                  <option value="">{pick(lang, "the whole page", "toda la página")}</option>
+                  {sections.map((s) => (
+                    <option key={s.slug} value={s.slug}>{s.title}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          )}
 
           {mode === "note" && (
             <div className="ask-row">

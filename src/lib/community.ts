@@ -43,6 +43,7 @@ export type PublicContribution = {
   authorLabel: string;
   createdAt: Date;
   endorsements: number;
+  anchor: string | null; // sub-anchor from "slug#anchor", if the note targets a section
   replies: PublicContribution[];
 };
 
@@ -67,6 +68,7 @@ export async function publishedFor(conferenceId: string, targetType: TargetType,
     authorLabel: r.author?.displayName ?? r.authorName ?? "Anonymous",
     createdAt: r.createdAt,
     endorsements: r._count.endorsements,
+    anchor: r.targetRef.includes("#") ? r.targetRef.split("#")[1] : null,
     replies: [],
   });
 
@@ -82,6 +84,30 @@ export async function publishedFor(conferenceId: string, targetType: TargetType,
     questions: top.filter((c) => c.type === "QUESTION"),
     notes: top.filter((c) => c.type === "COMMENT" || c.type === "PERSPECTIVE"),
   };
+}
+
+// Published notes grouped by their sub-anchor, for inline markers in the
+// content. anchorSlug → { count, firstId } (firstId = oldest note, scroll target).
+export async function anchorsFor(conferenceId: string, targetType: TargetType, slug: string) {
+  const rows = await prisma.contribution.findMany({
+    where: {
+      conferenceId,
+      targetType,
+      status: "PUBLISHED",
+      type: { in: ["COMMENT", "PERSPECTIVE", "QUESTION"] },
+      targetRef: { startsWith: `${slug}#` },
+    },
+    orderBy: { createdAt: "asc" },
+    select: { id: true, targetRef: true },
+  });
+  const map: Record<string, { count: number; firstId: string }> = {};
+  for (const r of rows) {
+    const anchor = r.targetRef.split("#")[1];
+    if (!anchor) continue;
+    if (map[anchor]) map[anchor].count += 1;
+    else map[anchor] = { count: 1, firstId: r.id };
+  }
+  return map;
 }
 
 // ── Reader interactions on published contributions (signed-in) ──

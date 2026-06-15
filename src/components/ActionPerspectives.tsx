@@ -13,6 +13,7 @@ const stanceHead = (lang: Lang, stance: string): string =>
     ALTERNATIVE: pick(lang, "Alternatives", "Alternativas"),
   })[stance] ?? stance;
 const fmt = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+const deSlug = (s: string) => s.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());
 
 // Perspectives gather around the things conference votes on, organized by where
 // people stand. Same Contribution model as the rest of the community layer,
@@ -21,10 +22,12 @@ export default async function ActionPerspectives({
   conferenceId,
   conferenceSlug,
   slug,
+  sections = [],
 }: {
   conferenceId: string;
   conferenceSlug: string;
   slug: string;
+  sections?: { title: string; slug: string }[];
 }) {
   const [pub, viewer, lang] = await Promise.all([
     publishedFor(conferenceId, "ACTION", slug),
@@ -38,6 +41,7 @@ export default async function ActionPerspectives({
     signedIn: !!viewer,
     autoPublish: !!viewer?.autoPublish,
     lang,
+    sections,
   };
 
   const withStance = pub.notes.filter((n) => n.stance);
@@ -46,7 +50,8 @@ export default async function ActionPerspectives({
     .filter((g) => g.items.length > 0);
 
   const card = (n: PublicContribution) => (
-    <div className="note" key={n.id}>
+    <div className="note" id={`c-${n.id}`} key={n.id}>
+      {n.anchor && <span className="anno-on">{pick(lang, "On", "Sobre")}: {deSlug(n.anchor)}</span>}
       <p>{n.body}</p>
       <p className="who">— {n.authorLabel}, {fmt(n.createdAt)}</p>
       <ContribActions {...common} contributionId={n.id} endorsements={n.endorsements} />
@@ -80,7 +85,8 @@ export default async function ActionPerspectives({
         <section>
           <h2>{pick(lang, "Questions", "Preguntas")}</h2>
           {pub.questions.map((q) => (
-            <div key={q.id} className={`q ${q.replies.length ? "answered" : ""}`}>
+            <div key={q.id} id={`c-${q.id}`} className={`q ${q.replies.length ? "answered" : ""}`}>
+              {q.anchor && <span className="anno-on">{pick(lang, "On", "Sobre")}: {deSlug(q.anchor)}</span>}
               <p><strong>{q.body}</strong></p>
               <p className="who">— {q.authorLabel}, {fmt(q.createdAt)}</p>
               {q.replies.map((a) => (

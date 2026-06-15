@@ -243,6 +243,16 @@ ul.bare li:last-child { border-bottom: 0; }
   padding: .05rem .5rem; color: var(--fen-mist); background: var(--ivory); margin-left: .4rem; }
 .bodrefs.pill .bodref { border-bottom-color: var(--reed); }
 
+/* ---------- Inline annotation markers (notes attached to a section) ---------- */
+.anno-marker { display: inline-block; margin-left: .5rem; vertical-align: middle; font-size: .68rem;
+  font-family: var(--font-sans); font-weight: 600; color: var(--reed-deep); text-decoration: none;
+  background: rgba(201, 168, 106, .16); border: 1px solid var(--reed); border-radius: 999px; padding: .05rem .45rem; }
+.anno-marker:hover { background: rgba(201, 168, 106, .3); color: var(--ink); }
+.anno-on { display: inline-block; font-size: .66rem; text-transform: uppercase; letter-spacing: .04em;
+  color: var(--reed-deep); margin-bottom: .2rem; }
+.note, .q { scroll-margin-top: 1.5rem; }
+.note:target, .q:target { box-shadow: 0 0 0 2px var(--reed); }
+
 /* ---------- Community voice (Layer C) — the reed marginalia ---------- */
 .note { border-left: 3px solid var(--reed); background: var(--ivory); border-radius: 0 6px 6px 0;
   padding: .6rem 0 .6rem 1rem; margin: 1rem 0; }

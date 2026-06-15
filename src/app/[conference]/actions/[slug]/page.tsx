@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
@@ -9,7 +8,8 @@ import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import ActionPerspectives from "@/components/ActionPerspectives";
 import EditProposal from "@/components/EditProposal";
-import { getViewer } from "@/lib/community";
+import { getViewer, anchorsFor } from "@/lib/community";
+import { extractSections } from "@/lib/sections";
 
 export default async function ActionDetail({
   params,
@@ -32,6 +32,8 @@ export default async function ActionDetail({
       : Promise.resolve(null),
   ]);
   const signedIn = !!(await getViewer(conf.id));
+  const anchors = await anchorsFor(conf.id, "ACTION", slug);
+  const sections = extractSections(pick(lang, item.contentMd, item.contentMdEs) || "");
 
   return (
     <>
@@ -51,9 +53,7 @@ export default async function ActionDetail({
       )}
 
       {pick(lang, item.contentMd, item.contentMdEs) && (
-        <article>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{pick(lang, item.contentMd, item.contentMdEs)}</ReactMarkdown>
-        </article>
+        <SpineContent content={pick(lang, item.contentMd, item.contentMdEs)} anchors={anchors} lang={lang} />
       )}
       {item.source && <p className="py-source">{pick(lang, "Source", "Fuente")}: {item.source}</p>}
 
@@ -69,7 +69,7 @@ export default async function ActionDetail({
         ]}
       />
 
-      <ActionPerspectives conferenceId={conf.id} conferenceSlug={conf.slug} slug={slug} />
+      <ActionPerspectives conferenceId={conf.id} conferenceSlug={conf.slug} slug={slug} sections={sections} />
     </>
   );
 }
