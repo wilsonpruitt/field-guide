@@ -1,0 +1,85 @@
+import { createClient } from "@/lib/supabase/server";
+import { prisma } from "@/lib/prisma";
+import type { TargetType } from "@prisma/client";
+
+// ── Viewer: who's looking, and what they may do in THIS conference ──
+// Trust tiers (per-conference): 0 visitor, 1 member, 2 regular (auto-publish),
+// 3 editor, 4 steward. Anonymous (no user) always queues.
+export type Viewer = {
+  userId: string;
+  displayName: string;
+  trustLevel: number;
+  autoPublish: boolean; // TL2+ → contributions skip the queue
+};
+
+export async function getViewer(conferenceId: string): Promise<Viewer | null> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const [profile, membership] = await Promise.all([
+    prisma.profile.findUnique({ where: { id: user.id } }),
+    prisma.conferenceMembership.findUnique({
+      where: { conferenceId_profileId: { conferenceId, profileId: user.id } },
+    }),
+  ]);
+  const trustLevel = membership?.trustLevel ?? 1;
+  return {
+    userId: user.id,
+    displayName: profile?.displayName ?? user.email?.split("@")[0] ?? "Member",
+    trustLevel,
+    autoPublish: trustLevel >= 2,
+  };
+}
+
+// A published contribution + its author label and endorsement count, shaped for display.
+export type PublicContribution = {
+  id: string;
+  type: "QUESTION" | "ANSWER" | "COMMENT" | "PERSPECTIVE" | "EDIT_PROPOSAL";
+  body: string;
+  stance: "IN_FAVOR" | "CONCERN" | "CLARIFICATION" | "ALTERNATIVE" | null;
+  authorLabel: string;
+  createdAt: Date;
+  endorsements: number;
+  replies: PublicContribution[];
+};
+
+// `ref` matches the target slug exactly, or as a "slug#anchor" prefix.
+export async function publishedFor(conferenceId: string, targetType: TargetType, slug: string) {
+  const rows = await prisma.contribution.findMany({
+    where: {
+      conferenceId,
+      targetType,
+      status: "PUBLISHED",
+      OR: [{ targetRef: slug }, { targetRef: { startsWith: `${slug}#` } }],
+    },
+    orderBy: { createdAt: "asc" },
+    include: { author: true, _count: { select: { endorsements: true } } },
+  });
+
+  const shape = (r: (typeof rows)[number]): PublicContribution => ({
+    id: r.id,
+    type: r.type,
+    body: r.body,
+    stance: r.stance,
+    authorLabel: r.author?.displayName ?? r.authorName ?? "Anonymous",
+    createdAt: r.createdAt,
+    endorsements: r._count.endorsements,
+    replies: [],
+  });
+
+  const byId = new Map(rows.map((r) => [r.id, shape(r)]));
+  const top: PublicContribution[] = [];
+  for (const r of rows) {
+    const node = byId.get(r.id)!;
+    if (r.parentId && byId.has(r.parentId)) byId.get(r.parentId)!.replies.push(node);
+    else top.push(node);
+  }
+
+  return {
+    questions: top.filter((c) => c.type === "QUESTION"),
+    notes: top.filter((c) => c.type === "COMMENT" || c.type === "PERSPECTIVE"),
+  };
+}

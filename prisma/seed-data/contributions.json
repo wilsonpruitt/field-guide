@@ -1,0 +1,13 @@
+[
+  {
+    "id": "seed-rachel-district-funding",
+    "type": "COMMENT",
+    "targetType": "AGENDA",
+    "targetRef": "finance#district-funding",
+    "authorName": "Rachel",
+    "body": "One thing on the district piece: the old funding formula was lines F and H. H isn't on this year's document, and it's only partially in this year's Pre-Conference Journal — but H was the actual amount the districts had discretion over.",
+    "status": "PUBLISHED",
+    "publishedAt": "2026-05-20T00:00:00.000Z",
+    "createdAt": "2026-05-20T00:00:00.000Z"
+  }
+]

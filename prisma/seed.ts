@@ -39,6 +39,12 @@ type RosterRow = {
   }>;
 };
 type PerYearRow = { kind: 'FINANCE' | 'NOMINATIONS'; year: number; source?: string | null; data: unknown };
+type ContributionRow = {
+  id: string; type: 'QUESTION' | 'ANSWER' | 'COMMENT' | 'PERSPECTIVE' | 'EDIT_PROPOSAL';
+  targetType: 'BODY' | 'AGENDA' | 'PROCESS'; targetRef: string; authorName?: string | null;
+  body: string; stance?: 'IN_FAVOR' | 'CONCERN' | 'CLARIFICATION' | 'ALTERNATIVE' | null;
+  status: 'PENDING' | 'PUBLISHED' | 'REJECTED' | 'SUPERSEDED'; publishedAt?: string | null; createdAt?: string | null;
+};
 type BodRow = { number: number; title?: string | null; excerpt: string; source: 'PLENARY' | 'BOD_PDF'; edition?: string };
 
 async function main() {
@@ -163,6 +169,19 @@ async function main() {
     });
   }
   console.log(`✓ Per-year instances: ${perYear.length}`);
+
+  // ── Seed community contributions (illustrative published notes ported from ac-guide) ──
+  const contributions = load<ContributionRow[]>('contributions');
+  for (const c of contributions) {
+    const data = {
+      conferenceId, type: c.type, targetType: c.targetType, targetRef: c.targetRef,
+      authorName: c.authorName ?? null, body: c.body, stance: c.stance ?? null, status: c.status,
+      publishedAt: c.publishedAt ? new Date(c.publishedAt) : null,
+      ...(c.createdAt ? { createdAt: new Date(c.createdAt) } : {}),
+    };
+    await prisma.contribution.upsert({ where: { id: c.id }, update: data, create: { id: c.id, ...data } });
+  }
+  console.log(`✓ Contributions: ${contributions.length}`);
 }
 
 main()

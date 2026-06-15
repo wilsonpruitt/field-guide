@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import { getConference, getBodParas } from "@/lib/conference";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
+import Community from "@/components/Community";
 
 export default async function ProcessDetail({
   params,
@@ -36,6 +37,8 @@ export default async function ProcessDetail({
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{page.contentMd}</ReactMarkdown>
         </article>
       )}
+
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PROCESS" targetRef={slug} />
     </>
   );
 }

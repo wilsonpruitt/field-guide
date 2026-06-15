@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import PerYearFinance, { type FinanceRow } from "@/components/PerYearFinance";
 import NominationsSlate, { type NominationsData, type SlateBoard } from "@/components/NominationsSlate";
+import Community from "@/components/Community";
 
 export default async function AgendaDetail({
   params,
@@ -92,6 +93,8 @@ export default async function AgendaDetail({
       )}
 
       {perYear}
+
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="AGENDA" targetRef={slug} />
     </>
   );
 }

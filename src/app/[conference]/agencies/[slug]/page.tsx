@@ -3,6 +3,7 @@ import { getConference, getBodParas, votesLabel } from "@/lib/conference";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import BoardRoster, { type RosterData } from "@/components/BoardRoster";
+import Community from "@/components/Community";
 
 type Fulfills = { name: string; bodRefs?: string[] };
 type SubBody = { name: string; bodRefs?: string[]; membershipSize?: number; note?: string };
@@ -89,6 +90,8 @@ export default async function AgencyDetail({
       {roster && (
         <BoardRoster roster={roster as unknown as RosterData} asOf={asOf} conference={conf.slug} />
       )}
+
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="BODY" targetRef={slug} />
     </>
   );
 }
