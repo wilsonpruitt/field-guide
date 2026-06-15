@@ -8,6 +8,8 @@ import BodRefs from "@/components/BodRefs";
 import PerYearFinance, { type FinanceRow } from "@/components/PerYearFinance";
 import NominationsSlate, { type NominationsData, type SlateBoard } from "@/components/NominationsSlate";
 import Community from "@/components/Community";
+import EditProposal from "@/components/EditProposal";
+import { getViewer } from "@/lib/community";
 
 export default async function AgendaDetail({
   params,
@@ -28,6 +30,7 @@ export default async function AgendaDetail({
       ? prisma.body.findUnique({ where: { conferenceId_slug: { conferenceId: conf.id, slug: item.bodySlug } } })
       : Promise.resolve(null),
   ]);
+  const signedIn = !!(await getViewer(conf.id));
 
   // Per-year data plate, if this item carries one.
   let perYear: React.ReactNode = null;
@@ -93,6 +96,17 @@ export default async function AgendaDetail({
       )}
 
       {perYear}
+
+      <EditProposal
+        conference={conf.slug}
+        targetType="AGENDA"
+        targetRef={slug}
+        signedIn={signedIn}
+        fields={[
+          { key: "summary", label: "Summary", current: item.summary },
+          { key: "contentMd", label: "Full text", current: item.contentMd },
+        ]}
+      />
 
       <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="AGENDA" targetRef={slug} />
     </>

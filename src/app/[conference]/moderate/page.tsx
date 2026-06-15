@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
 import { getViewer } from "@/lib/community";
-import { TL, pendingQueue, flaggedPublished, conferenceMembers, TRUST_LABEL } from "@/lib/moderation";
-import { PendingItem, FlaggedItem, MemberRow } from "./ModerationControls";
+import { TL, pendingQueue, pendingEdits, flaggedPublished, conferenceMembers, TRUST_LABEL } from "@/lib/moderation";
+import { PendingItem, FlaggedItem, EditItem, MemberRow } from "./ModerationControls";
+
+const FIELD_LABEL: Record<string, string> = { summary: "Summary", contentMd: "Full text" };
 
 const SECTION: Record<string, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
 const fmt = (d: Date) => d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
@@ -34,8 +36,9 @@ export default async function ModeratePage({
   }
 
   const isSteward = viewer.trustLevel >= TL.STEWARD;
-  const [pending, flagged, members] = await Promise.all([
+  const [pending, edits, flagged, members] = await Promise.all([
     pendingQueue(conf.id),
+    pendingEdits(conf.id),
     flaggedPublished(conf.id),
     isSteward ? conferenceMembers(conf.id) : Promise.resolve([]),
   ]);
@@ -67,6 +70,31 @@ export default async function ModeratePage({
                 when={fmt(c.createdAt)}
                 targetLabel={`${SECTION[c.targetType]} / ${c.targetRef}`}
                 targetHref={`/${conf.slug}/${SECTION[c.targetType]}/${c.targetRef.split("#")[0]}`}
+              />
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section>
+        <h2>Proposed edits {edits.length > 0 && <span className="pill">{edits.length}</span>}</h2>
+        {edits.length === 0 ? (
+          <p className="muted">No edits awaiting review.</p>
+        ) : (
+          <ul className="mod-list">
+            {edits.map((e) => (
+              <EditItem
+                key={e.id}
+                conference={conf.slug}
+                id={e.id}
+                fieldLabel={FIELD_LABEL[e.proposedField ?? ""] ?? e.proposedField ?? "text"}
+                current={e.current}
+                proposed={e.proposedText ?? ""}
+                rationale={e.body}
+                author={e.author?.displayName ?? e.authorName ?? "Anonymous"}
+                when={fmt(e.createdAt)}
+                targetLabel={`${SECTION[e.targetType]} / ${e.targetRef}`}
+                targetHref={`/${conf.slug}/${SECTION[e.targetType]}/${e.targetRef.split("#")[0]}`}
               />
             ))}
           </ul>

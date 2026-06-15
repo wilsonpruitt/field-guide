@@ -13,10 +13,110 @@ export const TRUST_LABEL: Record<number, string> = {
 
 export async function pendingQueue(conferenceId: string) {
   return prisma.contribution.findMany({
-    where: { conferenceId, status: "PENDING" },
+    where: { conferenceId, status: "PENDING", type: { not: "EDIT_PROPOSAL" } },
     orderBy: { createdAt: "asc" },
     include: { author: true },
   });
+}
+
+// Which spine text fields edit-proposals may change, per target type.
+export const EDITABLE: Record<string, string[]> = {
+  BODY: ["summary"],
+  AGENDA: ["summary", "contentMd"],
+  PROCESS: ["summary", "contentMd"],
+  ACTION: ["summary", "contentMd"],
+  INFO: ["summary", "contentMd"],
+};
+
+// Read the current value of an editable spine field (to show a before/after).
+export async function getSpineField(
+  conferenceId: string,
+  targetType: string,
+  slug: string,
+  field: string,
+): Promise<string | null> {
+  const base = slug.split("#")[0];
+  const pick = (row: Record<string, unknown> | null) => (row ? ((row[field] as string) ?? null) : null);
+  switch (targetType) {
+    case "BODY":
+      return pick(await prisma.body.findUnique({ where: { conferenceId_slug: { conferenceId, slug: base } } }));
+    case "AGENDA":
+      return pick(await prisma.agendaItem.findUnique({ where: { conferenceId_slug: { conferenceId, slug: base } } }));
+    case "PROCESS":
+      return pick(await prisma.processPage.findUnique({ where: { conferenceId_slug: { conferenceId, slug: base } } }));
+    case "ACTION":
+      return pick(await prisma.actionItem.findFirst({ where: { conferenceId, slug: base }, orderBy: { year: "desc" } }));
+    case "INFO":
+      return pick(await prisma.infoReport.findFirst({ where: { conferenceId, slug: base }, orderBy: { year: "desc" } }));
+    default:
+      return null;
+  }
+}
+
+export async function pendingEdits(conferenceId: string) {
+  const rows = await prisma.contribution.findMany({
+    where: { conferenceId, status: "PENDING", type: "EDIT_PROPOSAL" },
+    orderBy: { createdAt: "asc" },
+    include: { author: true },
+  });
+  return Promise.all(
+    rows.map(async (r) => ({
+      ...r,
+      current: r.proposedField ? await getSpineField(conferenceId, r.targetType, r.targetRef, r.proposedField) : null,
+    })),
+  );
+}
+
+/** Apply a proposed edit: write the new text into the spine, mark it published,
+ *  and credit the author. Validates the field against the whitelist. */
+export async function applyEditOp(contributionId: string, conferenceId: string, reviewerProfileId: string) {
+  const c = await prisma.contribution.findFirst({
+    where: { id: contributionId, conferenceId, status: "PENDING", type: "EDIT_PROPOSAL" },
+  });
+  if (!c) return { ok: false as const, error: "Not found or already reviewed." };
+  const field = c.proposedField ?? "";
+  if (!EDITABLE[c.targetType]?.includes(field) || c.proposedText == null) {
+    return { ok: false as const, error: "That field can't be edited." };
+  }
+  const base = c.targetRef.split("#")[0];
+  const data = { [field]: c.proposedText } as Record<string, string>;
+
+  try {
+    switch (c.targetType) {
+      case "BODY":
+        await prisma.body.update({ where: { conferenceId_slug: { conferenceId, slug: base } }, data });
+        break;
+      case "AGENDA":
+        await prisma.agendaItem.update({ where: { conferenceId_slug: { conferenceId, slug: base } }, data });
+        break;
+      case "PROCESS":
+        await prisma.processPage.update({ where: { conferenceId_slug: { conferenceId, slug: base } }, data });
+        break;
+      case "ACTION": {
+        const t = await prisma.actionItem.findFirst({ where: { conferenceId, slug: base }, orderBy: { year: "desc" } });
+        if (!t) return { ok: false as const, error: "Target not found." };
+        await prisma.actionItem.update({ where: { id: t.id }, data });
+        break;
+      }
+      case "INFO": {
+        const t = await prisma.infoReport.findFirst({ where: { conferenceId, slug: base }, orderBy: { year: "desc" } });
+        if (!t) return { ok: false as const, error: "Target not found." };
+        await prisma.infoReport.update({ where: { id: t.id }, data });
+        break;
+      }
+      default:
+        return { ok: false as const, error: "Unknown target." };
+    }
+  } catch {
+    return { ok: false as const, error: "Couldn't apply the edit." };
+  }
+
+  await prisma.contribution.update({
+    where: { id: c.id },
+    data: { status: "PUBLISHED", reviewedById: reviewerProfileId, publishedAt: new Date() },
+  });
+  if (c.authorId) await awardReputation(conferenceId, c.authorId, 3, "edit proposal applied", c.id);
+  return { ok: true as const };
 }
 
 export async function flaggedPublished(conferenceId: string) {

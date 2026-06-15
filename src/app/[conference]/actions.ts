@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { getViewer, endorseOp, flagOp } from "@/lib/community";
+import { EDITABLE } from "@/lib/moderation";
 import type { ContributionType, TargetType, PerspectiveStance } from "@prisma/client";
 
 export type SubmitResult = { ok: boolean; status?: "PUBLISHED" | "PENDING"; error?: string };
@@ -134,6 +135,40 @@ export async function endorseContribution(
   if (!res.ok) return { ok: false, error: res.error };
   revalidateTarget(conferenceSlug, targetType, targetRef);
   return { ok: true };
+}
+
+// Propose an edit to a spine text field. Signed-in only (edits to the
+// canonical text carry a name) and ALWAYS queued for a steward to apply.
+export async function proposeEdit(
+  conferenceSlug: string,
+  targetType: TargetType,
+  targetRef: string,
+  field: string,
+  proposedText: string,
+  rationale: string,
+): Promise<SubmitResult> {
+  const ctx = await viewerFor(conferenceSlug);
+  if ("error" in ctx) return { ok: false, error: ctx.error };
+  if (!EDITABLE[targetType]?.includes(field)) return { ok: false, error: "That field can't be edited." };
+  const text = proposedText.trim();
+  if (text.length < 3) return { ok: false, error: "Please write the proposed text." };
+  if (text.length > 8000) return { ok: false, error: "That's too long." };
+
+  await prisma.contribution.create({
+    data: {
+      conferenceId: ctx.conferenceId,
+      type: "EDIT_PROPOSAL",
+      targetType,
+      targetRef,
+      authorId: ctx.viewer.userId,
+      body: rationale.trim().slice(0, 1000) || `Proposed edit to “${field}”.`,
+      proposedField: field,
+      proposedText: text,
+      status: "PENDING",
+    },
+  });
+  revalidatePath(`/${conferenceSlug}/moderate`);
+  return { ok: true, status: "PENDING" };
 }
 
 export async function flagContribution(

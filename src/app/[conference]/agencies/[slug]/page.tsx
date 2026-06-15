@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import BoardRoster, { type RosterData } from "@/components/BoardRoster";
 import Community from "@/components/Community";
+import EditProposal from "@/components/EditProposal";
+import { getViewer } from "@/lib/community";
 
 type Fulfills = { name: string; bodRefs?: string[] };
 type SubBody = { name: string; bodRefs?: string[]; membershipSize?: number; note?: string };
@@ -31,6 +33,7 @@ export default async function AgencyDetail({
     }),
     prisma.perYearInstance.findFirst({ where: { conferenceId: conf.id, kind: "NOMINATIONS" } }),
   ]);
+  const signedIn = !!(await getViewer(conf.id));
 
   const alsoFulfills = (body.alsoFulfills as Fulfills[] | null) ?? [];
   const subBodies = (body.subBodies as SubBody[] | null) ?? [];
@@ -90,6 +93,14 @@ export default async function AgencyDetail({
       {roster && (
         <BoardRoster roster={roster as unknown as RosterData} asOf={asOf} conference={conf.slug} />
       )}
+
+      <EditProposal
+        conference={conf.slug}
+        targetType="BODY"
+        targetRef={slug}
+        signedIn={signedIn}
+        fields={[{ key: "summary", label: "Summary", current: body.summary ?? "" }]}
+      />
 
       <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="BODY" targetRef={slug} />
     </>

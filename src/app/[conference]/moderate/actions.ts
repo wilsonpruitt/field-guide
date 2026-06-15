@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getViewer } from "@/lib/community";
-import { TL, reviewContributionOp, setTrustLevelOp, resolveFlagsOp } from "@/lib/moderation";
+import { TL, reviewContributionOp, setTrustLevelOp, resolveFlagsOp, applyEditOp } from "@/lib/moderation";
 import type { TargetType } from "@prisma/client";
 
 const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
@@ -58,6 +58,36 @@ export async function resolveFlags(
 
   revalidatePath(`/${conferenceSlug}/moderate`);
   if (target) revalidatePath(`/${conferenceSlug}/${SECTION[target.targetType]}/${target.targetRef.split("#")[0]}`);
+  return { ok: true };
+}
+
+export async function reviewEdit(
+  conferenceSlug: string,
+  contributionId: string,
+  decision: "APPLY" | "REJECT",
+): Promise<Result> {
+  const auth = await authorize(conferenceSlug, TL.EDITOR);
+  if ("error" in auth) return { ok: false, error: auth.error };
+
+  const target = await prisma.contribution.findUnique({
+    where: { id: contributionId },
+    select: { targetType: true, targetRef: true },
+  });
+
+  if (decision === "REJECT") {
+    await prisma.contribution.updateMany({
+      where: { id: contributionId, conferenceId: auth.conferenceId, status: "PENDING" },
+      data: { status: "REJECTED", reviewedById: auth.viewer.userId },
+    });
+  } else {
+    const res = await applyEditOp(contributionId, auth.conferenceId, auth.viewer.userId);
+    if (!res.ok) return res;
+  }
+
+  revalidatePath(`/${conferenceSlug}/moderate`);
+  if (decision === "APPLY" && target) {
+    revalidatePath(`/${conferenceSlug}/${SECTION[target.targetType]}/${target.targetRef.split("#")[0]}`);
+  }
   return { ok: true };
 }
 

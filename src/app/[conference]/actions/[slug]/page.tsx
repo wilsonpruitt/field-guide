@@ -7,6 +7,8 @@ import { getLang, pick } from "@/lib/lang";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import ActionPerspectives from "@/components/ActionPerspectives";
+import EditProposal from "@/components/EditProposal";
+import { getViewer } from "@/lib/community";
 
 export default async function ActionDetail({
   params,
@@ -28,6 +30,7 @@ export default async function ActionDetail({
       ? prisma.body.findUnique({ where: { conferenceId_slug: { conferenceId: conf.id, slug: item.agencySlug } } })
       : Promise.resolve(null),
   ]);
+  const signedIn = !!(await getViewer(conf.id));
 
   return (
     <>
@@ -52,6 +55,17 @@ export default async function ActionDetail({
         </article>
       )}
       {item.source && <p className="py-source">Source: {item.source}</p>}
+
+      <EditProposal
+        conference={conf.slug}
+        targetType="ACTION"
+        targetRef={slug}
+        signedIn={signedIn}
+        fields={[
+          { key: "summary", label: "Summary (English)", current: item.summary },
+          { key: "contentMd", label: "Full text (English)", current: item.contentMd },
+        ]}
+      />
 
       <ActionPerspectives conferenceId={conf.id} conferenceSlug={conf.slug} slug={slug} />
     </>

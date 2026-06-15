@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import { reviewContribution, resolveFlags, setTrustLevel } from "./actions";
+import { reviewContribution, resolveFlags, setTrustLevel, reviewEdit } from "./actions";
 
 // Mirrors lib/moderation TRUST_LABEL — inlined so this client bundle never imports Prisma.
 const TRUST_LABEL: Record<number, string> = {
@@ -77,6 +77,52 @@ export function FlaggedItem({
       <div className="mod-actions">
         <button className="btn-ok" disabled={pending} onClick={() => act(false)}>Dismiss flags</button>
         <button className="btn-no" disabled={pending} onClick={() => act(true)}>Unpublish</button>
+      </div>
+    </li>
+  );
+}
+
+export function EditItem({
+  conference, id, fieldLabel, current, proposed, rationale, author, when, targetLabel, targetHref,
+}: {
+  conference: string; id: string; fieldLabel: string; current: string | null; proposed: string;
+  rationale: string; author: string; when: string; targetLabel: string; targetHref: string;
+}) {
+  const [pending, start] = useTransition();
+  const [done, setDone] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const act = (decision: "APPLY" | "REJECT") =>
+    start(async () => {
+      const res = await reviewEdit(conference, id, decision);
+      if (res.ok) setDone(decision === "APPLY" ? "Applied to the guide" : "Rejected");
+      else setError(res.error ?? "Something went wrong.");
+    });
+
+  if (done) return <li className="mod-item is-done">{done}.</li>;
+
+  return (
+    <li className="mod-item">
+      <div className="mod-meta">
+        <span className="mod-kind">edit · {fieldLabel}</span>
+        <Link href={targetHref} className="mod-target">{targetLabel}</Link>
+      </div>
+      <div className="edit-diff">
+        <div className="edit-side">
+          <span className="edit-side-label">Current</span>
+          <p className="edit-old">{current ?? <span className="muted">(empty)</span>}</p>
+        </div>
+        <div className="edit-side">
+          <span className="edit-side-label">Proposed</span>
+          <p className="edit-new">{proposed}</p>
+        </div>
+      </div>
+      {rationale && <p className="who">{rationale}</p>}
+      <p className="who">— {author}, {when}</p>
+      <div className="mod-actions">
+        <button className="btn-ok" disabled={pending} onClick={() => act("APPLY")}>Apply edit</button>
+        <button className="btn-no" disabled={pending} onClick={() => act("REJECT")}>Reject</button>
+        {error && <span className="mod-err">{error}</span>}
       </div>
     </li>
   );

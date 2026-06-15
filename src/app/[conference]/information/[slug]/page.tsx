@@ -7,6 +7,8 @@ import { getLang, pick } from "@/lib/lang";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import Community from "@/components/Community";
+import EditProposal from "@/components/EditProposal";
+import { getViewer } from "@/lib/community";
 
 export default async function InfoDetail({
   params,
@@ -31,6 +33,7 @@ export default async function InfoDetail({
 
   const es = lang === "es";
   const content = pick(lang, item.contentMd, item.contentMdEs);
+  const signedIn = !!(await getViewer(conf.id));
 
   return (
     <>
@@ -57,6 +60,17 @@ export default async function InfoDetail({
         </article>
       )}
       {item.source && <p className="py-source">{es ? "Fuente" : "Source"}: {item.source}</p>}
+
+      <EditProposal
+        conference={conf.slug}
+        targetType="INFO"
+        targetRef={slug}
+        signedIn={signedIn}
+        fields={[
+          { key: "summary", label: "Summary (English)", current: item.summary },
+          { key: "contentMd", label: "Full text (English)", current: item.contentMd },
+        ]}
+      />
 
       <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="INFO" targetRef={slug} />
     </>

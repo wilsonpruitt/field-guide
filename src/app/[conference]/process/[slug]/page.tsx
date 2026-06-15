@@ -5,6 +5,8 @@ import { getConference, getBodParas } from "@/lib/conference";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import Community from "@/components/Community";
+import EditProposal from "@/components/EditProposal";
+import { getViewer } from "@/lib/community";
 
 export default async function ProcessDetail({
   params,
@@ -20,6 +22,7 @@ export default async function ProcessDetail({
   if (!page) notFound();
 
   const paras = await getBodParas();
+  const signedIn = !!(await getViewer(conf.id));
 
   return (
     <>
@@ -37,6 +40,17 @@ export default async function ProcessDetail({
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{page.contentMd}</ReactMarkdown>
         </article>
       )}
+
+      <EditProposal
+        conference={conf.slug}
+        targetType="PROCESS"
+        targetRef={slug}
+        signedIn={signedIn}
+        fields={[
+          { key: "summary", label: "Summary", current: page.summary },
+          { key: "contentMd", label: "Full text", current: page.contentMd },
+        ]}
+      />
 
       <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PROCESS" targetRef={slug} />
     </>
