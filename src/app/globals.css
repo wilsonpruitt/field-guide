@@ -303,6 +303,21 @@ ul.bare li:last-child { border-bottom: 0; }
 .sched-tag.t-information { color: var(--warn); border-color: transparent; background: var(--warn-bg); }
 .sched-tag.t-worship { color: var(--ok); border-color: transparent; background: var(--ok-bg); }
 
+/* ---------- Action items: where people stand (perspectives) ---------- */
+.stance-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-top: .6rem; }
+.stance-col h3 { display: flex; align-items: baseline; gap: .4rem; font-family: var(--font-sans); font-size: .82rem;
+  text-transform: uppercase; letter-spacing: .04em; color: var(--fen-mist); padding-bottom: .3rem;
+  border-bottom: 2px solid var(--slate-100); }
+.stance-count { font-size: .72rem; color: var(--fg-quiet); font-weight: 400; }
+.stance-col .note { margin: .6rem 0; }
+.stance-in_favor h3 { color: var(--ok); border-bottom-color: var(--ok-bg); }
+.stance-in_favor .note { border-left-color: var(--ok); }
+.stance-concern h3 { color: var(--danger); border-bottom-color: var(--warn-bg); }
+.stance-concern .note { border-left-color: var(--danger); }
+.stance-clarification h3 { color: var(--info); border-bottom-color: var(--info-bg); }
+.stance-clarification .note { border-left-color: var(--info); }
+.stance-alternative h3 { color: var(--reed-deep); border-bottom-color: var(--reed); }
+
 /* ---------- Reader interactions (endorse / flag) ---------- */
 .contrib-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: .4rem; }
 .contrib-actions.muted { font-size: .78rem; }

@@ -28,6 +28,7 @@ model Conference {
   motions       Motion[]
   rosters       Roster[]
   perYear       PerYearInstance[]
+  actionItems   ActionItem[]
   memberships   ConferenceMembership[]
   contributions Contribution[]
 }
@@ -79,6 +80,30 @@ enum PerYearKind {
   FINANCE
   NOMINATIONS
   SCHEDULE
+}
+
+// A specific item up for a vote this year, from the pre-conference report's
+// "For Conference Action" reports. Perspectives (Contribution PERSPECTIVE,
+// targetType ACTION) gather around these — the actual decision points.
+model ActionItem {
+  id           String     @id @default(cuid())
+  conferenceId String
+  conference   Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  year         Int
+  slug         String
+  order        Int        @default(0)
+  number       String?    // the report/amendment label, e.g. "Report II"
+  title        String
+  agencySlug   String?    // the Body that brings it (links to a Body in this conference)
+  category     String?    // grouping label, e.g. "Finance", "Pensions", "Standing Rules"
+  summary      String
+  contentMd    String     @default("")
+  bodRefs      String[]   @default([])
+  source       String?
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([conferenceId, year, slug])
+  @@index([conferenceId])
 }
 
 model AgendaItem {
@@ -272,6 +297,7 @@ enum TargetType {
   BODY
   AGENDA
   PROCESS
+  ACTION
 }
 
 enum ContributionStatus {

@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { endorseContribution, flagContribution } from "@/app/[conference]/actions";
 
-type TargetType = "BODY" | "AGENDA" | "PROCESS";
+type TargetType = "BODY" | "AGENDA" | "PROCESS" | "ACTION";
 
 export default function ContribActions({
   conference, contributionId, targetType, targetRef, endorsements, signedIn,

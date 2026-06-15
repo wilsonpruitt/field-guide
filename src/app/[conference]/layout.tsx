@@ -24,6 +24,7 @@ export default async function ConferenceLayout({
         </Link>
         <nav>
           <Link href={`${base}/schedule`}>Schedule</Link>
+          <Link href={`${base}/actions`}>Up for a vote</Link>
           <Link href={`${base}/agenda`}>Agenda</Link>
           <Link href={`${base}/agencies`}>Agencies</Link>
           <Link href={`${base}/process`}>How it works</Link>

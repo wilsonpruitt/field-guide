@@ -5,7 +5,7 @@ import { submitContribution, type SubmitResult } from "@/app/[conference]/action
 
 type Common = {
   conference: string;
-  targetType: "BODY" | "AGENDA" | "PROCESS";
+  targetType: "BODY" | "AGENDA" | "PROCESS" | "ACTION";
   targetRef: string;
   signedIn: boolean;
   autoPublish: boolean;

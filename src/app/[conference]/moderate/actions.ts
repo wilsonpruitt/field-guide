@@ -6,7 +6,7 @@ import { getViewer } from "@/lib/community";
 import { TL, reviewContributionOp, setTrustLevelOp, resolveFlagsOp } from "@/lib/moderation";
 import type { TargetType } from "@prisma/client";
 
-const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process" };
+const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions" };
 
 type Result = { ok: boolean; error?: string };
 
