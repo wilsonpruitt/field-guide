@@ -28,7 +28,7 @@ export default async function ProcessDetail({
       <p>{page.summary}</p>
       {page.bodRefs.length > 0 && (
         <p className="ref-line">
-          <span className="ref-label">Book of Discipline</span> <BodRefs refs={page.bodRefs} paras={paras} />
+          <span className="ref-label">Book of Discipline</span> <BodRefs refs={page.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} />
         </p>
       )}
 

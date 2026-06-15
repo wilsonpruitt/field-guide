@@ -228,6 +228,17 @@ ul.bare li:last-child { border-bottom: 0; }
 .bp-num { display: block; font-weight: 600; color: var(--fen); font-size: .84rem; margin-bottom: .25rem; }
 .bp-body { display: block; font-size: .82rem; line-height: 1.5; color: var(--ink); }
 .bp-src { display: block; margin-top: .4rem; font-size: .7rem; color: var(--fg-quiet); }
+.bp-more { display: block; margin-top: .45rem; font-size: .78rem; }
+.bodref > a { color: inherit; text-decoration: none; }
+
+/* ---------- Book of Discipline — full paragraph reference page ---------- */
+.bod-list { list-style: none; padding: 0; margin: 1.4rem 0; }
+.bod-entry { padding: 1rem 0; border-bottom: 1px solid var(--slate-100); scroll-margin-top: 1.5rem; }
+.bod-entry:target { background: rgba(201, 168, 106, .14); border-radius: 8px;
+  box-shadow: inset 3px 0 0 var(--reed); padding-left: .8rem; }
+.bod-head { font-family: var(--font-serif); font-weight: 500; font-size: 1.15rem; color: var(--fen); margin: 0; }
+.bod-text { margin: .4rem 0 .3rem; color: var(--ink); }
+.bod-src { margin: 0; font-size: .74rem; color: var(--fg-quiet); }
 .bodrefs.pill { display: inline-block; font-size: .72rem; border: 1px solid var(--slate-200); border-radius: 4px;
   padding: .05rem .5rem; color: var(--fen-mist); background: var(--ivory); margin-left: .4rem; }
 .bodrefs.pill .bodref { border-bottom-color: var(--reed); }
@@ -271,6 +282,26 @@ ul.bare li:last-child { border-bottom: 0; }
 .ask-submit:hover { background: var(--fen-mist); }
 .ask-submit:disabled { opacity: .6; cursor: default; }
 .ask-status { margin: .5rem 0 0; font-size: .85rem; color: var(--fen-mist); }
+
+/* ---------- This year's schedule (timeline) ---------- */
+.sched-day { margin-top: 2rem; }
+.sched-day h2 { margin-bottom: .4rem; }
+.sched { list-style: none; padding: 0; margin: .4rem 0; }
+.sched-item { display: flex; gap: .9rem; padding: .5rem 0 .5rem .7rem; border-bottom: 1px solid var(--slate-100);
+  border-left: 3px solid transparent; }
+.sched-item.is-plenary { border-left-color: var(--slate-200); background: var(--ivory); }
+.sched-item.is-vote { border-left-color: var(--reed); }
+.sched-time { flex: 0 0 4.6rem; font-size: .8rem; color: var(--fen-mist); padding-top: .1rem;
+  font-variant-numeric: tabular-nums; }
+.sched-body { display: flex; flex-wrap: wrap; gap: .35rem .6rem; align-items: baseline; }
+.sched-title { font-size: .96rem; color: var(--ink); }
+.sched-item:not(.is-plenary) .sched-title { color: var(--fg-quiet); }
+.sched-tag { font-size: .64rem; text-transform: uppercase; letter-spacing: .04em; padding: .05rem .4rem;
+  border-radius: 4px; border: 1px solid var(--slate-200); color: var(--fg-quiet); }
+.sched-tag.t-business { color: var(--info); border-color: transparent; background: var(--info-bg); }
+.sched-tag.t-voting { color: var(--reed-deep); border-color: var(--reed); background: rgba(201, 168, 106, .16); font-weight: 600; }
+.sched-tag.t-information { color: var(--warn); border-color: transparent; background: var(--warn-bg); }
+.sched-tag.t-worship { color: var(--ok); border-color: transparent; background: var(--ok-bg); }
 
 /* ---------- Hub cards (conference home) ---------- */
 .hub { list-style: none; padding: 0; margin: 1.4rem 0; display: grid; gap: .7rem;

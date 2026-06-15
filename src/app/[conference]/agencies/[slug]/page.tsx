@@ -45,7 +45,7 @@ export default async function AgencyDetail({
 
       <dl className="spine-meta">
         {body.bodRefs.length > 0 && (
-          <><dt>Book of Discipline</dt><dd><BodRefs refs={body.bodRefs} paras={paras} /></dd></>
+          <><dt>Book of Discipline</dt><dd><BodRefs refs={body.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} /></dd></>
         )}
         {body.membershipSize && (<><dt>Members</dt><dd>{body.membershipSize}</dd></>)}
         {parent && (<><dt>Part of</dt><dd>{parent.name}</dd></>)}
@@ -62,7 +62,7 @@ export default async function AgencyDetail({
               {i > 0 ? "; " : ""}
               {f.name}
               {f.bodRefs && f.bodRefs.length > 0 && (
-                <> (<BodRefs refs={f.bodRefs} paras={paras} />)</>
+                <> (<BodRefs refs={f.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} />)</>
               )}
             </span>
           ))}
@@ -78,7 +78,7 @@ export default async function AgencyDetail({
               <li key={i}>
                 {s.name}
                 {s.bodRefs && s.bodRefs.length > 0 && (
-                  <> <BodRefs refs={s.bodRefs} paras={paras} pill /></>
+                  <> <BodRefs refs={s.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} pill /></>
                 )}
                 {s.note && <> — {s.note}</>}
               </li>

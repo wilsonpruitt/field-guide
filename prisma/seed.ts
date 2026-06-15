@@ -38,7 +38,7 @@ type RosterRow = {
     office?: string | null; holder?: string | null; nominee?: boolean; vacant?: boolean; note?: string | null;
   }>;
 };
-type PerYearRow = { kind: 'FINANCE' | 'NOMINATIONS'; year: number; source?: string | null; data: unknown };
+type PerYearRow = { kind: 'FINANCE' | 'NOMINATIONS' | 'SCHEDULE'; year: number; source?: string | null; data: unknown };
 type ContributionRow = {
   id: string; type: 'QUESTION' | 'ANSWER' | 'COMMENT' | 'PERSPECTIVE' | 'EDIT_PROPOSAL';
   targetType: 'BODY' | 'AGENDA' | 'PROCESS'; targetRef: string; authorName?: string | null;
@@ -160,7 +160,11 @@ async function main() {
   console.log(`✓ Rosters: ${rosters.length} (${rosters.reduce((n, r) => n + r.members.length, 0)} members)`);
 
   // ── Per-year instances (finance series + nominations slate) ──
-  const perYear = [...load<PerYearRow[]>('finance'), ...load<PerYearRow[]>('nominations')];
+  const perYear = [
+    ...load<PerYearRow[]>('finance'),
+    ...load<PerYearRow[]>('nominations'),
+    ...load<PerYearRow[]>('schedule'),
+  ];
   for (const py of perYear) {
     await prisma.perYearInstance.upsert({
       where: { conferenceId_kind_year: { conferenceId, kind: py.kind, year: py.year } },

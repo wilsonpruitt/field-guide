@@ -78,6 +78,7 @@ model Body {
 enum PerYearKind {
   FINANCE
   NOMINATIONS
+  SCHEDULE
 }
 
 model AgendaItem {

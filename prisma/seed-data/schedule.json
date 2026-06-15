@@ -1,0 +1,100 @@
+[
+  {
+    "kind": "SCHEDULE",
+    "year": 2026,
+    "source": "riotexas.org/ac-2026-schedule (12th Río Texas Annual Conference)",
+    "data": {
+      "title": "12th Río Texas Annual Conference",
+      "dates": "June 17–20, 2026",
+      "days": [
+        {
+          "date": "2026-06-17",
+          "label": "Wednesday, June 17",
+          "items": [
+            { "time": "10:00 am", "title": "Ordination/Commissioning Brunch", "type": "fellowship" },
+            { "time": "12:00 pm", "title": "Ordination Rehearsal / Photos", "type": "preparation" },
+            { "time": "12:00 pm", "title": "Ministry Booth Area open", "type": "display" },
+            { "time": "2:00 pm", "title": "Board of Ordained Ministry", "type": "business" },
+            { "time": "2:00 pm", "title": "Local Pastors Meeting", "type": "business" },
+            { "time": "2:00 pm", "title": "Delegate Check-In", "type": "administrative" },
+            { "time": "3:00 pm", "title": "Lay Leader Team Meeting", "type": "business" },
+            { "time": "5:30 pm", "title": "SMU Alumni Dinner", "type": "fellowship" },
+            { "time": "6:00 pm", "title": "Mariachis Mexicanísimo", "type": "entertainment" },
+            { "time": "7:00 pm", "title": "Opening Worship, Holy Communion & Episcopal Address", "type": "worship" }
+          ]
+        },
+        {
+          "date": "2026-06-18",
+          "label": "Thursday, June 18",
+          "items": [
+            { "time": "7:00 am", "title": "Delegate Check-In", "type": "administrative" },
+            { "time": "8:30 am", "title": "Laity Session", "type": "business" },
+            { "time": "10:00 am", "title": "Clergy Session", "type": "business" },
+            { "time": "1:00 pm", "title": "Clergy Benefits Workshop", "type": "training" },
+            { "time": "1:00 pm", "title": "Standing Rules Q & A", "type": "information", "spine": "agenda/standing-rules" },
+            { "time": "1:45 pm", "title": "Call to Order — First Plenary Session", "type": "business" },
+            { "time": "2:00 pm", "title": "Organization of the Conference", "type": "business" },
+            { "time": "2:10 pm", "title": "Consent Agenda", "type": "business", "spine": "process/consent-agenda" },
+            { "time": "2:25 pm", "title": "Standing Rules Report", "type": "business", "spine": "agenda/standing-rules" },
+            { "time": "2:40 pm", "title": "Lay Leader Report", "type": "business" },
+            { "time": "2:55 pm", "title": "Board of Ordained Ministry", "type": "business" },
+            { "time": "3:20 pm", "title": "Texas Methodist Foundation", "type": "business" },
+            { "time": "3:35 pm", "title": "Disaster Response Report", "type": "business" },
+            { "time": "4:05 pm", "title": "Recess", "type": "break" },
+            { "time": "5:00 pm", "title": "Service of Remembrance", "type": "worship" },
+            { "time": "6:00 pm", "title": "Iglesia Hispana Annual Conference Dinner", "type": "fellowship" },
+            { "time": "8:00 pm", "title": "Gather: Young Adult Meetup", "type": "fellowship" }
+          ]
+        },
+        {
+          "date": "2026-06-19",
+          "label": "Friday, June 19",
+          "items": [
+            { "time": "6:30 am", "title": "Mission Breakfast: Building the Beloved Community", "type": "fellowship" },
+            { "time": "8:45 am", "title": "Call to Order — Second Plenary Session", "type": "business" },
+            { "time": "9:00 am", "title": "Juneteenth Worship", "type": "worship" },
+            { "time": "9:45 am", "title": "Huston-Tillotson", "type": "business" },
+            { "time": "10:05 am", "title": "Lydia Patterson Institute", "type": "business" },
+            { "time": "10:25 am", "title": "Project Transformation", "type": "business" },
+            { "time": "10:50 am", "title": "Nominations Slate", "type": "business", "spine": "agenda/nominations" },
+            { "time": "11:15 am", "title": "Teaching Session I — Love Boldly: Immigration Response", "type": "education" },
+            { "time": "11:40 am", "title": "Announcement & Finance Q & A", "type": "information", "spine": "agenda/finance" },
+            { "time": "1:00 pm", "title": "Finance Q & A", "type": "information", "spine": "agenda/finance" },
+            { "time": "1:45 pm", "title": "Call to Order & Prayer — Third Plenary Session", "type": "business" },
+            { "time": "2:00 pm", "title": "Uniting Table", "type": "business", "spine": "agencies/uniting-table" },
+            { "time": "2:20 pm", "title": "Methodist Healthcare Ministries", "type": "business" },
+            { "time": "2:30 pm", "title": "Teaching Session 2 — Serve Joyfully: Flood Response", "type": "education" },
+            { "time": "3:10 pm", "title": "United Women in Faith", "type": "business" },
+            { "time": "3:20 pm", "title": "Directors' Report", "type": "business" },
+            { "time": "3:45 pm", "title": "Ministry with Youth and Young Adults", "type": "business" },
+            { "time": "4:05 pm", "title": "Blessing of Youth", "type": "worship" },
+            { "time": "4:15 pm", "title": "SMU Perkins School of Theology", "type": "business" },
+            { "time": "4:35 pm", "title": "Leadership Gathering 2026 Report & Episcopal Fund Report", "type": "business" },
+            { "time": "4:45 pm", "title": "Recess", "type": "break" },
+            { "time": "6:30 pm", "title": "Service of Commissioning and Ordination", "type": "worship" },
+            { "time": "8:30 pm", "title": "Reception for Commissioned and Ordained", "type": "fellowship" }
+          ]
+        },
+        {
+          "date": "2026-06-20",
+          "label": "Saturday, June 20",
+          "items": [
+            { "time": "9:00 am", "title": "Call to Order & Prayer — Fourth Plenary Session", "type": "business" },
+            { "time": "9:10 am", "title": "Teaching Session 3 — Lead Courageously: 70th Anniversary of Women's Ordination, 30th Anniversary of the Order of Deacons", "type": "education" },
+            { "time": "9:35 am", "title": "Be UMC Awards & One Matters Award", "type": "recognition" },
+            { "time": "9:45 am", "title": "Chancellor's Report", "type": "business" },
+            { "time": "10:05 am", "title": "Report of the Trustees", "type": "business", "spine": "agencies/board-of-trustees" },
+            { "time": "10:20 am", "title": "Pensions & Benefits", "type": "business", "spine": "agencies/board-of-pensions" },
+            { "time": "10:35 am", "title": "Episcopacy Report", "type": "business", "spine": "agencies/committee-on-the-episcopacy" },
+            { "time": "10:50 am", "title": "Nominations Report Finalized", "type": "voting", "spine": "agenda/nominations" },
+            { "time": "11:05 am", "title": "Finance Table Report & Vote", "type": "voting", "spine": "agencies/finance-table" },
+            { "time": "11:20 am", "title": "Resolutions Presented", "type": "business", "spine": "process/resolutions" },
+            { "time": "11:35 am", "title": "2027 Río Texas Annual Conference Information", "type": "information" },
+            { "time": "11:40 am", "title": "Fixing of Appointments with Covenant Prayer", "type": "worship" },
+            { "time": "12:00 pm", "title": "Adjourn — 4th Plenary & the 12th Río Texas Annual Conference", "type": "closing" }
+          ]
+        }
+      ]
+    }
+  }
+]

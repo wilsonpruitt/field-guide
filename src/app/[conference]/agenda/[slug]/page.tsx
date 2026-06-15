@@ -82,7 +82,7 @@ export default async function AgendaDetail({
       )}
       {item.bodRefs.length > 0 && (
         <p className="ref-line">
-          <span className="ref-label">Book of Discipline</span> <BodRefs refs={item.bodRefs} paras={paras} />
+          <span className="ref-label">Book of Discipline</span> <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} />
         </p>
       )}
 

@@ -16,10 +16,13 @@ export default function BodRefs({
   refs,
   paras,
   pill = false,
+  disciplineBase,
 }: {
   refs: string[];
   paras: Record<string, BodPara>;
   pill?: boolean;
+  /** e.g. "/riotexas/discipline" — when set, refs link to the full paragraph. */
+  disciplineBase?: string;
 }) {
   const items = refs.map((r) => parse(r, paras));
   return (
@@ -28,7 +31,11 @@ export default function BodRefs({
         <Fragment key={i}>
           {it.entry ? (
             <span className="bodref" tabIndex={0}>
-              {it.label}
+              {disciplineBase ? (
+                <a href={`${disciplineBase}#p${it.entry.number}`}>{it.label}</a>
+              ) : (
+                it.label
+              )}
               <span className="bodref-pop" role="tooltip">
                 <span className="bp-num">
                   ¶{it.entry.number}
@@ -40,6 +47,11 @@ export default function BodRefs({
                   The Book of Discipline 2020/2024, ¶{it.entry.number}
                   {it.entry.source === "PLENARY" ? " · via Plenary" : ""}
                 </span>
+                {disciplineBase && (
+                  <a className="bp-more" href={`${disciplineBase}#p${it.entry.number}`}>
+                    Read ¶{it.entry.number} in full →
+                  </a>
+                )}
               </span>
             </span>
           ) : (

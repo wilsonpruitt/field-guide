@@ -19,10 +19,12 @@ export default async function ConferenceLayout({
           {conf.name}
         </Link>
         <nav>
+          <Link href={`${base}/schedule`}>Schedule</Link>
           <Link href={`${base}/agenda`}>Agenda</Link>
           <Link href={`${base}/agencies`}>Agencies</Link>
           <Link href={`${base}/process`}>How it works</Link>
           <Link href={`${base}/motions`}>Motions</Link>
+          <Link href={`${base}/discipline`}>Discipline</Link>
         </nav>
       </header>
       <main className="fg-main">{children}</main>
