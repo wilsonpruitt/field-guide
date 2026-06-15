@@ -40,9 +40,9 @@ type RosterRow = {
 };
 type PerYearRow = { kind: 'FINANCE' | 'NOMINATIONS' | 'SCHEDULE'; year: number; source?: string | null; data: unknown };
 type ActionRow = {
-  year: number; slug: string; order?: number; number?: string | null; title: string;
-  agencySlug?: string | null; category?: string | null; summary: string; contentMd?: string;
-  bodRefs?: string[]; source?: string | null;
+  year: number; slug: string; order?: number; number?: string | null; title: string; titleEs?: string | null;
+  agencySlug?: string | null; category?: string | null; summary: string; summaryEs?: string | null;
+  contentMd?: string; contentMdEs?: string | null; bodRefs?: string[]; source?: string | null;
 };
 type InfoRow = {
   year: number; slug: string; order?: number; number?: string | null; title: string; titleEs?: string | null;
@@ -191,8 +191,10 @@ async function main() {
   const actions = load<ActionRow[]>('actions');
   for (const a of actions) {
     const data = {
-      order: a.order ?? 0, number: a.number ?? null, title: a.title, agencySlug: a.agencySlug ?? null,
-      category: a.category ?? null, summary: a.summary, contentMd: a.contentMd ?? '',
+      order: a.order ?? 0, number: a.number ?? null, title: a.title, titleEs: a.titleEs ?? null,
+      agencySlug: a.agencySlug ?? null, category: a.category ?? null,
+      summary: a.summary, summaryEs: a.summaryEs ?? null,
+      contentMd: a.contentMd ?? '', contentMdEs: a.contentMdEs ?? null,
       bodRefs: a.bodRefs ?? [], source: a.source ?? null,
     };
     await prisma.actionItem.upsert({
