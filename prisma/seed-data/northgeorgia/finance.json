@@ -12,12 +12,15 @@
   {
     "kind": "FINANCE",
     "year": 2024,
-    "source": "2026 CFA Addendum — 12/31/2024 audited net assets; collection rate from CFA report",
+    "source": "2025 NGC Journal (CFA report) + 2026 CFA Addendum — 2024 budget $14,733,936, 92.8% collected; net assets 12/31/2024 audited",
     "data": {
       "data_year": 2024,
+      "apportionment_rev": 13673093,
+      "apportionment_ask": 14733936,
       "collection_rate": 92.8,
       "net_assets_eoy": 150660233,
-      "source": "audit-2024"
+      "source": "journal-2025 + audit-2024",
+      "note": "Apportionment received derived from CFA's stated 92.8% collection of the $14,733,936 approved budget (CFA's highest collections rate)."
     }
   },
   {
