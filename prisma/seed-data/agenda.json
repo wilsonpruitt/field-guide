@@ -1,0 +1,48 @@
+[
+  {
+    "slug": "finance",
+    "title": "Finance Table Report",
+    "order": 30,
+    "summary": "The budget and the money votes — apportionments, minimum pay, district-superintendent support, and how the whole system works.",
+    "contentMd": "This is the evergreen explainer. The specific dollar figures for any given year are a\n*per-year instance* rendered from the Pre-Conference Report and the Atlas, not baked\ninto this page (that's the fix for \"the PDF goes stale and we rewrite it every year\").\n\n## A little vocabulary\n\n- **Apportionment** — each church's requested share of the ministry we do together. A\n  portion asked, not a bill.\n- **Finance Table (CF&A)** — the body that builds the budget and sets apportionments.\n- **Connectional giving** — the idea that no one church does ministry alone.\n- **For Conference Action** — the body votes on it. **For Information Only** — it does not,\n  but you may still ask about it.\n\n## The five reports\n\n1. **Emergency authority** — permission to move money from reserves for unexpected needs.\n2. **District Superintendent support** — DS salary, benefits, and housing.\n3. **Minimum pastoral pay** — the salary floor for clergy, by category.\n4. **The budget** — the apportioned funds for the year. The heart of the vote.\n5. **How it all works** — the formula, the reserve policy, and approved special offerings.\n\n## How your church's share is calculated\n\nNot by membership or attendance — by **spending**. A church's share is figured from a\ntwo-year average of its operating expenses, divided by the conference-wide total, then\napplied to each fund. The more a church spends to operate, the larger its share.\n\n## District funding\n\nThis is the part most likely to shift year to year, and the part worth watching: how the\ndistricts are funded has been restructured (older per-district lines folded into a single\nconference-wide district line). When a fund reads −100% and a new fund appears, that's\nusually a *restructuring*, not a cut — but it's exactly the kind of change a thoughtful\ndelegate should ask about, and exactly the kind of institutional detail that lives in\npeople's heads rather than the document.\n\n## The honest picture\n\nApportionments are asked, not guaranteed. The conference receives less than the full\napportioned amount each year and plans around that reality — paying fixed costs like\nsalaries first and holding a reserve. What share actually comes in (the *collection\nrate*) is a per-year figure, shown below.\n",
+    "votesOn": "ACTION",
+    "bodySlug": "finance-table",
+    "bodRefs": [
+      "¶¶611-627"
+    ],
+    "rulesRefs": [],
+    "perYear": "FINANCE"
+  },
+  {
+    "slug": "nominations",
+    "title": "Committee on Nominations",
+    "order": 20,
+    "summary": "How the conference fills its elected leadership — and where nominations from the floor fit in.",
+    "contentMd": "## What it is\n\nThe Committee on Nominations proposes the people who fill elected positions across\nthe conference's boards, commissions, and vision teams. The Discipline asks it to\nwork toward inclusiveness — clergywomen, youth and young adults, older adults, small\nchurches, people with disabilities, and racial and ethnic persons — and to balance\nrepresentation across districts.\n\n## How it works at conference\n\nThe committee brings a **preliminary report** early, which includes the process for\n**nominations from the floor**, and a **final report** acted on later in the session\n(Rule 25). If you want to nominate someone, the preliminary report is the moment to\nlearn how.\n",
+    "votesOn": "ACTION",
+    "bodySlug": "nominations",
+    "bodRefs": [
+      "¶610.5"
+    ],
+    "rulesRefs": [
+      "25"
+    ],
+    "perYear": "NOMINATIONS"
+  },
+  {
+    "slug": "standing-rules",
+    "title": "Committee on Standing Rules",
+    "order": 10,
+    "summary": "The conference's own operating manual — and the first real vote of the session, where the bar is set.",
+    "contentMd": "## What it is\n\nThe Standing Rules are the conference's own operating manual. They sit *below* the\nBook of Discipline but *above* Robert's Rules: where the Discipline is silent, the\nStanding Rules decide how we organize leadership, who may bring business, and how\nthe session runs. The Committee on Standing Rules maintains them and reports during\nthe first business session each year.\n\n## \"Setting the bar\"\n\nEarly on, the conference secretary establishes the *bar* — who is seated as a voting\nmember and where. It sounds procedural, but it's the moment the body defines itself\nfor the session. Watch for it.\n\n## How a rule changes\n\nA revision needs a **two-thirds vote** and takes effect immediately unless the\nenabling motion says otherwise (Rule 24). The rules can also be **suspended** for\na single purpose by a two-thirds vote.\n\n## What's up this year\n\n<!-- per-year instance: pulled from the current Pre-Conference Report. See HANDOFF. -->\n",
+    "votesOn": "BOTH",
+    "bodySlug": "standing-rules",
+    "bodRefs": [
+      "¶604.1"
+    ],
+    "rulesRefs": [
+      "24"
+    ],
+    "perYear": null
+  }
+]

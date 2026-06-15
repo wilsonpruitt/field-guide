@@ -1,0 +1,73 @@
+[
+  {
+    "kind": "NOMINATIONS",
+    "year": 2026,
+    "source": "RTC Committee on Nominations Report to AC 2026 (FINAL 06.05.2026 + Addendum)",
+    "data": {
+      "election": {
+        "total_to_elect": 14,
+        "slate_presented": "Friday, June 19 (morning)",
+        "substitution_deadline": "5:00 p.m. Friday, June 19",
+        "ratification": "Saturday, June 20 (morning)",
+        "note": "Delegates may submit substitute nominations using the provided form by the deadline. The slate, including any from-the-floor substitutions, is presented for finalization and ratification on Saturday. All nominees have affirmed their willingness to serve if elected."
+      },
+      "diversity_scan": {
+        "note": "Conference-wide pre-election scan across all boards; proposed 2026 nominees are not included.",
+        "status": [
+          [
+            "Clergy",
+            "124 / 235",
+            "53%"
+          ],
+          [
+            "Lay",
+            "111 / 235",
+            "47%"
+          ]
+        ],
+        "gender": [
+          [
+            "Male",
+            "101 / 231",
+            "44%"
+          ],
+          [
+            "Female",
+            "130 / 231",
+            "56%"
+          ]
+        ],
+        "district": [
+          [
+            "North",
+            "75 / 220",
+            "34%"
+          ],
+          [
+            "Central",
+            "109 / 220",
+            "50%"
+          ],
+          [
+            "South",
+            "36 / 220",
+            "16%"
+          ]
+        ],
+        "race": [
+          [
+            "White",
+            "126 / 235",
+            "54%"
+          ],
+          [
+            "Black, Indigenous & People of Color (BIPOC)",
+            "108 / 235",
+            "46%"
+          ]
+        ]
+      },
+      "as_of": "2026-06-08"
+    }
+  }
+]

@@ -1,0 +1,450 @@
+[
+  {
+    "slug": "administrative-review",
+    "name": "Administrative Review Committee",
+    "alsoKnownAs": null,
+    "type": "REVIEW_COMMITTEE",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶635"
+    ],
+    "membershipSize": 3,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Clergy Session of the Annual Conference",
+    "summary": "Reviews the fairness of certain clergy processes. Three members and two alternates, nominated by the Bishop and elected by the clergy session."
+  },
+  {
+    "slug": "agenda-and-worship",
+    "name": "Agenda and Worship Committee",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶605.2"
+    ],
+    "membershipSize": null,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Sets the agenda and plans worship. Composed largely of ex-officio members (bishop, superintendents, officers) plus a Worship Team Coordinator."
+  },
+  {
+    "slug": "archives-and-history",
+    "name": "Commission on Archives and History",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶641"
+    ],
+    "membershipSize": 8,
+    "relatesTo": [
+      "General Commission on Archives and History"
+    ],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Preserves the records and history of the conference and its predecessor conferences."
+  },
+  {
+    "slug": "board-of-pensions",
+    "name": "Board of Pensions (and Health Benefits)",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶638"
+    ],
+    "membershipSize": 16,
+    "relatesTo": [
+      "General Board of Pensions and Health Benefits (Wespath)"
+    ],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Administers clergy pensions and health benefits. Sixteen members on eight-year staggered terms; also directors of the conference Pensions corporation."
+  },
+  {
+    "slug": "board-of-trustees",
+    "name": "Board of Trustees",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶2512"
+    ],
+    "membershipSize": 12,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Holds and manages conference property. Twelve members in four classes of three; also directors of the conference Trustees corporation."
+  },
+  {
+    "slug": "committee-on-the-episcopacy",
+    "name": "Committee on the Episcopacy",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶636"
+    ],
+    "membershipSize": 12,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Supports the bishop and the work of the episcopal office."
+  },
+  {
+    "slug": "developing-leaders",
+    "name": "Developing Leaders Vision Team",
+    "alsoKnownAs": null,
+    "type": "VISION_TEAM",
+    "parentSlug": "uniting-table",
+    "bodRefs": [],
+    "membershipSize": null,
+    "relatesTo": [
+      "General Board of Higher Education and Ministry",
+      "General Board of Discipleship"
+    ],
+    "alsoFulfills": null,
+    "subBodies": [
+      {
+        "name": "Board of Higher Education and Campus Ministry",
+        "bodRefs": [
+          "¶633"
+        ]
+      },
+      {
+        "name": "Board of Ordained Ministry",
+        "bodRefs": [
+          "¶634"
+        ],
+        "note": "Nominated by the Bishop, elected by the Annual Conference. Reports directly to the conference. Candidate for its own page."
+      },
+      {
+        "name": "Lay Leadership Team (Board of Laity)",
+        "bodRefs": [
+          "¶630"
+        ]
+      }
+    ],
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Calls and equips lay and clergy leaders for the mission field, especially younger leaders."
+  },
+  {
+    "slug": "episcopal-residence",
+    "name": "Episcopal Residence Committee",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶637"
+    ],
+    "membershipSize": 6,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Oversees the episcopal residence."
+  },
+  {
+    "slug": "finance-table",
+    "name": "Finance Table",
+    "alsoKnownAs": "Council on Finance and Administration (CF&A)",
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶¶611-627"
+    ],
+    "membershipSize": 16,
+    "relatesTo": [
+      "General Council on Finance and Administration"
+    ],
+    "alsoFulfills": [
+      {
+        "name": "Commission on Equitable Compensation",
+        "bodRefs": [
+          "¶625"
+        ]
+      }
+    ],
+    "subBodies": [
+      {
+        "name": "Personnel Committee",
+        "bodRefs": [
+          "¶613.13"
+        ],
+        "membershipSize": 4,
+        "note": "Plus a Finance Table representative and a district superintendent."
+      }
+    ],
+    "votesOn": "ACTION",
+    "agendaOrder": 30,
+    "accountableTo": "Annual Conference",
+    "summary": "Builds the conference budget, sets apportionments, and manages conference money. Also serves as the Commission on Equitable Compensation."
+  },
+  {
+    "slug": "nominations",
+    "name": "Committee on Nominations",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶610.5"
+    ],
+    "membershipSize": null,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": "ACTION",
+    "agendaOrder": 20,
+    "accountableTo": "Annual Conference",
+    "summary": "Identifies nominees for elected leadership positions and works toward inclusiveness and district balance. Six at-large members plus ex-officio."
+  },
+  {
+    "slug": "standing-rules",
+    "name": "Committee on Standing Rules",
+    "alsoKnownAs": null,
+    "type": "ADMINISTRATIVE_AGENCY",
+    "parentSlug": null,
+    "bodRefs": [
+      "¶604.1"
+    ],
+    "membershipSize": 6,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": "BOTH",
+    "agendaOrder": 10,
+    "accountableTo": "Annual Conference",
+    "summary": "Oversees the rules of the Annual Conference and reports during the first business session each year."
+  },
+  {
+    "slug": "transforming-communities",
+    "name": "Transforming Communities Vision Team",
+    "alsoKnownAs": null,
+    "type": "VISION_TEAM",
+    "parentSlug": "uniting-table",
+    "bodRefs": [],
+    "membershipSize": null,
+    "relatesTo": [
+      "General Board of Church and Society",
+      "General Board of Global Ministries"
+    ],
+    "alsoFulfills": null,
+    "subBodies": [
+      {
+        "name": "Board of Church and Society",
+        "bodRefs": [
+          "¶628"
+        ],
+        "note": "Names the Peace with Justice Coordinator and the Caretaker of God's Creation Coordinator."
+      },
+      {
+        "name": "Board of Global Ministries",
+        "bodRefs": [
+          "¶632"
+        ]
+      },
+      {
+        "name": "Committee on Native American Ministries",
+        "bodRefs": [
+          "¶654"
+        ]
+      },
+      {
+        "name": "Committee on The Advance",
+        "bodRefs": [
+          "¶823"
+        ]
+      },
+      {
+        "name": "Committee on Criminal Justice and Mercy Ministries",
+        "bodRefs": [
+          "¶657"
+        ]
+      }
+    ],
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Equips and supports congregations around mission, The Advance, ethnic concerns, and justice issues. Includes the Peace with Justice and Caretaker of God's Creation coordinators."
+  },
+  {
+    "slug": "uniting-peoples",
+    "name": "Uniting Peoples Vision Team",
+    "alsoKnownAs": null,
+    "type": "VISION_TEAM",
+    "parentSlug": "uniting-table",
+    "bodRefs": [],
+    "membershipSize": null,
+    "relatesTo": [
+      "Council of Bishops",
+      "General Commission on Religion and Race",
+      "General Commission on the Status and Role of Women"
+    ],
+    "alsoFulfills": null,
+    "subBodies": [
+      {
+        "name": "Commission on Christian Unity and Interreligious Relationships",
+        "bodRefs": [
+          "¶642"
+        ]
+      },
+      {
+        "name": "Commission on Religion and Race",
+        "bodRefs": [
+          "¶643"
+        ]
+      },
+      {
+        "name": "Commission on the Status and Role of Women",
+        "bodRefs": [
+          "¶644"
+        ],
+        "note": "Chair is a woman; a majority of members are women."
+      },
+      {
+        "name": "Commission on Communications",
+        "bodRefs": [
+          "¶646"
+        ]
+      },
+      {
+        "name": "Committee on Disability Concerns",
+        "bodRefs": [
+          "¶653"
+        ]
+      }
+    ],
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Facilitates unity, witness, communication, justice, and intercultural competency across conference life."
+  },
+  {
+    "slug": "uniting-table",
+    "name": "Uniting Table",
+    "alsoKnownAs": null,
+    "type": "UNITING_TABLE",
+    "parentSlug": null,
+    "bodRefs": [],
+    "membershipSize": null,
+    "relatesTo": [],
+    "alsoFulfills": null,
+    "subBodies": null,
+    "votesOn": "BOTH",
+    "agendaOrder": 5,
+    "accountableTo": "Annual Conference",
+    "summary": "Coordinates the mission and ministry of the conference through the four Vision Teams. Fulfills all Book of Discipline references to a conference council on ministries. Includes seven at-large members and a Mission Field Advocate."
+  },
+  {
+    "slug": "vitalizing-congregations",
+    "name": "Vitalizing Congregations Vision Team",
+    "alsoKnownAs": null,
+    "type": "VISION_TEAM",
+    "parentSlug": "uniting-table",
+    "bodRefs": [],
+    "membershipSize": null,
+    "relatesTo": [
+      "General Board of Discipleship",
+      "General Board of Global Ministries"
+    ],
+    "alsoFulfills": null,
+    "subBodies": [
+      {
+        "name": "Board of Discipleship",
+        "bodRefs": [
+          "¶629"
+        ]
+      },
+      {
+        "name": "Committee on Congregational Development and Revitalization",
+        "bodRefs": [
+          "¶632.5e"
+        ]
+      },
+      {
+        "name": "Committee on Ethnic Local Church Concerns",
+        "bodRefs": [
+          "¶631"
+        ]
+      },
+      {
+        "name": "Committee on Parish and Community Development",
+        "bodRefs": [
+          "¶632.5"
+        ]
+      },
+      {
+        "name": "Commission on the Small Membership Church",
+        "bodRefs": [
+          "¶645",
+          "¶632.5i"
+        ]
+      },
+      {
+        "name": "Committee on New Church Development",
+        "bodRefs": [
+          "¶633.5e-h",
+          "¶630.3"
+        ]
+      },
+      {
+        "name": "Council on Children's Ministries",
+        "note": "Plans, visions, and advocates for children within the conference."
+      },
+      {
+        "name": "Council on Older Adult Ministries",
+        "bodRefs": [
+          "¶651.3a-j"
+        ]
+      },
+      {
+        "name": "Committee on Hispanic/Latino Ministries",
+        "bodRefs": [
+          "¶655"
+        ],
+        "note": "At least one-third of members are Hispanic/Latino persons."
+      },
+      {
+        "name": "Youth Ministries Council",
+        "bodRefs": [
+          "¶649"
+        ],
+        "note": "3–5 youth per district; no more than one-third adults."
+      },
+      {
+        "name": "Young Adult Ministry Council",
+        "bodRefs": [
+          "¶650"
+        ]
+      }
+    ],
+    "votesOn": null,
+    "agendaOrder": null,
+    "accountableTo": "Annual Conference",
+    "summary": "Develops and deploys resources for the mission of the local church and the restoring of congregational vitality."
+  }
+]

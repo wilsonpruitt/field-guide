@@ -1,0 +1,48 @@
+[
+  {
+    "slug": "consent-agenda",
+    "title": "Consent agendas",
+    "order": 30,
+    "summary": "How routine reports move quickly — and how to pull an item out for real debate.",
+    "contentMd": "To save floor time, two consent agendas bundle items expected to be uncontroversial\n(Rule 23):\n\n- **Consent Agenda 1** — information-only reports. The conference simply receives them.\n- **Consent Agenda 2** — action items believed to have little or no dissent.\n\nAny member may move to **remove** an item, with a second and a one-minute explanation. If\n**20%** of members vote to remove it, it comes to the floor as a normal, debatable item.\nPulling something out is ordinary and expected — not an act of hostility.\n",
+    "bodRefs": [],
+    "rulesRefs": [
+      "23"
+    ]
+  },
+  {
+    "slug": "membership",
+    "title": "Who's a member of Annual Conference",
+    "order": 40,
+    "summary": "Lay and clergy membership, and why the conference works to equalize the two.",
+    "contentMd": "Annual Conference is composed of **clergy members** and an **equal number of lay members**\n(Rule 15). Each charge elects a lay member, with additional lay members for additional\nclergy, plus a long roster of officers and youth/young-adult representatives.\n\nBecause lay and clergy totals must balance, the conference assigns **additional lay\nmembers** to districts by membership to equalize the two — and at least 10% of those\nadditional members must be age 30 or under. The conference also provides English and\nSpanish editions of official materials and translation during sessions (Rule 18).\n",
+    "bodRefs": [],
+    "rulesRefs": [
+      "15"
+    ]
+  },
+  {
+    "slug": "motions",
+    "title": "Making a motion",
+    "order": 20,
+    "summary": "What to say when you want to speak, change, pause, or object — and whether it needs a second, is debatable, or takes two-thirds.",
+    "contentMd": "The scariest moment for a new delegate is wanting to *do* something and not knowing how.\nConference business runs on a small set of motions, each with its own rules: does it need\na **second**, is it **debatable**, can it be **amended**, and what **vote** carries it.\n\nThe data for an interactive \"what do you want to do?\" helper lives in\n`src/data/motions.yaml` (loaded as the `motions` collection). Building the helper UI is a\nPhase-1 TODO — see HANDOFF.\n\nOrder of precedence matters: when one motion is pending, those that outrank it are in\norder and those below it are not. Speeches are limited to three minutes (Rule 22), and the\norder of authority is the Book of Discipline, then the Standing Rules, then special rules,\nthen Robert's Rules (Rule 19).\n",
+    "bodRefs": [],
+    "rulesRefs": [
+      "19",
+      "22"
+    ]
+  },
+  {
+    "slug": "resolutions",
+    "title": "Resolutions & proposals",
+    "order": 10,
+    "summary": "How an idea becomes business the conference votes on — who may submit, the deadlines, and the new agency vs. non-agency path.",
+    "contentMd": "## The path\n\nMost business reaches the floor as a **resolution** or **proposal**. The default path\nand its deadlines (Rule 16), counting back from the start of Annual Conference:\n\n- **120 days** — resolutions and proposals are due to the office of the Assistant to the Bishop.\n- **105 days** — the Uniting Table must have acted on every resolution forwarded to it; the\n  Finance Committee / Chancellor may suggest changes to the author.\n- **90 days** — any amended final draft is due.\n- **30 days** — the compiled **Pre-Conference Report** is published to all members.\n\nEach item is marked **For Conference Action** or **For Information Only**.\n\n## Agency vs. non-agency (new this year)\n\nA recent amendment distinguishes who is submitting:\n\n- **Conference agencies** — the Uniting Table, the four Vision Teams, and the\n  Administrative Agencies — may submit **directly**, without a required Uniting Table\n  recommendation (they may still ask for one).\n- **Everyone else** — individuals, local churches, districts — is forwarded to the\n  **Uniting Table for recommendation**, which now must act on every item by the 105-day\n  deadline, calling a special (even electronic) meeting if needed.\n\n## Late and floor business\n\nItems missing the deadline may still be heard under conditions (Rule 17): turned in at\nleast 60 days out with the bishop finding good cause, reviewed appropriately, and printed\nin an addendum. Otherwise a **two-thirds suspension of the rules** is required, and motions\nfrom the floor must be submitted in writing to the chair and secretary when made.\n",
+    "bodRefs": [],
+    "rulesRefs": [
+      "16",
+      "17"
+    ]
+  }
+]
