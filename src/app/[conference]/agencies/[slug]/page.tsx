@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getConference, getBodParas, votesLabel } from "@/lib/conference";
 import { pick } from "@/lib/lang";
-import { getLang } from "@/lib/lang-server";
+import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import BoardRoster, { type RosterData } from "@/components/BoardRoster";
@@ -24,7 +24,7 @@ export default async function AgencyDetail({
   params: Promise<{ conference: string; slug: string }>;
 }) {
   const { conference, slug } = await params;
-  const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
+  const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
 
   const body = await prisma.body.findUnique({
     where: { conferenceId_slug: { conferenceId: conf.id, slug } },

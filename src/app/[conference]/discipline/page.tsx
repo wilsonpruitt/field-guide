@@ -1,6 +1,6 @@
 import { getConference } from "@/lib/conference";
 import { pick } from "@/lib/lang";
-import { getLang } from "@/lib/lang-server";
+import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 
 // The Book of Discipline glossary, in full. Paragraph references across the
@@ -15,7 +15,7 @@ export default async function DisciplinePage({
   params: Promise<{ conference: string }>;
 }) {
   const { conference } = await params;
-  const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
+  const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
   const paras = await prisma.bodParagraph.findMany({ orderBy: { number: "asc" } });
   const edition = paras[0]?.edition ?? "2020/2024";
 

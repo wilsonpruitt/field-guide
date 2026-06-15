@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getConference, atlasFor } from "@/lib/conference";
+import { getConference, atlasFor, isBilingual } from "@/lib/conference";
 import { getViewer } from "@/lib/community";
 import { TL } from "@/lib/moderation";
 import { pick } from "@/lib/lang";
-import { getLang } from "@/lib/lang-server";
+import { langFor } from "@/lib/lang-server";
 import LangToggle from "@/components/LangToggle";
 
 export default async function ConferenceLayout({
@@ -16,7 +16,7 @@ export default async function ConferenceLayout({
   const { conference } = await params;
   const conf = await getConference(conference);
   const base = `/${conf.slug}`;
-  const [viewer, lang] = await Promise.all([getViewer(conf.id), getLang()]);
+  const [viewer, lang] = await Promise.all([getViewer(conf.id), langFor(conference)]);
   const isModerator = (viewer?.trustLevel ?? 0) >= TL.EDITOR;
   const atlas = atlasFor(conf.slug);
 
@@ -41,7 +41,7 @@ export default async function ConferenceLayout({
             </Link>
           )}
         </nav>
-        <LangToggle lang={lang} />
+        {isBilingual(conf.slug) && <LangToggle lang={lang} />}
       </header>
       <main className="fg-main">{children}</main>
       <footer className="fg-site">

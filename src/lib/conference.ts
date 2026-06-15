@@ -25,6 +25,12 @@ const ATLAS_URL: Record<string, string> = {
 /** Base Atlas URL for a conference, or undefined if it has no Atlas yet. */
 export const atlasFor = (slug: string): string | undefined => ATLAS_URL[slug];
 
+/** Conferences whose content is published in English and Spanish. English-only
+ *  conferences hide the language toggle and always render in English (so a
+ *  stray `es` cookie from a bilingual conference can't leak Spanish chrome). */
+const BILINGUAL = new Set<string>(["riotexas"]);
+export const isBilingual = (slug: string): boolean => BILINGUAL.has(slug);
+
 export const votesLabel = (v?: string | null) =>
   v === "INFORMATION" ? "For Information Only"
   : v === "ACTION" ? "For Conference Action"

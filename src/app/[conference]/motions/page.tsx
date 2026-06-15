@@ -1,6 +1,6 @@
 import { getConference } from "@/lib/conference";
 import { pick } from "@/lib/lang";
-import { getLang } from "@/lib/lang-server";
+import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import MotionsHelper, { type MotionData } from "@/components/MotionsHelper";
 
@@ -12,7 +12,7 @@ export default async function MotionsPage({
   params: Promise<{ conference: string }>;
 }) {
   const { conference } = await params;
-  const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
+  const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
   const motions = await prisma.motion.findMany({ where: { conferenceId: conf.id } });
 
   return (

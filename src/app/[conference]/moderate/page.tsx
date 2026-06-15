@@ -3,7 +3,7 @@ import { getConference } from "@/lib/conference";
 import { getViewer } from "@/lib/community";
 import { TL, pendingQueue, pendingEdits, flaggedPublished, conferenceMembers } from "@/lib/moderation";
 import { pick, type Lang } from "@/lib/lang";
-import { getLang } from "@/lib/lang-server";
+import { langFor } from "@/lib/lang-server";
 import { PendingItem, FlaggedItem, EditItem, MemberRow } from "./ModerationControls";
 import { pathFor } from "@/lib/paths";
 
@@ -30,7 +30,7 @@ export default async function ModeratePage({
   const { conference } = await params;
   const conf = await getConference(conference);
   const viewer = await getViewer(conf.id);
-  const lang = await getLang();
+  const lang = await langFor(conference);
 
   if (!viewer || viewer.trustLevel < TL.EDITOR) {
     return (

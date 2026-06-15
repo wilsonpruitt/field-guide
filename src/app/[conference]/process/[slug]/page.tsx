@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas } from "@/lib/conference";
 import { pick } from "@/lib/lang";
-import { getLang } from "@/lib/lang-server";
+import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
 import Community from "@/components/Community";
@@ -16,7 +16,7 @@ export default async function ProcessDetail({
   params: Promise<{ conference: string; slug: string }>;
 }) {
   const { conference, slug } = await params;
-  const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
+  const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
 
   const page = await prisma.processPage.findUnique({
     where: { conferenceId_slug: { conferenceId: conf.id, slug } },
