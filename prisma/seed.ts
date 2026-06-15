@@ -58,15 +58,18 @@ async function main() {
   console.log(`✓ Conference: ${conf.name} (/${conf.slug})`);
 
   // ── Book of Discipline glossary (denomination-wide, shared) ──
+  // Short `excerpt` powers hover popovers; `fullText` (from the BoD PDF, keyed
+  // by ¶ number) powers the full-paragraph reference page.
   const bod = load<BodRow[]>('bod');
+  const fullText = load<Record<string, string>>('bod-fulltext');
   for (const p of bod) {
-    await prisma.bodParagraph.upsert({
-      where: { number: p.number },
-      update: { title: p.title ?? null, excerpt: p.excerpt, source: p.source, edition: p.edition ?? '2020/2024' },
-      create: { number: p.number, title: p.title ?? null, excerpt: p.excerpt, source: p.source, edition: p.edition ?? '2020/2024' },
-    });
+    const data = {
+      title: p.title ?? null, excerpt: p.excerpt, fullText: fullText[String(p.number)] ?? null,
+      source: p.source, edition: p.edition ?? '2020/2024',
+    };
+    await prisma.bodParagraph.upsert({ where: { number: p.number }, update: data, create: { number: p.number, ...data } });
   }
-  console.log(`✓ BoD paragraphs: ${bod.length}`);
+  console.log(`✓ BoD paragraphs: ${bod.length} (${Object.keys(fullText).length} with full text)`);
 
   // ── Bodies (two passes: create, then wire parents by slug) ──
   const agencies = load<BodyRow[]>('agencies');

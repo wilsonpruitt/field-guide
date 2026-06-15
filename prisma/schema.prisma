@@ -209,11 +209,12 @@ enum BodSource {
 }
 
 model BodParagraph {
-  number  Int       @id        // ¶ number
-  title   String?
-  excerpt String
-  source  BodSource
-  edition String    @default("2020/2024")
+  number   Int       @id        // ¶ number
+  title    String?
+  excerpt  String               // short snippet for hover popovers
+  fullText String?              // complete paragraph text (from the BoD PDF), for the reference page
+  source   BodSource
+  edition  String    @default("2020/2024")
 }
 
 // ──────────────────── Community (per conference) ────────────────────

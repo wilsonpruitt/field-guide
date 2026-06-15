@@ -31,7 +31,7 @@ export default async function DisciplinePage({
               ¶{p.number}
               {p.title ? ` · ${p.title}` : ""}
             </p>
-            <p className="bod-text">{p.excerpt}</p>
+            <p className="bod-text">{p.fullText ?? p.excerpt}</p>
             <p className="bod-src">
               The Book of Discipline {p.edition}, ¶{p.number}
               {p.source === "PLENARY" ? " · via Plenary" : " · scanned supplement"}
