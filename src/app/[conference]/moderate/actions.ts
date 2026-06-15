@@ -4,9 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getViewer } from "@/lib/community";
 import { TL, reviewContributionOp, setTrustLevelOp, resolveFlagsOp, applyEditOp } from "@/lib/moderation";
-import type { TargetType } from "@prisma/client";
-
-const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
+import { pathFor } from "@/lib/paths";
 
 type Result = { ok: boolean; error?: string };
 
@@ -36,7 +34,7 @@ export async function reviewContribution(
 
   revalidatePath(`/${conferenceSlug}/moderate`);
   if (res.status === "PUBLISHED" && target) {
-    revalidatePath(`/${conferenceSlug}/${SECTION[target.targetType]}/${target.targetRef.split("#")[0]}`);
+    revalidatePath(pathFor(conferenceSlug, target.targetType, target.targetRef));
   }
   return { ok: true };
 }
@@ -57,7 +55,7 @@ export async function resolveFlags(
   if (!res.ok) return res;
 
   revalidatePath(`/${conferenceSlug}/moderate`);
-  if (target) revalidatePath(`/${conferenceSlug}/${SECTION[target.targetType]}/${target.targetRef.split("#")[0]}`);
+  if (target) revalidatePath(pathFor(conferenceSlug, target.targetType, target.targetRef));
   return { ok: true };
 }
 
@@ -86,7 +84,7 @@ export async function reviewEdit(
 
   revalidatePath(`/${conferenceSlug}/moderate`);
   if (decision === "APPLY" && target) {
-    revalidatePath(`/${conferenceSlug}/${SECTION[target.targetType]}/${target.targetRef.split("#")[0]}`);
+    revalidatePath(pathFor(conferenceSlug, target.targetType, target.targetRef));
   }
   return { ok: true };
 }

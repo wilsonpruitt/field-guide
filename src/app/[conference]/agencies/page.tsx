@@ -12,6 +12,8 @@ const GROUPS: [string, string, string][] = [
   ["REVIEW_COMMITTEE", "Review", "Revisión"],
 ];
 
+import Community from "@/components/Community";
+
 export default async function AgenciesIndex({
   params,
 }: {
@@ -44,6 +46,7 @@ export default async function AgenciesIndex({
           </section>
         ) : null;
       })}
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="agencies" />
     </>
   );
 }

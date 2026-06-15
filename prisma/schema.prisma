@@ -330,6 +330,7 @@ enum TargetType {
   PROCESS
   ACTION
   INFO
+  PAGE // a whole page that isn't a single spine element (hub, index/list pages)
 }
 
 enum ContributionStatus {

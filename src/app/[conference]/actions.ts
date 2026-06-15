@@ -5,15 +5,14 @@ import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { getViewer, endorseOp, flagOp } from "@/lib/community";
 import { EDITABLE } from "@/lib/moderation";
+import { pathFor } from "@/lib/paths";
 import type { ContributionType, TargetType, PerspectiveStance } from "@prisma/client";
 
 export type SubmitResult = { ok: boolean; status?: "PUBLISHED" | "PENDING"; error?: string };
 
-const TARGET_TYPES = ["BODY", "AGENDA", "PROCESS"] as const;
+const TARGET_TYPES = ["BODY", "AGENDA", "PROCESS", "ACTION", "INFO", "PAGE"] as const;
 const TYPES = ["QUESTION", "COMMENT", "PERSPECTIVE", "ANSWER"] as const;
 const STANCES = ["IN_FAVOR", "CONCERN", "CLARIFICATION", "ALTERNATIVE"] as const;
-
-const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
 
 // Public submission of a question / note / perspective / answer against a spine
 // element. Anonymous is allowed (always queued). Signed-in TL2+ auto-publishes;
@@ -103,10 +102,7 @@ export async function submitContribution(
     },
   });
 
-  if (status === "PUBLISHED") {
-    const base = targetRef.split("#")[0];
-    revalidatePath(`/${conferenceSlug}/${SECTION[targetType]}/${base}`);
-  }
+  if (status === "PUBLISHED") revalidatePath(pathFor(conferenceSlug, targetType, targetRef));
   return { ok: true, status };
 }
 
@@ -120,7 +116,7 @@ async function viewerFor(conferenceSlug: string) {
 }
 
 function revalidateTarget(conferenceSlug: string, targetType: TargetType, targetRef: string) {
-  revalidatePath(`/${conferenceSlug}/${SECTION[targetType]}/${targetRef.split("#")[0]}`);
+  revalidatePath(pathFor(conferenceSlug, targetType, targetRef));
 }
 
 export async function endorseContribution(

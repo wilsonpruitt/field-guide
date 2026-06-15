@@ -10,6 +10,8 @@ const votesLabel = (lang: Lang, v?: string | null) =>
   : v === "BOTH" ? pick(lang, "Action & Information", "Acción e información")
   : "";
 
+import Community from "@/components/Community";
+
 export default async function AgendaIndex({
   params,
 }: {
@@ -42,6 +44,7 @@ export default async function AgendaIndex({
           </li>
         ))}
       </ul>
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="agenda" />
     </>
   );
 }

@@ -7,6 +7,8 @@ import { prisma } from "@/lib/prisma";
 // guide link here (e.g. .../discipline#p604). The corpus is denomination-wide
 // (shared across conferences); it renders inside the conference shell so the
 // reader keeps their place.
+import Community from "@/components/Community";
+
 export default async function DisciplinePage({
   params,
 }: {
@@ -48,6 +50,7 @@ export default async function DisciplinePage({
           </li>
         ))}
       </ul>
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="discipline" />
     </>
   );
 }

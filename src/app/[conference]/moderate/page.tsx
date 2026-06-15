@@ -5,6 +5,7 @@ import { TL, pendingQueue, pendingEdits, flaggedPublished, conferenceMembers } f
 import { pick, type Lang } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
 import { PendingItem, FlaggedItem, EditItem, MemberRow } from "./ModerationControls";
+import { pathFor } from "@/lib/paths";
 
 const fieldLabel = (lang: Lang, f: string): string =>
   ({ summary: pick(lang, "Summary", "Resumen"), contentMd: pick(lang, "Full text", "Texto completo") } as Record<string, string>)[f] ?? f ?? "text";
@@ -18,7 +19,7 @@ const trustLabel = (lang: Lang, l: number): string =>
     pick(lang, "Steward", "Custodio"),
   ][l] ?? "");
 
-const SECTION: Record<string, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
+const SECTION: Record<string, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information", PAGE: "page" };
 const fmt = (d: Date) => d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
 export default async function ModeratePage({
@@ -84,7 +85,7 @@ export default async function ModeratePage({
                 author={c.author?.displayName ?? c.authorName ?? "Anonymous"}
                 when={fmt(c.createdAt)}
                 targetLabel={`${SECTION[c.targetType]} / ${c.targetRef}`}
-                targetHref={`/${conf.slug}/${SECTION[c.targetType]}/${c.targetRef.split("#")[0]}`}
+                targetHref={pathFor(conf.slug, c.targetType, c.targetRef)}
               />
             ))}
           </ul>
@@ -110,7 +111,7 @@ export default async function ModeratePage({
                 author={e.author?.displayName ?? e.authorName ?? "Anonymous"}
                 when={fmt(e.createdAt)}
                 targetLabel={`${SECTION[e.targetType]} / ${e.targetRef}`}
-                targetHref={`/${conf.slug}/${SECTION[e.targetType]}/${e.targetRef.split("#")[0]}`}
+                targetHref={pathFor(conf.slug, e.targetType, e.targetRef)}
               />
             ))}
           </ul>
@@ -132,7 +133,7 @@ export default async function ModeratePage({
                 body={c.body}
                 author={c.author?.displayName ?? c.authorName ?? "Anonymous"}
                 reasons={c.flags.map((f) => ({ by: f.profile.displayName, reason: f.reason }))}
-                targetHref={`/${conf.slug}/${SECTION[c.targetType]}/${c.targetRef.split("#")[0]}`}
+                targetHref={pathFor(conf.slug, c.targetType, c.targetRef)}
               />
             ))}
           </ul>

@@ -3,6 +3,8 @@ import { getConference } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
 
+import Community from "@/components/Community";
+
 export default async function ConferenceHome({
   params,
 }: {
@@ -105,6 +107,7 @@ export default async function ConferenceHome({
           </li>
         ))}
       </ul>
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="home" />
     </>
   );
 }

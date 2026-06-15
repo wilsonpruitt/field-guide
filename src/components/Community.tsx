@@ -4,7 +4,7 @@ import { getLang } from "@/lib/lang-server";
 import Contribute, { AnswerForm } from "@/components/Contribute";
 import ContribActions from "@/components/ContribActions";
 
-type TargetType = "BODY" | "AGENDA" | "PROCESS" | "INFO";
+type TargetType = "BODY" | "AGENDA" | "PROCESS" | "INFO" | "PAGE";
 
 const stanceLabel = (lang: Lang, stance: string): string =>
   ({

@@ -4,6 +4,8 @@ import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import MotionsHelper, { type MotionData } from "@/components/MotionsHelper";
 
+import Community from "@/components/Community";
+
 export default async function MotionsPage({
   params,
 }: {
@@ -25,6 +27,7 @@ export default async function MotionsPage({
         )}
       </p>
       <MotionsHelper motions={motions as MotionData[]} lang={lang} />
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="motions" />
     </>
   );
 }

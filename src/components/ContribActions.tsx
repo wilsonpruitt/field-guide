@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { endorseContribution, flagContribution } from "@/app/[conference]/actions";
 import { pick, type Lang } from "@/lib/lang";
 
-type TargetType = "BODY" | "AGENDA" | "PROCESS" | "ACTION" | "INFO";
+type TargetType = "BODY" | "AGENDA" | "PROCESS" | "ACTION" | "INFO" | "PAGE";
 
 export default function ContribActions({
   conference, contributionId, targetType, targetRef, endorsements, signedIn, lang,

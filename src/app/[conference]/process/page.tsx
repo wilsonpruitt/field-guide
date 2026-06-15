@@ -4,6 +4,8 @@ import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 
+import Community from "@/components/Community";
+
 export default async function ProcessIndex({
   params,
 }: {
@@ -35,6 +37,7 @@ export default async function ProcessIndex({
           </li>
         ))}
       </ul>
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="process" />
     </>
   );
 }

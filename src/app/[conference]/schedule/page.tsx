@@ -28,6 +28,8 @@ const typeLabel = (lang: Lang): Record<string, string> => ({
   entertainment: pick(lang, "Music", "Música"),
 });
 
+import Community from "@/components/Community";
+
 export default async function SchedulePage({
   params,
 }: {
@@ -98,6 +100,7 @@ export default async function SchedulePage({
       ))}
 
       <p className="py-source" style={{ marginTop: "2rem" }}>{pick(lang, "Source", "Fuente")}: {instance.source}</p>
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="PAGE" targetRef="schedule" />
     </>
   );
 }

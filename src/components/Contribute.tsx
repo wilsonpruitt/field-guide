@@ -6,7 +6,7 @@ import { pick, type Lang } from "@/lib/lang";
 
 type Common = {
   conference: string;
-  targetType: "BODY" | "AGENDA" | "PROCESS" | "ACTION" | "INFO";
+  targetType: "BODY" | "AGENDA" | "PROCESS" | "ACTION" | "INFO" | "PAGE";
   targetRef: string;
   signedIn: boolean;
   autoPublish: boolean;
