@@ -283,6 +283,15 @@ ul.bare li:last-child { border-bottom: 0; }
 .ask-submit:disabled { opacity: .6; cursor: default; }
 .ask-status { margin: .5rem 0 0; font-size: .85rem; color: var(--fen-mist); }
 
+/* ---------- Language toggle ---------- */
+.lang-toggle { display: inline-flex; align-items: center; gap: .3rem; font-size: .82rem; }
+.lang-toggle button { font: inherit; background: none; border: 0; padding: 0 .15rem; cursor: pointer;
+  color: var(--fen-mist); }
+.lang-toggle button[aria-pressed="true"] { color: var(--fen); font-weight: 600;
+  text-decoration: underline; text-decoration-color: var(--reed); text-underline-offset: 3px; }
+.lang-toggle button:disabled { opacity: .6; cursor: default; }
+.lang-toggle span { color: var(--slate-300); }
+
 /* ---------- This year's schedule (timeline) ---------- */
 .sched-day { margin-top: 2rem; }
 .sched-day h2 { margin-bottom: .4rem; }

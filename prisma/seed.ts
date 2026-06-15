@@ -44,6 +44,11 @@ type ActionRow = {
   agencySlug?: string | null; category?: string | null; summary: string; contentMd?: string;
   bodRefs?: string[]; source?: string | null;
 };
+type InfoRow = {
+  year: number; slug: string; order?: number; number?: string | null; title: string; titleEs?: string | null;
+  agencySlug?: string | null; category?: string | null; summary: string; summaryEs?: string | null;
+  contentMd?: string; contentMdEs?: string | null; bodRefs?: string[]; source?: string | null;
+};
 type ContributionRow = {
   id: string; type: 'QUESTION' | 'ANSWER' | 'COMMENT' | 'PERSPECTIVE' | 'EDIT_PROPOSAL';
   targetType: 'BODY' | 'AGENDA' | 'PROCESS'; targetRef: string; authorName?: string | null;
@@ -196,6 +201,23 @@ async function main() {
     });
   }
   console.log(`✓ Action items: ${actions.length}`);
+
+  // ── Information reports (this year's "For Information Only" reports, bilingual) ──
+  const infos = load<InfoRow[]>('info-reports');
+  for (const r of infos) {
+    const data = {
+      order: r.order ?? 0, number: r.number ?? null, title: r.title, titleEs: r.titleEs ?? null,
+      agencySlug: r.agencySlug ?? null, category: r.category ?? null,
+      summary: r.summary, summaryEs: r.summaryEs ?? null,
+      contentMd: r.contentMd ?? '', contentMdEs: r.contentMdEs ?? null,
+      bodRefs: r.bodRefs ?? [], source: r.source ?? null,
+    };
+    await prisma.infoReport.upsert({
+      where: { conferenceId_year_slug: { conferenceId, year: r.year, slug: r.slug } },
+      update: data, create: { conferenceId, year: r.year, slug: r.slug, ...data },
+    });
+  }
+  console.log(`✓ Info reports: ${infos.length}`);
 
   // ── Seed community contributions (illustrative published notes ported from ac-guide) ──
   const contributions = load<ContributionRow[]>('contributions');

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getConference } from "@/lib/conference";
 import { getViewer } from "@/lib/community";
 import { TL } from "@/lib/moderation";
+import { getLang } from "@/lib/lang";
+import LangToggle from "@/components/LangToggle";
 
 export default async function ConferenceLayout({
   children,
@@ -13,7 +15,7 @@ export default async function ConferenceLayout({
   const { conference } = await params;
   const conf = await getConference(conference);
   const base = `/${conf.slug}`;
-  const viewer = await getViewer(conf.id);
+  const [viewer, lang] = await Promise.all([getViewer(conf.id), getLang()]);
   const isModerator = (viewer?.trustLevel ?? 0) >= TL.EDITOR;
 
   return (
@@ -25,6 +27,7 @@ export default async function ConferenceLayout({
         <nav>
           <Link href={`${base}/schedule`}>Schedule</Link>
           <Link href={`${base}/actions`}>Up for a vote</Link>
+          <Link href={`${base}/information`}>Information</Link>
           <Link href={`${base}/agenda`}>Agenda</Link>
           <Link href={`${base}/agencies`}>Agencies</Link>
           <Link href={`${base}/process`}>How it works</Link>
@@ -32,6 +35,7 @@ export default async function ConferenceLayout({
           <Link href={`${base}/discipline`}>Discipline</Link>
           {isModerator && <Link href={`${base}/moderate`}>Steward&rsquo;s desk</Link>}
         </nav>
+        <LangToggle lang={lang} />
       </header>
       <main className="fg-main">{children}</main>
       <footer className="fg-site">

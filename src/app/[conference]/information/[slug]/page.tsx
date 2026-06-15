@@ -6,9 +6,9 @@ import { getConference, getBodParas } from "@/lib/conference";
 import { getLang, pick } from "@/lib/lang";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
-import ActionPerspectives from "@/components/ActionPerspectives";
+import Community from "@/components/Community";
 
-export default async function ActionDetail({
+export default async function InfoDetail({
   params,
 }: {
   params: Promise<{ conference: string; slug: string }>;
@@ -16,7 +16,7 @@ export default async function ActionDetail({
   const { conference, slug } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), getLang()]);
 
-  const item = await prisma.actionItem.findFirst({
+  const item = await prisma.infoReport.findFirst({
     where: { conferenceId: conf.id, slug },
     orderBy: { year: "desc" },
   });
@@ -29,9 +29,14 @@ export default async function ActionDetail({
       : Promise.resolve(null),
   ]);
 
+  const es = lang === "es";
+  const content = pick(lang, item.contentMd, item.contentMdEs);
+
   return (
     <>
-      <p className="eyebrow">For conference action{item.category ? ` · ${item.category}` : ""}</p>
+      <p className="eyebrow">
+        {es ? "Solo para información" : "For information"}{item.category ? ` · ${item.category}` : ""}
+      </p>
       <h1>{pick(lang, item.title, item.titleEs)}</h1>
       {item.number && <p className="title-italic">{item.number} · {item.year}</p>}
       <p>{pick(lang, item.summary, item.summaryEs)}</p>
@@ -46,14 +51,14 @@ export default async function ActionDetail({
         </p>
       )}
 
-      {pick(lang, item.contentMd, item.contentMdEs) && (
+      {content && (
         <article>
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{pick(lang, item.contentMd, item.contentMdEs)}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
         </article>
       )}
-      {item.source && <p className="py-source">Source: {item.source}</p>}
+      {item.source && <p className="py-source">{es ? "Fuente" : "Source"}: {item.source}</p>}
 
-      <ActionPerspectives conferenceId={conf.id} conferenceSlug={conf.slug} slug={slug} />
+      <Community conferenceId={conf.id} conferenceSlug={conf.slug} targetType="INFO" targetRef={slug} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import { getViewer, publishedFor, type PublicContribution } from "@/lib/communit
 import Contribute, { AnswerForm } from "@/components/Contribute";
 import ContribActions from "@/components/ContribActions";
 
-type TargetType = "BODY" | "AGENDA" | "PROCESS";
+type TargetType = "BODY" | "AGENDA" | "PROCESS" | "INFO";
 
 const STANCE_LABEL: Record<string, string> = {
   IN_FAVOR: "In favor", CONCERN: "Concern", CLARIFICATION: "Clarification", ALTERNATIVE: "Alternative",

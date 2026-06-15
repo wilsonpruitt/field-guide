@@ -12,7 +12,7 @@ const TARGET_TYPES = ["BODY", "AGENDA", "PROCESS"] as const;
 const TYPES = ["QUESTION", "COMMENT", "PERSPECTIVE", "ANSWER"] as const;
 const STANCES = ["IN_FAVOR", "CONCERN", "CLARIFICATION", "ALTERNATIVE"] as const;
 
-const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions" };
+const SECTION: Record<TargetType, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
 
 // Public submission of a question / note / perspective / answer against a spine
 // element. Anonymous is allowed (always queued). Signed-in TL2+ auto-publishes;

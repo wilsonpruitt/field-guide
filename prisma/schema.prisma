@@ -29,6 +29,7 @@ model Conference {
   rosters       Roster[]
   perYear       PerYearInstance[]
   actionItems   ActionItem[]
+  infoReports   InfoReport[]
   memberships   ConferenceMembership[]
   contributions Contribution[]
 }
@@ -94,10 +95,40 @@ model ActionItem {
   order        Int        @default(0)
   number       String?    // the report/amendment label, e.g. "Report II"
   title        String
+  titleEs      String?    // Spanish (from the report's own translation)
   agencySlug   String?    // the Body that brings it (links to a Body in this conference)
   category     String?    // grouping label, e.g. "Finance", "Pensions", "Standing Rules"
   summary      String
+  summaryEs    String?
   contentMd    String     @default("")
+  contentMdEs  String?
+  bodRefs      String[]   @default([])
+  source       String?
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([conferenceId, year, slug])
+  @@index([conferenceId])
+}
+
+// A "For Information Only" report from the pre-conference report. Not a vote —
+// the point is to explain it plainly so it isn't lost in the volume. Questions
+// and notes (Contribution, targetType INFO) attach for "what does this mean?".
+model InfoReport {
+  id           String     @id @default(cuid())
+  conferenceId String
+  conference   Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+  year         Int
+  slug         String
+  order        Int        @default(0)
+  number       String?    // report label, e.g. "Report IV"
+  title        String
+  titleEs      String?    // Spanish (from the report's own translation)
+  agencySlug   String?    // the Body it comes from
+  category     String?    // grouping label
+  summary      String     // plain-language: what this is and why it matters
+  summaryEs    String?
+  contentMd    String     @default("")
+  contentMdEs  String?
   bodRefs      String[]   @default([])
   source       String?
   updatedAt    DateTime   @updatedAt
@@ -298,6 +329,7 @@ enum TargetType {
   AGENDA
   PROCESS
   ACTION
+  INFO
 }
 
 enum ContributionStatus {

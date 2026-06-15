@@ -13,6 +13,7 @@ export default async function ConferenceHome({
   const cards = [
     { href: `${base}/schedule`, title: "This year's schedule", blurb: "The full timeline, hour by hour — with the business and votes highlighted." },
     { href: `${base}/actions`, title: "Up for a vote", blurb: "The reports and resolutions conference is asked to approve — and where people stand." },
+    { href: `${base}/information`, title: "Reports for information", blurb: "Everything conference receives without a vote — explained plainly, in English and Spanish." },
     { href: `${base}/agenda`, title: "The agenda", blurb: "What conference will actually decide this year, item by item." },
     { href: `${base}/agencies`, title: "Agencies & teams", blurb: "Who does what — the conference's bodies, boards, and what they answer to." },
     { href: `${base}/process`, title: "How it works", blurb: "Membership, the consent agenda, resolutions, and motions from the floor." },

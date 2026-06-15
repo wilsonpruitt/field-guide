@@ -4,7 +4,7 @@ import { getViewer } from "@/lib/community";
 import { TL, pendingQueue, flaggedPublished, conferenceMembers, TRUST_LABEL } from "@/lib/moderation";
 import { PendingItem, FlaggedItem, MemberRow } from "./ModerationControls";
 
-const SECTION: Record<string, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process" };
+const SECTION: Record<string, string> = { BODY: "agencies", AGENDA: "agenda", PROCESS: "process", ACTION: "actions", INFO: "information" };
 const fmt = (d: Date) => d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
 export default async function ModeratePage({
