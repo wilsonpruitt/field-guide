@@ -1,13 +1,14 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import type { BodPara } from "@/components/BodRefs";
 
 /** Resolve a conference by its URL slug, or 404. Cached per request via React. */
-export async function getConference(slug: string) {
+export const getConference = cache(async (slug: string) => {
   const conference = await prisma.conference.findUnique({ where: { slug } });
   if (!conference) notFound();
   return conference;
-}
+});
 
 /** number → entry map for BodRefs popovers (denomination-wide, shared). */
 export async function getBodParas(): Promise<Record<string, BodPara>> {

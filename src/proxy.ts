@@ -12,7 +12,7 @@ import { APEX, isConferenceSubdomain } from "@/lib/host";
 //   guide.wrootlabs.com/<slug>/PATH       → 301 → <slug>.conferencefieldguide.org/PATH
 //
 // Routes that are not conference-scoped and must never be slug-prefixed:
-const SHARED = ["/login", "/auth", "/walkthrough", "/api"];
+const SHARED = ["/login", "/auth", "/walkthrough", "/api", "/flyers"];
 const LEGACY = "guide.wrootlabs.com";
 
 const isShared = (path: string) => SHARED.some((p) => path === p || path.startsWith(p + "/"));

@@ -6,6 +6,24 @@ import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { linkBase } from "@/lib/host";
 import LangToggle from "@/components/LangToggle";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ conference: string }>;
+}): Promise<Metadata> {
+  const { conference } = await params;
+  const conf = await getConference(conference);
+  const image = `/api/og?conf=${conf.slug}`;
+  const description = "Understand it. Ask about it. Talk it through.";
+  return {
+    title: { default: conf.name, template: `%s · ${conf.name}` },
+    description,
+    openGraph: { title: conf.name, description, siteName: "Field Guide", images: [image] },
+    twitter: { card: "summary_large_image", title: conf.name, images: [image] },
+  };
+}
 
 export default async function ConferenceLayout({
   children,
