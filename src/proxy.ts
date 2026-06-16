@@ -52,7 +52,9 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Run on everything except static assets, image optimization, and files.
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+    // Run on everything except static assets and files served from public/.
+    // NB: extensions here are NOT rewritten on subdomains — the hosted handbook
+    // PDFs (e.g. /handbook-ngc-2026.pdf) must keep serving from the root.
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|pdf|txt|xml|csv|zip|woff|woff2|ttf|otf|webmanifest|mp4|mp3)$).*)",
   ],
 };
