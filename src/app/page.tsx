@@ -55,6 +55,13 @@ export default async function Home() {
       <h1 className="mt-1 font-serif text-4xl leading-tight text-fen">
         {pick(lang, "Understand it. Ask about it. Talk it through.", "Entiéndela. Pregúntala. Conversa.")}
       </h1>
+      <p className="mt-4 text-base leading-relaxed text-ink">
+        {pick(
+          lang,
+          "Annual Conference moves fast — hundreds of pages of reports, a dense agenda, and votes that shape a whole region's ministry. Field Guide turns that into something you can actually read, question, and talk through before you walk onto the floor.",
+          "La conferencia anual avanza rápido: cientos de páginas de informes, una agenda densa y votos que dan forma al ministerio de toda una región. Field Guide convierte todo eso en algo que de verdad puedes leer, cuestionar y conversar antes de entrar al pleno.",
+        )}
+      </p>
       <p className="mt-3 text-sm">
         <Link
           href="/walkthrough"
@@ -77,6 +84,26 @@ export default async function Home() {
           </li>
         ))}
       </ul>
+
+      <section className="mt-14 border-t border-slate-100 pt-8">
+        <h2 className="font-serif text-2xl text-fen">
+          {pick(lang, "Built from the public record", "Construido a partir del registro público")}
+        </h2>
+        <p className="mt-4 text-sm leading-relaxed text-ink">
+          {pick(
+            lang,
+            "Field Guide is built entirely from the materials each conference already publishes for its members — pre-conference reports, session handbooks, the Conference Journal, and the Book of Discipline. Nothing here isn't already public. What we add is shape: plain-language summaries, a structure you can navigate, and a citation on every report that links back to the exact page of the official document, so you can always check the source yourself.",
+            "Field Guide se construye por completo a partir de los materiales que cada conferencia ya publica para sus miembros: informes preconferencia, manuales de la sesión, el Diario de la Conferencia y el Libro de Disciplina. Nada de lo que aparece aquí deja de ser público. Lo que añadimos es forma: resúmenes en lenguaje sencillo, una estructura navegable y una cita en cada informe que enlaza a la página exacta del documento oficial, para que siempre puedas comprobar la fuente.",
+          )}
+        </p>
+        <p className="mt-4 text-sm leading-relaxed text-ink">
+          {pick(
+            lang,
+            "It is a community resource, not an official one. Field Guide isn't published by any annual conference or by The United Methodist Church. It's a tool for delegates, clergy, and lay members to understand the business before them and talk it through in good faith. Questions, perspectives, and notes come from the community and are reviewed by volunteer stewards — never presented as the conference's own voice.",
+            "Es un recurso comunitario, no oficial. Field Guide no es publicado por ninguna conferencia anual ni por la Iglesia Metodista Unida. Es una herramienta para que delegados, clero y miembros laicos comprendan los asuntos ante ellos y los conversen de buena fe. Las preguntas, perspectivas y notas provienen de la comunidad y son revisadas por custodios voluntarios; nunca se presentan como la voz de la conferencia.",
+          )}
+        </p>
+      </section>
     </main>
   );
 }

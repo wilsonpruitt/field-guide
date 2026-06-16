@@ -4,7 +4,7 @@ import { getViewer } from "@/lib/community";
 import { TL } from "@/lib/moderation";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
-import { linkBase } from "@/lib/host";
+import { linkBase, fieldGuideHomeHref } from "@/lib/host";
 import LangToggle from "@/components/LangToggle";
 import type { Metadata } from "next";
 
@@ -35,6 +35,7 @@ export default async function ConferenceLayout({
   const { conference } = await params;
   const conf = await getConference(conference);
   const base = await linkBase(conf.slug);
+  const fgHome = await fieldGuideHomeHref();
   const [viewer, lang] = await Promise.all([getViewer(conf.id), langFor(conference)]);
   const isModerator = (viewer?.trustLevel ?? 0) >= TL.EDITOR;
   const atlas = atlasFor(conf.slug);
@@ -65,6 +66,7 @@ export default async function ConferenceLayout({
       <main className="fg-main">{children}</main>
       <footer className="fg-site">
         <p>
+          <a href={fgHome}>{pick(lang, "Field Guide — all conferences", "Field Guide — todas las conferencias")}</a> ·{" "}
           <Link href="/walkthrough">{pick(lang, "How this guide works", "Cómo funciona esta guía")}</Link> ·{" "}
           {conf.name} · {pick(lang, "community field guide", "guía comunitaria")} ·{" "}
           {atlas && (

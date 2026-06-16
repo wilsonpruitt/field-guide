@@ -25,6 +25,12 @@ export async function linkBase(slug: string): Promise<string> {
   return isConferenceSubdomain(host) ? "" : `/${slug}`;
 }
 
+/** Href back to the Field Guide landing — the apex from a subdomain, "/" in dev/path-mode. */
+export async function fieldGuideHomeHref(): Promise<string> {
+  const host = hostOf((await headers()).get("host"));
+  return isConferenceSubdomain(host) ? `https://${APEX}` : "/";
+}
+
 /** Absolute (or path) href to a conference home, used by the apex landing. */
 export async function conferenceHref(slug: string): Promise<string> {
   const host = hostOf((await headers()).get("host"));
