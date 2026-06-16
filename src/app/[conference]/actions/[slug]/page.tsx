@@ -6,6 +6,7 @@ import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
+import HandbookCite from "@/components/HandbookCite";
 import ActionPerspectives from "@/components/ActionPerspectives";
 import EditProposal from "@/components/EditProposal";
 import { getViewer, anchorsFor } from "@/lib/community";
@@ -55,7 +56,7 @@ export default async function ActionDetail({
       {pick(lang, item.contentMd, item.contentMdEs) && (
         <SpineContent content={pick(lang, item.contentMd, item.contentMdEs)} anchors={anchors} lang={lang} />
       )}
-      {item.source && <p className="py-source">{pick(lang, "Source", "Fuente")}: {item.source}</p>}
+      <HandbookCite source={item.source} page={item.sourcePage} handbookUrl={conf.handbookUrl} handbookLabel={conf.handbookLabel} lang={lang} />
 
       <EditProposal
         conference={conf.slug}

@@ -6,6 +6,7 @@ import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
+import HandbookCite from "@/components/HandbookCite";
 import PerYearFinance, { type FinanceRow } from "@/components/PerYearFinance";
 import NominationsSlate, { type NominationsData, type SlateBoard } from "@/components/NominationsSlate";
 import Community from "@/components/Community";
@@ -112,6 +113,10 @@ export default async function AgendaDetail({
       )}
 
       {perYear}
+
+      {item.sourcePage != null && (
+        <HandbookCite source={conf.handbookLabel} page={item.sourcePage} handbookUrl={conf.handbookUrl} handbookLabel={conf.handbookLabel} lang={lang} />
+      )}
 
       <EditProposal
         conference={conf.slug}

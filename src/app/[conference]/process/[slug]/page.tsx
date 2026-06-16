@@ -5,6 +5,7 @@ import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
+import HandbookCite from "@/components/HandbookCite";
 import Community from "@/components/Community";
 import EditProposal from "@/components/EditProposal";
 import { getViewer, anchorsFor } from "@/lib/community";
@@ -41,6 +42,10 @@ export default async function ProcessDetail({
 
       {page.contentMd && (
         <SpineContent content={page.contentMd} anchors={anchors} lang={lang} />
+      )}
+
+      {page.sourcePage != null && (
+        <HandbookCite source={conf.handbookLabel} page={page.sourcePage} handbookUrl={conf.handbookUrl} handbookLabel={conf.handbookLabel} lang={lang} />
       )}
 
       <EditProposal

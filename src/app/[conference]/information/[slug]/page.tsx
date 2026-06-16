@@ -6,6 +6,7 @@ import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
+import HandbookCite from "@/components/HandbookCite";
 import Community from "@/components/Community";
 import EditProposal from "@/components/EditProposal";
 import { getViewer, anchorsFor } from "@/lib/community";
@@ -60,7 +61,7 @@ export default async function InfoDetail({
       {content && (
         <SpineContent content={content} anchors={anchors} lang={lang} />
       )}
-      {item.source && <p className="py-source">{es ? "Fuente" : "Source"}: {item.source}</p>}
+      <HandbookCite source={item.source} page={item.sourcePage} handbookUrl={conf.handbookUrl} handbookLabel={conf.handbookLabel} lang={lang} />
 
       <EditProposal
         conference={conf.slug}

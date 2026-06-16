@@ -20,6 +20,8 @@ model Conference {
   slug              String   @unique          // URL segment: /riotexas
   name              String
   disciplineEdition String   @default("2020/2024")
+  handbookUrl       String?                       // session handbook PDF; citations deep-link as {handbookUrl}#page=N
+  handbookLabel     String?                       // human label for the handbook, e.g. "2026 NGC Session Handbook"
   createdAt         DateTime @default(now())
 
   bodies        Body[]
@@ -72,6 +74,7 @@ model Body {
   agendaOrder    Int?
   accountableTo  String     @default("Annual Conference")
   summary        String?
+  sourcePage     Int?       // 1-based page in the conference handbook PDF (deep-link target)
 
   @@unique([conferenceId, slug])
   @@index([conferenceId])
@@ -104,6 +107,7 @@ model ActionItem {
   contentMdEs  String?
   bodRefs      String[]   @default([])
   source       String?
+  sourcePage   Int?       // 1-based page in the conference handbook PDF (deep-link target)
   updatedAt    DateTime   @updatedAt
 
   @@unique([conferenceId, year, slug])
@@ -131,6 +135,7 @@ model InfoReport {
   contentMdEs  String?
   bodRefs      String[]   @default([])
   source       String?
+  sourcePage   Int?       // 1-based page in the conference handbook PDF (deep-link target)
   updatedAt    DateTime   @updatedAt
 
   @@unique([conferenceId, year, slug])
@@ -151,6 +156,7 @@ model AgendaItem {
   bodRefs      String[]    @default([])
   rulesRefs    String[]    @default([])
   perYear      PerYearKind?
+  sourcePage   Int?        // 1-based page in the conference handbook PDF (deep-link target)
   updatedAt    DateTime    @updatedAt
 
   @@unique([conferenceId, slug])
@@ -168,6 +174,7 @@ model ProcessPage {
   contentMd    String     @default("")
   bodRefs      String[]   @default([])
   rulesRefs    String[]   @default([])
+  sourcePage   Int?       // 1-based page in the conference handbook PDF (deep-link target)
   updatedAt    DateTime   @updatedAt
 
   @@unique([conferenceId, slug])

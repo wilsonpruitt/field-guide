@@ -4,6 +4,7 @@ import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
 import BodRefs from "@/components/BodRefs";
+import HandbookCite from "@/components/HandbookCite";
 import BoardRoster, { type RosterData } from "@/components/BoardRoster";
 import Community from "@/components/Community";
 import EditProposal from "@/components/EditProposal";
@@ -64,6 +65,10 @@ export default async function AgencyDetail({
         <dt>{pick(lang, "Accountable to", "Responde a")}</dt><dd>{body.accountableTo}</dd>
         {body.relatesTo.length > 0 && (<><dt>{pick(lang, "Relates to", "Se relaciona con")}</dt><dd>{body.relatesTo.join("; ")}</dd></>)}
       </dl>
+
+      {body.sourcePage != null && (
+        <HandbookCite source={conf.handbookLabel} page={body.sourcePage} handbookUrl={conf.handbookUrl} handbookLabel={conf.handbookLabel} lang={lang} />
+      )}
 
       {alsoFulfills.length > 0 && (
         <p>

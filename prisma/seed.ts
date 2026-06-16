@@ -23,16 +23,17 @@ type BodyRow = {
   parentSlug?: string | null; bodRefs?: string[]; membershipSize?: number | null;
   relatesTo?: string[]; alsoFulfills?: unknown; subBodies?: unknown;
   votesOn?: 'ACTION' | 'INFORMATION' | 'BOTH' | null; agendaOrder?: number | null;
-  accountableTo?: string; summary?: string | null;
+  accountableTo?: string; summary?: string | null; sourcePage?: number | null;
 };
 type AgendaRow = {
   slug: string; title: string; order: number; summary: string; contentMd?: string;
   votesOn?: 'ACTION' | 'INFORMATION' | 'BOTH' | null; bodySlug?: string | null;
   bodRefs?: string[]; rulesRefs?: string[]; perYear?: 'FINANCE' | 'NOMINATIONS' | null;
+  sourcePage?: number | null;
 };
 type ProcessRow = {
   slug: string; title: string; order?: number; summary: string; contentMd?: string;
-  bodRefs?: string[]; rulesRefs?: string[];
+  bodRefs?: string[]; rulesRefs?: string[]; sourcePage?: number | null;
 };
 type MotionRow = {
   key: string; intent: string; say: string;
@@ -52,12 +53,12 @@ type PerYearRow = { kind: 'FINANCE' | 'NOMINATIONS' | 'SCHEDULE'; year: number; 
 type ActionRow = {
   year: number; slug: string; order?: number; number?: string | null; title: string; titleEs?: string | null;
   agencySlug?: string | null; category?: string | null; summary: string; summaryEs?: string | null;
-  contentMd?: string; contentMdEs?: string | null; bodRefs?: string[]; source?: string | null;
+  contentMd?: string; contentMdEs?: string | null; bodRefs?: string[]; source?: string | null; sourcePage?: number | null;
 };
 type InfoRow = {
   year: number; slug: string; order?: number; number?: string | null; title: string; titleEs?: string | null;
   agencySlug?: string | null; category?: string | null; summary: string; summaryEs?: string | null;
-  contentMd?: string; contentMdEs?: string | null; bodRefs?: string[]; source?: string | null;
+  contentMd?: string; contentMdEs?: string | null; bodRefs?: string[]; source?: string | null; sourcePage?: number | null;
 };
 type ContributionRow = {
   id: string; type: 'QUESTION' | 'ANSWER' | 'COMMENT' | 'PERSPECTIVE' | 'EDIT_PROPOSAL';
@@ -67,16 +68,16 @@ type ContributionRow = {
 };
 type BodRow = { number: number; title?: string | null; excerpt: string; source: 'PLENARY' | 'BOD_PDF'; edition?: string };
 
-type ConferenceSeed = { slug: string; name: string; disciplineEdition: string; dir: string };
+type ConferenceSeed = { slug: string; name: string; disciplineEdition: string; dir: string; handbookUrl?: string | null; handbookLabel?: string | null };
 
 /** Seed (or update) one conference tenant from its snapshot directory. Every
  *  per-conference file is optional, so a conference can be onboarded with only
  *  the materials available today (e.g. a session before its journal lands). */
-async function seedConference({ slug, name, disciplineEdition, dir }: ConferenceSeed) {
+async function seedConference({ slug, name, disciplineEdition, dir, handbookUrl, handbookLabel }: ConferenceSeed) {
   const conf = await prisma.conference.upsert({
     where: { slug },
-    update: { name },
-    create: { slug, name, disciplineEdition },
+    update: { name, handbookUrl: handbookUrl ?? null, handbookLabel: handbookLabel ?? null },
+    create: { slug, name, disciplineEdition, handbookUrl: handbookUrl ?? null, handbookLabel: handbookLabel ?? null },
   });
   const conferenceId = conf.id;
   console.log(`\n▶ Conference: ${conf.name} (/${conf.slug})`);
@@ -93,6 +94,7 @@ async function seedConference({ slug, name, disciplineEdition, dir }: Conference
       subBodies: (a.subBodies ?? Prisma.JsonNull) as Prisma.InputJsonValue,
       votesOn: a.votesOn ?? null, agendaOrder: a.agendaOrder ?? null,
       accountableTo: a.accountableTo ?? 'Annual Conference', summary: a.summary ?? null,
+      sourcePage: a.sourcePage ?? null,
     };
     const body = await prisma.body.upsert({
       where: { conferenceId_slug: { conferenceId, slug: a.slug } },
@@ -115,6 +117,7 @@ async function seedConference({ slug, name, disciplineEdition, dir }: Conference
       title: it.title, order: it.order, summary: it.summary, contentMd: it.contentMd ?? '',
       votesOn: it.votesOn ?? null, bodySlug: it.bodySlug ?? null,
       bodRefs: it.bodRefs ?? [], rulesRefs: it.rulesRefs ?? [], perYear: it.perYear ?? null,
+      sourcePage: it.sourcePage ?? null,
     };
     await prisma.agendaItem.upsert({
       where: { conferenceId_slug: { conferenceId, slug: it.slug } },
@@ -128,7 +131,7 @@ async function seedConference({ slug, name, disciplineEdition, dir }: Conference
   for (const p of process) {
     const data = {
       title: p.title, order: p.order ?? 0, summary: p.summary, contentMd: p.contentMd ?? '',
-      bodRefs: p.bodRefs ?? [], rulesRefs: p.rulesRefs ?? [],
+      bodRefs: p.bodRefs ?? [], rulesRefs: p.rulesRefs ?? [], sourcePage: p.sourcePage ?? null,
     };
     await prisma.processPage.upsert({
       where: { conferenceId_slug: { conferenceId, slug: p.slug } },
@@ -195,7 +198,7 @@ async function seedConference({ slug, name, disciplineEdition, dir }: Conference
       agencySlug: a.agencySlug ?? null, category: a.category ?? null,
       summary: a.summary, summaryEs: a.summaryEs ?? null,
       contentMd: a.contentMd ?? '', contentMdEs: a.contentMdEs ?? null,
-      bodRefs: a.bodRefs ?? [], source: a.source ?? null,
+      bodRefs: a.bodRefs ?? [], source: a.source ?? null, sourcePage: a.sourcePage ?? null,
     };
     await prisma.actionItem.upsert({
       where: { conferenceId_year_slug: { conferenceId, year: a.year, slug: a.slug } },
@@ -212,7 +215,7 @@ async function seedConference({ slug, name, disciplineEdition, dir }: Conference
       agencySlug: r.agencySlug ?? null, category: r.category ?? null,
       summary: r.summary, summaryEs: r.summaryEs ?? null,
       contentMd: r.contentMd ?? '', contentMdEs: r.contentMdEs ?? null,
-      bodRefs: r.bodRefs ?? [], source: r.source ?? null,
+      bodRefs: r.bodRefs ?? [], source: r.source ?? null, sourcePage: r.sourcePage ?? null,
     };
     await prisma.infoReport.upsert({
       where: { conferenceId_year_slug: { conferenceId, year: r.year, slug: r.slug } },
@@ -254,7 +257,7 @@ async function main() {
   // Río Texas (tenant #1) reads from the seed-data root; each additional
   // conference reads from its own subdirectory.
   await seedConference({ slug: 'riotexas', name: 'Río Texas Annual Conference', disciplineEdition: '2020/2024', dir: ROOT });
-  await seedConference({ slug: 'northgeorgia', name: 'North Georgia Annual Conference', disciplineEdition: '2020/2024', dir: join(ROOT, 'northgeorgia') });
+  await seedConference({ slug: 'northgeorgia', name: 'North Georgia Annual Conference', disciplineEdition: '2020/2024', dir: join(ROOT, 'northgeorgia'), handbookUrl: '/handbook-ngc-2026.pdf', handbookLabel: '2026 NGC Session Handbook' });
 }
 
 main()
