@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { linkBase } from "@/lib/host";
 import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas, votesLabel, atlasFor } from "@/lib/conference";
 import { pick } from "@/lib/lang";
@@ -27,6 +28,7 @@ export default async function AgendaDetail({
 }) {
   const { conference, slug } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
 
   const item = await prisma.agendaItem.findUnique({
     where: { conferenceId_slug: { conferenceId: conf.id, slug } },
@@ -83,7 +85,7 @@ export default async function AgendaDetail({
           data={slate.data as NominationsData}
           boards={boards}
           source={slate.source ?? ""}
-          conference={conf.slug}
+          base={base}
           lang={lang}
         />
       );
@@ -98,13 +100,13 @@ export default async function AgendaDetail({
       {agencyBody && (
         <p>
           <span className="pill">
-            <Link href={`/${conf.slug}/agencies/${agencyBody.slug}`}>{agencyBody.name}</Link>
+            <Link href={`${base}/agencies/${agencyBody.slug}`}>{agencyBody.name}</Link>
           </span>
         </p>
       )}
       {item.bodRefs.length > 0 && (
         <p className="ref-line">
-          <span className="ref-label">{pick(lang, "Book of Discipline", "Libro de Disciplina")}</span> <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} />
+          <span className="ref-label">{pick(lang, "Book of Discipline", "Libro de Disciplina")}</span> <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} />
         </p>
       )}
 

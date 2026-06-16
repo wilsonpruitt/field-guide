@@ -4,6 +4,7 @@ import { getViewer } from "@/lib/community";
 import { TL } from "@/lib/moderation";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
+import { linkBase } from "@/lib/host";
 import LangToggle from "@/components/LangToggle";
 
 export default async function ConferenceLayout({
@@ -15,7 +16,7 @@ export default async function ConferenceLayout({
 }) {
   const { conference } = await params;
   const conf = await getConference(conference);
-  const base = `/${conf.slug}`;
+  const base = await linkBase(conf.slug);
   const [viewer, lang] = await Promise.all([getViewer(conf.id), langFor(conference)]);
   const isModerator = (viewer?.trustLevel ?? 0) >= TL.EDITOR;
   const atlas = atlasFor(conf.slug);
@@ -23,7 +24,7 @@ export default async function ConferenceLayout({
   return (
     <div className="fg-shell">
       <header className="fg-site">
-        <Link className="fg-brand" href={base}>
+        <Link className="fg-brand" href={base || "/"}>
           {conf.name}
         </Link>
         <nav>

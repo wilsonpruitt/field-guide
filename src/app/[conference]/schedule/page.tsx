@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { linkBase } from "@/lib/host";
 import { pick, type Lang } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
@@ -37,6 +38,7 @@ export default async function SchedulePage({
 }) {
   const { conference } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
   const TYPE_LABEL = typeLabel(lang);
   const instance = await prisma.perYearInstance.findFirst({
     where: { conferenceId: conf.id, kind: "SCHEDULE" },
@@ -85,7 +87,7 @@ export default async function SchedulePage({
                   <span className="sched-body">
                     <span className="sched-title">
                       {it.spine ? (
-                        <Link href={`/${conf.slug}/${it.spine}`}>{it.title}</Link>
+                        <Link href={`${base}/${it.spine}`}>{it.title}</Link>
                       ) : (
                         it.title
                       )}

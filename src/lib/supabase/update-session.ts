@@ -3,8 +3,15 @@ import { NextResponse, type NextRequest } from "next/server";
 
 // Refreshes the Supabase auth session on every request and keeps the auth
 // cookies in sync. Called from proxy.ts (Next 16's renamed middleware).
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+//
+// `makeResponse` lets the caller choose what response carries the refreshed
+// cookies — a plain pass-through (default) or a rewrite (used for conference
+// subdomains, so the session refresh and the rewrite happen together).
+export async function updateSession(
+  request: NextRequest,
+  makeResponse: () => NextResponse = () => NextResponse.next({ request }),
+) {
+  let response = makeResponse();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,7 +25,7 @@ export async function updateSession(request: NextRequest) {
           for (const { name, value } of cookiesToSet) {
             request.cookies.set(name, value);
           }
-          response = NextResponse.next({ request });
+          response = makeResponse();
           for (const { name, value, options } of cookiesToSet) {
             response.cookies.set(name, value, options);
           }

@@ -29,12 +29,12 @@ export type RosterData = {
 export default function BoardRoster({
   roster,
   asOf,
-  conference,
+  base,
   lang,
 }: {
   roster: RosterData;
   asOf?: string | null;
-  conference: string;
+  base: string;
   lang: Lang;
 }) {
   const m = roster.members;
@@ -116,12 +116,12 @@ export default function BoardRoster({
             <>
               <strong>{roster.toElect}</strong> {roster.toElect === 1 ? "seat is" : "seats are"} up for
               election this year — shown <span className="is-nominee-key">highlighted</span> below. See
-              the <Link href={`/${conference}/agenda/nominations`}>full slate and how to nominate</Link>.
+              the <Link href={`${base}/agenda/nominations`}>full slate and how to nominate</Link>.
             </>,
             <>
               <strong>{roster.toElect}</strong> {roster.toElect === 1 ? "cargo está" : "cargos están"} en
               elección este año — se muestran <span className="is-nominee-key">resaltados</span> abajo. Vea
-              la <Link href={`/${conference}/agenda/nominations`}>lista completa y cómo nominar</Link>.
+              la <Link href={`${base}/agenda/nominations`}>lista completa y cómo nominar</Link>.
             </>,
           )}
         </p>

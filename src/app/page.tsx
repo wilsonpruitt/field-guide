@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { pick } from "@/lib/lang";
 import { getLang } from "@/lib/lang-server";
+import { conferenceHref } from "@/lib/host";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -17,6 +18,11 @@ export default async function Home() {
     prisma.conference.findMany({ orderBy: { name: "asc" } }),
     getLang(),
   ]);
+  // On the apex these point at each conference's subdomain; in dev/preview they
+  // stay path-based so the picker keeps working.
+  const confLinks = await Promise.all(
+    conferences.map(async (c) => ({ id: c.id, name: c.name, href: await conferenceHref(c.slug) })),
+  );
 
   return (
     <main className="mx-auto w-full max-w-2xl px-5 py-16">
@@ -60,10 +66,10 @@ export default async function Home() {
 
       <h2 className="mt-10 font-serif text-2xl text-fen">{pick(lang, "Conferences", "Conferencias")}</h2>
       <ul className="mt-3">
-        {conferences.map((c) => (
+        {confLinks.map((c) => (
           <li key={c.id} className="border-b border-slate-100 py-3">
             <Link
-              href={`/${c.slug}`}
+              href={c.href}
               className="text-fen underline decoration-reed underline-offset-4 hover:text-ink"
             >
               {c.name}

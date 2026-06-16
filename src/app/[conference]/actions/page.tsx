@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { linkBase } from "@/lib/host";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
@@ -13,6 +14,7 @@ export default async function ActionsIndex({
 }) {
   const { conference } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
 
   const latest = await prisma.actionItem.findFirst({
     where: { conferenceId: conf.id },
@@ -56,7 +58,7 @@ export default async function ActionsIndex({
             <ul className="bare">
               {g.items.map((it) => (
                 <li key={it.id}>
-                  <Link href={`/${conf.slug}/actions/${it.slug}`}>{it.title}</Link>
+                  <Link href={`${base}/actions/${it.slug}`}>{it.title}</Link>
                   {it.number && <span className="pill">{it.number}</span>}
                   <p className="muted" style={{ margin: ".25rem 0 0", fontSize: ".9rem" }}>{it.summary}</p>
                 </li>

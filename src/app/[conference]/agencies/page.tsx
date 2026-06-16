@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { linkBase } from "@/lib/host";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
@@ -21,6 +22,7 @@ export default async function AgenciesIndex({
 }) {
   const { conference } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
   const all = await prisma.body.findMany({
     where: { conferenceId: conf.id },
     orderBy: { name: "asc" },
@@ -38,7 +40,7 @@ export default async function AgenciesIndex({
             <ul className="bare">
               {items.map((a) => (
                 <li key={a.id}>
-                  <Link href={`/${conf.slug}/agencies/${a.slug}`}>{a.name}</Link>
+                  <Link href={`${base}/agencies/${a.slug}`}>{a.name}</Link>
                   {a.bodRefs.length > 0 && <span className="pill">{a.bodRefs.join(", ")}</span>}
                 </li>
               ))}

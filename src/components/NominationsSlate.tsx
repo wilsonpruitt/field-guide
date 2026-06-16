@@ -18,13 +18,13 @@ export default function NominationsSlate({
   data,
   boards,
   source,
-  conference,
+  base,
   lang,
 }: {
   data: NominationsData;
   boards: SlateBoard[];
   source: string;
-  conference: string;
+  base: string;
   lang: Lang;
 }) {
   const e = data.election;
@@ -66,7 +66,7 @@ export default function NominationsSlate({
           <tbody>
             {boards.map((b) => (
               <tr key={b.slug}>
-                <td><Link href={`/${conference}/agencies/${b.slug}`}>{b.name}</Link></td>
+                <td><Link href={`${base}/agencies/${b.slug}`}>{b.name}</Link></td>
                 <td>{b.toElect}</td>
                 <td>{b.nominees.length ? b.nominees.join(", ") : "—"}</td>
               </tr>

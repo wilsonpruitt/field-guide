@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getConference, getBodParas, votesLabel } from "@/lib/conference";
+import { linkBase } from "@/lib/host";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
@@ -26,6 +27,7 @@ export default async function AgencyDetail({
 }) {
   const { conference, slug } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
 
   const body = await prisma.body.findUnique({
     where: { conferenceId_slug: { conferenceId: conf.id, slug } },
@@ -57,7 +59,7 @@ export default async function AgencyDetail({
 
       <dl className="spine-meta">
         {body.bodRefs.length > 0 && (
-          <><dt>{pick(lang, "Book of Discipline", "Libro de Disciplina")}</dt><dd><BodRefs refs={body.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} /></dd></>
+          <><dt>{pick(lang, "Book of Discipline", "Libro de Disciplina")}</dt><dd><BodRefs refs={body.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} /></dd></>
         )}
         {body.membershipSize && (<><dt>{pick(lang, "Members", "Miembros")}</dt><dd>{body.membershipSize}</dd></>)}
         {parent && (<><dt>{pick(lang, "Part of", "Parte de")}</dt><dd>{parent.name}</dd></>)}
@@ -78,7 +80,7 @@ export default async function AgencyDetail({
               {i > 0 ? "; " : ""}
               {f.name}
               {f.bodRefs && f.bodRefs.length > 0 && (
-                <> (<BodRefs refs={f.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} />)</>
+                <> (<BodRefs refs={f.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} />)</>
               )}
             </span>
           ))}
@@ -94,7 +96,7 @@ export default async function AgencyDetail({
               <li key={i}>
                 {s.name}
                 {s.bodRefs && s.bodRefs.length > 0 && (
-                  <> <BodRefs refs={s.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} pill lang={lang} /></>
+                  <> <BodRefs refs={s.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} pill lang={lang} /></>
                 )}
                 {s.note && <> — {s.note}</>}
               </li>
@@ -104,7 +106,7 @@ export default async function AgencyDetail({
       )}
 
       {roster && (
-        <BoardRoster roster={roster as unknown as RosterData} asOf={asOf} conference={conf.slug} lang={lang} />
+        <BoardRoster roster={roster as unknown as RosterData} asOf={asOf} base={base} lang={lang} />
       )}
 
       <EditProposal

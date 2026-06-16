@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import SpineContent from "@/components/SpineContent";
+import { linkBase } from "@/lib/host";
 import { getConference, getBodParas } from "@/lib/conference";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
@@ -18,6 +19,7 @@ export default async function ProcessDetail({
 }) {
   const { conference, slug } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
 
   const page = await prisma.processPage.findUnique({
     where: { conferenceId_slug: { conferenceId: conf.id, slug } },
@@ -36,7 +38,7 @@ export default async function ProcessDetail({
       <p>{page.summary}</p>
       {page.bodRefs.length > 0 && (
         <p className="ref-line">
-          <span className="ref-label">{pick(lang, "Book of Discipline", "Libro de Disciplina")}</span> <BodRefs refs={page.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} />
+          <span className="ref-label">{pick(lang, "Book of Discipline", "Libro de Disciplina")}</span> <BodRefs refs={page.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} />
         </p>
       )}
 

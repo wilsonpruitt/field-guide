@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { linkBase } from "@/lib/host";
 import SpineContent from "@/components/SpineContent";
 import { getConference, getBodParas } from "@/lib/conference";
 import { pick } from "@/lib/lang";
@@ -19,6 +20,7 @@ export default async function InfoDetail({
 }) {
   const { conference, slug } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
 
   const item = await prisma.infoReport.findFirst({
     where: { conferenceId: conf.id, slug },
@@ -49,12 +51,12 @@ export default async function InfoDetail({
       <p>{pick(lang, item.summary, item.summaryEs)}</p>
 
       {agency && (
-        <p><span className="pill"><Link href={`/${conf.slug}/agencies/${agency.slug}`}>{agency.name}</Link></span></p>
+        <p><span className="pill"><Link href={`${base}/agencies/${agency.slug}`}>{agency.name}</Link></span></p>
       )}
       {item.bodRefs.length > 0 && (
         <p className="ref-line">
           <span className="ref-label">{es ? "Libro de Disciplina" : "Book of Discipline"}</span>{" "}
-          <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`/${conf.slug}/discipline`} lang={lang} />
+          <BodRefs refs={item.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} />
         </p>
       )}
 

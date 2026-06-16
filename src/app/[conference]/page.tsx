@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { linkBase } from "@/lib/host";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 
@@ -12,7 +13,7 @@ export default async function ConferenceHome({
 }) {
   const { conference } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
-  const base = `/${conf.slug}`;
+  const base = await linkBase(conf.slug);
 
   const cards = [
     {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getConference } from "@/lib/conference";
+import { linkBase } from "@/lib/host";
 import { pick } from "@/lib/lang";
 import { langFor } from "@/lib/lang-server";
 import { prisma } from "@/lib/prisma";
@@ -13,6 +14,7 @@ export default async function ProcessIndex({
 }) {
   const { conference } = await params;
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
+  const base = await linkBase(conf.slug);
   const pages = await prisma.processPage.findMany({
     where: { conferenceId: conf.id },
     orderBy: [{ order: "asc" }, { title: "asc" }],
@@ -32,7 +34,7 @@ export default async function ProcessIndex({
       <ul className="bare">
         {pages.map((p) => (
           <li key={p.id}>
-            <Link href={`/${conf.slug}/process/${p.slug}`}>{p.title}</Link>
+            <Link href={`${base}/process/${p.slug}`}>{p.title}</Link>
             <p className="muted" style={{ margin: ".25rem 0 0", fontSize: ".9rem" }}>{p.summary}</p>
           </li>
         ))}
