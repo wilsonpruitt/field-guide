@@ -411,3 +411,5 @@ ul.bare li:last-child { border-bottom: 0; }
 .hub a:hover { border-color: var(--reed); }
 .hub h3 { font-family: var(--font-serif); font-weight: 500; font-size: 1.2rem; color: var(--fen); }
 .hub p { font-size: .86rem; color: var(--fg-quiet); margin: .25rem 0 0; }
+.hub-heading { font-family: var(--font-serif); font-weight: 500; font-size: 1.05rem; color: var(--fen-mist);
+  text-transform: uppercase; letter-spacing: .06em; margin: 1.8rem 0 .2rem; }

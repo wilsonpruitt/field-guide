@@ -15,6 +15,27 @@ export default async function ConferenceHome({
   const [conf, lang] = await Promise.all([getConference(conference), langFor(conference)]);
   const base = await linkBase(conf.slug);
 
+  const orient = [
+    {
+      href: `${base}/process/holy-conferencing`,
+      title: pick(lang, "What is Holy Conferencing?", "¿Qué es la conferencia santa?"),
+      blurb: pick(
+        lang,
+        "Why Annual Conference is a Wesleyan means of grace — come ready to be changed, not only to change things.",
+        "Por qué la conferencia anual es un medio de gracia wesleyano — ven dispuesto a ser transformado, no solo a cambiar las cosas.",
+      ),
+    },
+    {
+      href: `${base}/process/conference-history`,
+      title: pick(lang, "History of the conference", "Historia de la conferencia"),
+      blurb: pick(
+        lang,
+        "How this conference came to be — and who leads it now.",
+        "Cómo llegó a ser esta conferencia — y quién la dirige hoy.",
+      ),
+    },
+  ];
+
   const cards = [
     {
       href: `${base}/schedule`,
@@ -98,6 +119,19 @@ export default async function ConferenceHome({
           "Entiende lo que hace la conferencia, pregunta cualquier cosa que no esté clara y ve cómo encajan las piezas — la columna oficial, al día, en lenguaje sencillo.",
         )}
       </p>
+      <h2 className="hub-heading">{pick(lang, "Start here", "Empieza aquí")}</h2>
+      <ul className="hub">
+        {orient.map((c) => (
+          <li key={c.href}>
+            <Link href={c.href}>
+              <h3>{c.title}</h3>
+              <p>{c.blurb}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <h2 className="hub-heading">{pick(lang, "The conference, in plain language", "La conferencia, en lenguaje sencillo")}</h2>
       <ul className="hub">
         {cards.map((c) => (
           <li key={c.href}>

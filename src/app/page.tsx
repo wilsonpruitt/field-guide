@@ -103,6 +103,26 @@ export default async function Home() {
             "Es un recurso comunitario, no oficial. Field Guide no está afiliado ni es publicado por ninguna conferencia anual ni por la Iglesia Metodista Unida; es creado y mantenido por un pastor metodista unido en activo, ofrecido a la conexión con ese espíritu y no en su nombre. Es una herramienta para que delegados, clero y miembros laicos comprendan los asuntos ante ellos y los conversen de buena fe. Las preguntas, perspectivas y notas provienen de la comunidad y son revisadas por custodios voluntarios; nunca se presentan como la voz de la conferencia.",
           )}
         </p>
+        <p className="mt-6 text-sm leading-relaxed text-fen-mist">
+          {pick(lang, "Field Guide is made by ", "Field Guide es de ")}
+          <a
+            href="https://wrootlabs.com"
+            className="text-fen underline decoration-reed underline-offset-4 hover:text-ink"
+          >
+            Wroot Labs
+          </a>
+          {pick(
+            lang,
+            ", which builds tools for the church. Want something like this for your own context? ",
+            ", que crea herramientas para la iglesia. ¿Quieres algo así para tu propio contexto? ",
+          )}
+          <a
+            href="https://wrootlabs.com"
+            className="text-fen underline decoration-reed underline-offset-4 hover:text-ink"
+          >
+            {pick(lang, "See what we make →", "Mira lo que hacemos →")}
+          </a>
+        </p>
       </section>
     </main>
   );
