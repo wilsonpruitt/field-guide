@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { cookieDomainFor } from "@/lib/cookie-domain";
 
 // Refreshes the Supabase auth session on every request and keeps the auth
 // cookies in sync. Called from proxy.ts (Next 16's renamed middleware).
@@ -12,11 +13,13 @@ export async function updateSession(
   makeResponse: () => NextResponse = () => NextResponse.next({ request }),
 ) {
   let response = makeResponse();
+  const domain = cookieDomainFor(request.headers.get("host"));
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      cookieOptions: { domain },
       cookies: {
         getAll() {
           return request.cookies.getAll();

@@ -1,8 +1,9 @@
 import { headers } from "next/headers";
+import { APEX } from "@/lib/cookie-domain";
 
-// Production apex. Each conference lives at <slug>.conferencefieldguide.org;
-// the apex itself serves the landing/picker page.
-export const APEX = "conferencefieldguide.org";
+// Production apex (re-exported from the client-safe module). Each conference
+// lives at <slug>.conferencefieldguide.org; the apex serves the landing page.
+export { APEX };
 
 function hostOf(h: string | null): string {
   return (h ?? "").split(":")[0].toLowerCase();
