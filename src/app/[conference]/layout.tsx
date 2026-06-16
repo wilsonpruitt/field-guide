@@ -79,6 +79,13 @@ export default async function ConferenceLayout({
           <a href="https://wrootlabs.com">Wroot Labs</a>
           {pick(lang, " guide.", ".")}
         </p>
+        <p>
+          {pick(
+            lang,
+            "Not affiliated with The United Methodist Church — built by an active UMC pastor.",
+            "Sin afiliación con la Iglesia Metodista Unida — creado por un pastor metodista unido en activo.",
+          )}
+        </p>
       </footer>
     </div>
   );
