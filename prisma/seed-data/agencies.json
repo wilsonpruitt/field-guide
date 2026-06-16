@@ -15,7 +15,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Clergy Session of the Annual Conference",
-    "summary": "Reviews the fairness of certain clergy processes. Three members and two alternates, nominated by the Bishop and elected by the clergy session."
+    "summary": "Reviews the fairness of certain clergy processes. Three members and two alternates, nominated by the Bishop and elected by the clergy session.",
+    "sourcePage": 14
   },
   {
     "slug": "agenda-and-worship",
@@ -33,7 +34,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Sets the agenda and plans worship. Composed largely of ex-officio members (bishop, superintendents, officers) plus a Worship Team Coordinator."
+    "summary": "Sets the agenda and plans worship. Composed largely of ex-officio members (bishop, superintendents, officers) plus a Worship Team Coordinator.",
+    "sourcePage": 14
   },
   {
     "slug": "archives-and-history",
@@ -53,7 +55,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Preserves the records and history of the conference and its predecessor conferences."
+    "summary": "Preserves the records and history of the conference and its predecessor conferences.",
+    "sourcePage": 156
   },
   {
     "slug": "board-of-pensions",
@@ -73,7 +76,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Administers clergy pensions and health benefits. Sixteen members on eight-year staggered terms; also directors of the conference Pensions corporation."
+    "summary": "Administers clergy pensions and health benefits. Sixteen members on eight-year staggered terms; also directors of the conference Pensions corporation.",
+    "sourcePage": 112
   },
   {
     "slug": "board-of-trustees",
@@ -91,7 +95,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Holds and manages conference property. Twelve members in four classes of three; also directors of the conference Trustees corporation."
+    "summary": "Holds and manages conference property. Twelve members in four classes of three; also directors of the conference Trustees corporation.",
+    "sourcePage": 144
   },
   {
     "slug": "committee-on-the-episcopacy",
@@ -109,7 +114,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Supports the bishop and the work of the episcopal office."
+    "summary": "Supports the bishop and the work of the episcopal office.",
+    "sourcePage": 148
   },
   {
     "slug": "developing-leaders",
@@ -148,7 +154,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Calls and equips lay and clergy leaders for the mission field, especially younger leaders."
+    "summary": "Calls and equips lay and clergy leaders for the mission field, especially younger leaders.",
+    "sourcePage": 219
   },
   {
     "slug": "episcopal-residence",
@@ -166,7 +173,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Oversees the episcopal residence."
+    "summary": "Oversees the episcopal residence.",
+    "sourcePage": 14
   },
   {
     "slug": "finance-table",
@@ -202,7 +210,8 @@
     "votesOn": "ACTION",
     "agendaOrder": 30,
     "accountableTo": "Annual Conference",
-    "summary": "Builds the conference budget, sets apportionments, and manages conference money. Also serves as the Commission on Equitable Compensation."
+    "summary": "Builds the conference budget, sets apportionments, and manages conference money. Also serves as the Commission on Equitable Compensation.",
+    "sourcePage": 86
   },
   {
     "slug": "nominations",
@@ -220,7 +229,8 @@
     "votesOn": "ACTION",
     "agendaOrder": 20,
     "accountableTo": "Annual Conference",
-    "summary": "Identifies nominees for elected leadership positions and works toward inclusiveness and district balance. Six at-large members plus ex-officio."
+    "summary": "Identifies nominees for elected leadership positions and works toward inclusiveness and district balance. Six at-large members plus ex-officio.",
+    "sourcePage": 14
   },
   {
     "slug": "standing-rules",
@@ -238,7 +248,8 @@
     "votesOn": "BOTH",
     "agendaOrder": 10,
     "accountableTo": "Annual Conference",
-    "summary": "Oversees the rules of the Annual Conference and reports during the first business session each year."
+    "summary": "Oversees the rules of the Annual Conference and reports during the first business session each year.",
+    "sourcePage": 41
   },
   {
     "slug": "transforming-communities",
@@ -289,7 +300,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Equips and supports congregations around mission, The Advance, ethnic concerns, and justice issues. Includes the Peace with Justice and Caretaker of God's Creation coordinators."
+    "summary": "Equips and supports congregations around mission, The Advance, ethnic concerns, and justice issues. Includes the Peace with Justice and Caretaker of God's Creation coordinators.",
+    "sourcePage": 171
   },
   {
     "slug": "uniting-peoples",
@@ -341,7 +353,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Facilitates unity, witness, communication, justice, and intercultural competency across conference life."
+    "summary": "Facilitates unity, witness, communication, justice, and intercultural competency across conference life.",
+    "sourcePage": 176
   },
   {
     "slug": "uniting-table",
@@ -357,7 +370,8 @@
     "votesOn": "BOTH",
     "agendaOrder": 5,
     "accountableTo": "Annual Conference",
-    "summary": "Coordinates the mission and ministry of the conference through the four Vision Teams. Fulfills all Book of Discipline references to a conference council on ministries. Includes seven at-large members and a Mission Field Advocate."
+    "summary": "Coordinates the mission and ministry of the conference through the four Vision Teams. Fulfills all Book of Discipline references to a conference council on ministries. Includes seven at-large members and a Mission Field Advocate.",
+    "sourcePage": 35
   },
   {
     "slug": "vitalizing-congregations",
@@ -445,7 +459,8 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Develops and deploys resources for the mission of the local church and the restoring of congregational vitality."
+    "summary": "Develops and deploys resources for the mission of the local church and the restoring of congregational vitality.",
+    "sourcePage": 205
   },
   {
     "slug": "board-of-ordained-ministry",
@@ -463,6 +478,7 @@
     "votesOn": null,
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
-    "summary": "Oversees the conference's relationship with its clergy — examining and recommending candidates for licensed and ordained ministry, and guiding their formation and continuing care. Elected for the quadrennium; at least six elders and deacons in full connection, with lay members."
+    "summary": "Oversees the conference's relationship with its clergy — examining and recommending candidates for licensed and ordained ministry, and guiding their formation and continuing care. Elected for the quadrennium; at least six elders and deacons in full connection, with lay members.",
+    "sourcePage": 146
   }
 ]

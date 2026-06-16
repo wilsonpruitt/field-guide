@@ -8,7 +8,8 @@
     "bodRefs": [],
     "rulesRefs": [
       "23"
-    ]
+    ],
+    "sourcePage": 19
   },
   {
     "slug": "membership",
@@ -19,7 +20,8 @@
     "bodRefs": [],
     "rulesRefs": [
       "15"
-    ]
+    ],
+    "sourcePage": 17
   },
   {
     "slug": "motions",
@@ -31,7 +33,8 @@
     "rulesRefs": [
       "19",
       "22"
-    ]
+    ],
+    "sourcePage": 19
   },
   {
     "slug": "resolutions",
@@ -43,6 +46,7 @@
     "rulesRefs": [
       "16",
       "17"
-    ]
+    ],
+    "sourcePage": 18
   }
 ]

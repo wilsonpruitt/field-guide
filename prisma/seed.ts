@@ -256,7 +256,7 @@ async function main() {
   // ── Tenants ──
   // Río Texas (tenant #1) reads from the seed-data root; each additional
   // conference reads from its own subdirectory.
-  await seedConference({ slug: 'riotexas', name: 'Río Texas Annual Conference', disciplineEdition: '2020/2024', dir: ROOT });
+  await seedConference({ slug: 'riotexas', name: 'Río Texas Annual Conference', disciplineEdition: '2020/2024', dir: ROOT, handbookUrl: '/handbook-rtx-2026.pdf', handbookLabel: '2026 Río Texas Pre-Conference Report' });
   await seedConference({ slug: 'northgeorgia', name: 'North Georgia Annual Conference', disciplineEdition: '2020/2024', dir: join(ROOT, 'northgeorgia'), handbookUrl: '/handbook-ngc-2026.pdf', handbookLabel: '2026 NGC Session Handbook' });
 }
 

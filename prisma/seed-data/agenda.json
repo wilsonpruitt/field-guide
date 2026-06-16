@@ -11,7 +11,8 @@
       "¶¶611-627"
     ],
     "rulesRefs": [],
-    "perYear": "FINANCE"
+    "perYear": "FINANCE",
+    "sourcePage": 86
   },
   {
     "slug": "nominations",
@@ -27,7 +28,8 @@
     "rulesRefs": [
       "25"
     ],
-    "perYear": "NOMINATIONS"
+    "perYear": "NOMINATIONS",
+    "sourcePage": 14
   },
   {
     "slug": "standing-rules",
@@ -43,6 +45,7 @@
     "rulesRefs": [
       "24"
     ],
-    "perYear": null
+    "perYear": null,
+    "sourcePage": 41
   }
 ]
