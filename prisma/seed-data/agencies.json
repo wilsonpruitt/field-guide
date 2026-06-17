@@ -2,7 +2,9 @@
   {
     "slug": "administrative-review",
     "name": "Administrative Review Committee",
+    "nameEs": "Comité de Revisión Administrativa",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "REVIEW_COMMITTEE",
     "parentSlug": null,
     "bodRefs": [
@@ -16,12 +18,15 @@
     "agendaOrder": null,
     "accountableTo": "Clergy Session of the Annual Conference",
     "summary": "Reviews the fairness of certain clergy processes. Three members and two alternates, nominated by the Bishop and elected by the clergy session.",
+    "summaryEs": "Revisa la imparcialidad de ciertos procesos del clero. Tres miembros y dos suplentes, nominados por el obispo/a y elegidos por la sesión del clero.",
     "sourcePage": 14
   },
   {
     "slug": "agenda-and-worship",
     "name": "Agenda and Worship Committee",
+    "nameEs": "Comité de Agenda y Adoración",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -35,12 +40,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Sets the agenda and plans worship. Composed largely of ex-officio members (bishop, superintendents, officers) plus a Worship Team Coordinator.",
+    "summaryEs": "Establece la agenda y planifica la adoración. Compuesto en gran parte por miembros ex officio (obispo/a, superintendentes, oficiales) más un Coordinador del Equipo de Adoración.",
     "sourcePage": 14
   },
   {
     "slug": "archives-and-history",
     "name": "Commission on Archives and History",
+    "nameEs": "Comisión de Archivos e Historia",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -56,12 +64,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Preserves the records and history of the conference and its predecessor conferences.",
+    "summaryEs": "Preserva los registros y la historia de la conferencia y de sus conferencias predecesoras.",
     "sourcePage": 156
   },
   {
     "slug": "board-of-pensions",
     "name": "Board of Pensions (and Health Benefits)",
+    "nameEs": "Junta de Pensiones (y Beneficios de Salud)",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -77,12 +88,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Administers clergy pensions and health benefits. Sixteen members on eight-year staggered terms; also directors of the conference Pensions corporation.",
+    "summaryEs": "Administra las pensiones y los beneficios de salud del clero. Dieciséis miembros con mandatos escalonados de ocho años; también son directores de la corporación de Pensiones de la conferencia.",
     "sourcePage": 112
   },
   {
     "slug": "board-of-trustees",
     "name": "Board of Trustees",
+    "nameEs": "Junta de Fideicomisarios",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -96,12 +110,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Holds and manages conference property. Twelve members in four classes of three; also directors of the conference Trustees corporation.",
+    "summaryEs": "Posee y administra la propiedad de la conferencia. Doce miembros en cuatro clases de tres; también son directores de la corporación de Fideicomisarios de la conferencia.",
     "sourcePage": 144
   },
   {
     "slug": "committee-on-the-episcopacy",
     "name": "Committee on the Episcopacy",
+    "nameEs": "Comité sobre el Episcopado",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -115,12 +132,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Supports the bishop and the work of the episcopal office.",
+    "summaryEs": "Apoya al obispo/a y la labor de la oficina episcopal.",
     "sourcePage": 148
   },
   {
     "slug": "developing-leaders",
     "name": "Developing Leaders Vision Team",
+    "nameEs": "Equipo de Visión para el Desarrollo de Líderes",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "VISION_TEAM",
     "parentSlug": "uniting-table",
     "bodRefs": [],
@@ -155,12 +175,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Calls and equips lay and clergy leaders for the mission field, especially younger leaders.",
+    "summaryEs": "Llama y capacita a líderes laicos y del clero para el campo misionero, especialmente a líderes más jóvenes.",
     "sourcePage": 219
   },
   {
     "slug": "episcopal-residence",
     "name": "Episcopal Residence Committee",
+    "nameEs": "Comité de la Residencia Episcopal",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -174,12 +197,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Oversees the episcopal residence.",
+    "summaryEs": "Supervisa la residencia episcopal.",
     "sourcePage": 14
   },
   {
     "slug": "finance-table",
     "name": "Finance Table",
+    "nameEs": "Mesa de Finanzas",
     "alsoKnownAs": "Council on Finance and Administration (CF&A)",
+    "alsoKnownAsEs": "Concilio de Finanzas y Administración (CF&A)",
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -211,12 +237,15 @@
     "agendaOrder": 30,
     "accountableTo": "Annual Conference",
     "summary": "Builds the conference budget, sets apportionments, and manages conference money. Also serves as the Commission on Equitable Compensation.",
+    "summaryEs": "Elabora el presupuesto de la conferencia, establece los prorrateos y administra los fondos de la conferencia. También funge como la Comisión de Compensación Equitativa.",
     "sourcePage": 86
   },
   {
     "slug": "nominations",
     "name": "Committee on Nominations",
+    "nameEs": "Comité de Nominaciones",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -230,12 +259,15 @@
     "agendaOrder": 20,
     "accountableTo": "Annual Conference",
     "summary": "Identifies nominees for elected leadership positions and works toward inclusiveness and district balance. Six at-large members plus ex-officio.",
+    "summaryEs": "Identifica candidatos para los puestos de liderazgo electos y trabaja por la inclusión y el equilibrio entre distritos. Seis miembros generales más miembros ex officio.",
     "sourcePage": 14
   },
   {
     "slug": "standing-rules",
     "name": "Committee on Standing Rules",
+    "nameEs": "Comité de Reglas Permanentes",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "ADMINISTRATIVE_AGENCY",
     "parentSlug": null,
     "bodRefs": [
@@ -249,12 +281,15 @@
     "agendaOrder": 10,
     "accountableTo": "Annual Conference",
     "summary": "Oversees the rules of the Annual Conference and reports during the first business session each year.",
+    "summaryEs": "Supervisa las reglas de la Conferencia Anual e informa durante la primera sesión de negocios de cada año.",
     "sourcePage": 41
   },
   {
     "slug": "transforming-communities",
     "name": "Transforming Communities Vision Team",
+    "nameEs": "Equipo de Visión para la Transformación de Comunidades",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "VISION_TEAM",
     "parentSlug": "uniting-table",
     "bodRefs": [],
@@ -301,12 +336,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Equips and supports congregations around mission, The Advance, ethnic concerns, and justice issues. Includes the Peace with Justice and Caretaker of God's Creation coordinators.",
+    "summaryEs": "Capacita y apoya a las congregaciones en torno a la misión, The Advance, los asuntos étnicos y las cuestiones de justicia. Incluye a los coordinadores de Paz con Justicia y de Cuidado de la Creación de Dios.",
     "sourcePage": 171
   },
   {
     "slug": "uniting-peoples",
     "name": "Uniting Peoples Vision Team",
+    "nameEs": "Equipo de Visión para la Unión de los Pueblos",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "VISION_TEAM",
     "parentSlug": "uniting-table",
     "bodRefs": [],
@@ -354,12 +392,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Facilitates unity, witness, communication, justice, and intercultural competency across conference life.",
+    "summaryEs": "Facilita la unidad, el testimonio, la comunicación, la justicia y la competencia intercultural en toda la vida de la conferencia.",
     "sourcePage": 176
   },
   {
     "slug": "uniting-table",
     "name": "Uniting Table",
+    "nameEs": "Mesa de Unificación",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "UNITING_TABLE",
     "parentSlug": null,
     "bodRefs": [],
@@ -371,12 +412,15 @@
     "agendaOrder": 5,
     "accountableTo": "Annual Conference",
     "summary": "Coordinates the mission and ministry of the conference through the four Vision Teams. Fulfills all Book of Discipline references to a conference council on ministries. Includes seven at-large members and a Mission Field Advocate.",
+    "summaryEs": "Coordina la misión y el ministerio de la conferencia a través de los cuatro Equipos de Visión. Cumple todas las referencias del Libro de Disciplina a un concilio de ministerios de la conferencia. Incluye siete miembros generales y un Defensor del Campo Misionero.",
     "sourcePage": 35
   },
   {
     "slug": "vitalizing-congregations",
     "name": "Vitalizing Congregations Vision Team",
+    "nameEs": "Equipo de Visión para la Vitalización de Congregaciones",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "VISION_TEAM",
     "parentSlug": "uniting-table",
     "bodRefs": [],
@@ -460,12 +504,15 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Develops and deploys resources for the mission of the local church and the restoring of congregational vitality.",
+    "summaryEs": "Desarrolla y despliega recursos para la misión de la iglesia local y para la restauración de la vitalidad congregacional.",
     "sourcePage": 205
   },
   {
     "slug": "board-of-ordained-ministry",
     "name": "Board of Ordained Ministry",
+    "nameEs": "Junta de Ministerio Ordenado",
     "alsoKnownAs": null,
+    "alsoKnownAsEs": null,
     "type": "BOARD",
     "parentSlug": null,
     "bodRefs": [
@@ -479,6 +526,7 @@
     "agendaOrder": null,
     "accountableTo": "Annual Conference",
     "summary": "Oversees the conference's relationship with its clergy — examining and recommending candidates for licensed and ordained ministry, and guiding their formation and continuing care. Elected for the quadrennium; at least six elders and deacons in full connection, with lay members.",
+    "summaryEs": "Supervisa la relación de la conferencia con su clero — examinando y recomendando candidatos para el ministerio con licencia y ordenado, y guiando su formación y cuidado continuo. Elegida para el cuadrienio; al menos seis presbíteros/as y diáconos/diaconisas en conexión plena, con miembros laicos.",
     "sourcePage": 146
   }
 ]

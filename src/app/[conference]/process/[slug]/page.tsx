@@ -34,8 +34,8 @@ export default async function ProcessDetail({
   return (
     <>
       <p className="eyebrow">{pick(lang, "How it works", "Cómo funciona")}</p>
-      <h1>{page.title}</h1>
-      <p>{page.summary}</p>
+      <h1>{pick(lang, page.title, page.titleEs)}</h1>
+      <p>{pick(lang, page.summary, page.summaryEs)}</p>
       {page.bodRefs.length > 0 && (
         <p className="ref-line">
           <span className="ref-label">{pick(lang, "Book of Discipline", "Libro de Disciplina")}</span> <BodRefs refs={page.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} />
@@ -43,7 +43,7 @@ export default async function ProcessDetail({
       )}
 
       {page.contentMd && (
-        <SpineContent content={page.contentMd} anchors={anchors} lang={lang} />
+        <SpineContent content={pick(lang, page.contentMd, page.contentMdEs)} anchors={anchors} lang={lang} />
       )}
 
       {page.sourcePage != null && (

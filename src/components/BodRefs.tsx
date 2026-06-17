@@ -4,7 +4,7 @@
 import { Fragment } from "react";
 import { pick, type Lang } from "@/lib/lang";
 
-export type BodPara = { number: number; title: string | null; excerpt: string; source: string };
+export type BodPara = { number: number; title: string | null; titleEs?: string | null; excerpt: string; excerptEs?: string | null; source: string };
 
 function parse(ref: string, paras: Record<string, BodPara>) {
   const m = ref.match(/(\d+)/);
@@ -43,9 +43,9 @@ export default function BodRefs({
                 <span className="bp-num">
                   ¶{it.entry.number}
                   {it.range ? " ff." : ""}
-                  {it.entry.title ? ` · ${it.entry.title}` : ""}
+                  {it.entry.title || it.entry.titleEs ? ` · ${pick(lang, it.entry.title ?? "", it.entry.titleEs) || it.entry.title}` : ""}
                 </span>
-                <span className="bp-body">{it.entry.excerpt}</span>
+                <span className="bp-body">{pick(lang, it.entry.excerpt, it.entry.excerptEs)}</span>
                 <span className="bp-src">
                   The Book of Discipline 2020/2024, ¶{it.entry.number}
                   {it.entry.source === "PLENARY" ? pick(lang, " · via Plenary", " · vía Plenary") : ""}

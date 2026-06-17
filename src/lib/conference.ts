@@ -14,7 +14,7 @@ export const getConference = cache(async (slug: string) => {
 export async function getBodParas(): Promise<Record<string, BodPara>> {
   const paras = await prisma.bodParagraph.findMany();
   return Object.fromEntries(
-    paras.map((p) => [String(p.number), { number: p.number, title: p.title, excerpt: p.excerpt, source: p.source }]),
+    paras.map((p) => [String(p.number), { number: p.number, title: p.title, titleEs: p.titleEs, excerpt: p.excerpt, excerptEs: p.excerptEs, source: p.source }]),
   );
 }
 

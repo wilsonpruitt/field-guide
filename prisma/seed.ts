@@ -18,28 +18,30 @@ const loadOpt = <T>(dir: string, name: string, fallback: T): T => {
 
 // ── snapshot shapes (ported from the Río Texas ac-guide; see prisma/seed-data/) ──
 type BodyRow = {
-  slug: string; name: string; alsoKnownAs?: string | null;
+  slug: string; name: string; nameEs?: string | null; alsoKnownAs?: string | null; alsoKnownAsEs?: string | null;
   type: 'UNITING_TABLE' | 'VISION_TEAM' | 'ADMINISTRATIVE_AGENCY' | 'REVIEW_COMMITTEE' | 'BOARD';
   parentSlug?: string | null; bodRefs?: string[]; membershipSize?: number | null;
   relatesTo?: string[]; alsoFulfills?: unknown; subBodies?: unknown;
   votesOn?: 'ACTION' | 'INFORMATION' | 'BOTH' | null; agendaOrder?: number | null;
-  accountableTo?: string; summary?: string | null; sourcePage?: number | null;
+  accountableTo?: string; summary?: string | null; summaryEs?: string | null; sourcePage?: number | null;
 };
 type AgendaRow = {
-  slug: string; title: string; order: number; summary: string; contentMd?: string;
+  slug: string; title: string; titleEs?: string | null; order: number;
+  summary: string; summaryEs?: string | null; contentMd?: string; contentMdEs?: string | null;
   votesOn?: 'ACTION' | 'INFORMATION' | 'BOTH' | null; bodySlug?: string | null;
   bodRefs?: string[]; rulesRefs?: string[]; perYear?: 'FINANCE' | 'NOMINATIONS' | null;
   sourcePage?: number | null;
 };
 type ProcessRow = {
-  slug: string; title: string; order?: number; summary: string; contentMd?: string;
+  slug: string; title: string; titleEs?: string | null; order?: number;
+  summary: string; summaryEs?: string | null; contentMd?: string; contentMdEs?: string | null;
   bodRefs?: string[]; rulesRefs?: string[]; sourcePage?: number | null;
 };
 type MotionRow = {
-  key: string; intent: string; say: string;
+  key: string; intent: string; intentEs?: string | null; say: string; sayEs?: string | null;
   category: 'PRIVILEGED' | 'SUBSIDIARY' | 'INCIDENTAL' | 'MAIN' | 'BRING_BACK';
   rank?: number | null; second: boolean; debatable: boolean; amendable: boolean;
-  vote: 'MAJORITY' | 'TWO_THIRDS' | 'NONE'; note?: string | null;
+  vote: 'MAJORITY' | 'TWO_THIRDS' | 'NONE'; note?: string | null; noteEs?: string | null;
 };
 type RosterRow = {
   bodySlug: string; year: number; source: string; toElect?: number; byOffice?: boolean; note?: string | null;
@@ -66,7 +68,7 @@ type ContributionRow = {
   body: string; stance?: 'IN_FAVOR' | 'CONCERN' | 'CLARIFICATION' | 'ALTERNATIVE' | null;
   status: 'PENDING' | 'PUBLISHED' | 'REJECTED' | 'SUPERSEDED'; publishedAt?: string | null; createdAt?: string | null;
 };
-type BodRow = { number: number; title?: string | null; excerpt: string; source: 'PLENARY' | 'BOD_PDF'; edition?: string };
+type BodRow = { number: number; title?: string | null; titleEs?: string | null; excerpt: string; excerptEs?: string | null; source: 'PLENARY' | 'BOD_PDF'; edition?: string };
 
 type ConferenceSeed = { slug: string; name: string; disciplineEdition: string; dir: string; handbookUrl?: string | null; handbookLabel?: string | null };
 
@@ -87,13 +89,13 @@ async function seedConference({ slug, name, disciplineEdition, dir, handbookUrl,
   const bodyIdBySlug = new Map<string, string>();
   for (const a of agencies) {
     const data = {
-      name: a.name, alsoKnownAs: a.alsoKnownAs ?? null, type: a.type,
+      name: a.name, nameEs: a.nameEs ?? null, alsoKnownAs: a.alsoKnownAs ?? null, alsoKnownAsEs: a.alsoKnownAsEs ?? null, type: a.type,
       bodRefs: a.bodRefs ?? [], membershipSize: a.membershipSize ?? null,
       relatesTo: a.relatesTo ?? [],
       alsoFulfills: (a.alsoFulfills ?? Prisma.JsonNull) as Prisma.InputJsonValue,
       subBodies: (a.subBodies ?? Prisma.JsonNull) as Prisma.InputJsonValue,
       votesOn: a.votesOn ?? null, agendaOrder: a.agendaOrder ?? null,
-      accountableTo: a.accountableTo ?? 'Annual Conference', summary: a.summary ?? null,
+      accountableTo: a.accountableTo ?? 'Annual Conference', summary: a.summary ?? null, summaryEs: a.summaryEs ?? null,
       sourcePage: a.sourcePage ?? null,
     };
     const body = await prisma.body.upsert({
@@ -114,7 +116,9 @@ async function seedConference({ slug, name, disciplineEdition, dir, handbookUrl,
   const agenda = loadOpt<AgendaRow[]>(dir, 'agenda', []);
   for (const it of agenda) {
     const data = {
-      title: it.title, order: it.order, summary: it.summary, contentMd: it.contentMd ?? '',
+      title: it.title, titleEs: it.titleEs ?? null, order: it.order,
+      summary: it.summary, summaryEs: it.summaryEs ?? null,
+      contentMd: it.contentMd ?? '', contentMdEs: it.contentMdEs ?? null,
       votesOn: it.votesOn ?? null, bodySlug: it.bodySlug ?? null,
       bodRefs: it.bodRefs ?? [], rulesRefs: it.rulesRefs ?? [], perYear: it.perYear ?? null,
       sourcePage: it.sourcePage ?? null,
@@ -130,7 +134,9 @@ async function seedConference({ slug, name, disciplineEdition, dir, handbookUrl,
   const process = loadOpt<ProcessRow[]>(dir, 'process', []);
   for (const p of process) {
     const data = {
-      title: p.title, order: p.order ?? 0, summary: p.summary, contentMd: p.contentMd ?? '',
+      title: p.title, titleEs: p.titleEs ?? null, order: p.order ?? 0,
+      summary: p.summary, summaryEs: p.summaryEs ?? null,
+      contentMd: p.contentMd ?? '', contentMdEs: p.contentMdEs ?? null,
       bodRefs: p.bodRefs ?? [], rulesRefs: p.rulesRefs ?? [], sourcePage: p.sourcePage ?? null,
     };
     await prisma.processPage.upsert({
@@ -144,8 +150,10 @@ async function seedConference({ slug, name, disciplineEdition, dir, handbookUrl,
   const motions = loadOpt<MotionRow[]>(dir, 'motions', []);
   for (const m of motions) {
     const data = {
-      intent: m.intent, say: m.say, category: m.category, rank: m.rank ?? null,
-      second: m.second, debatable: m.debatable, amendable: m.amendable, vote: m.vote, note: m.note ?? null,
+      intent: m.intent, intentEs: m.intentEs ?? null, say: m.say, sayEs: m.sayEs ?? null,
+      category: m.category, rank: m.rank ?? null,
+      second: m.second, debatable: m.debatable, amendable: m.amendable, vote: m.vote,
+      note: m.note ?? null, noteEs: m.noteEs ?? null,
     };
     await prisma.motion.upsert({
       where: { conferenceId_key: { conferenceId, key: m.key } },
@@ -244,14 +252,17 @@ async function main() {
   // by ¶ number) powers the full-paragraph reference page.
   const bod = load<BodRow[]>(ROOT, 'bod');
   const fullText = load<Record<string, string>>(ROOT, 'bod-fulltext');
+  const fullTextEs = loadOpt<Record<string, string>>(ROOT, 'bod-fulltext-es', {});
   for (const p of bod) {
     const data = {
-      title: p.title ?? null, excerpt: p.excerpt, fullText: fullText[String(p.number)] ?? null,
+      title: p.title ?? null, titleEs: p.titleEs ?? null,
+      excerpt: p.excerpt, excerptEs: p.excerptEs ?? null,
+      fullText: fullText[String(p.number)] ?? null, fullTextEs: fullTextEs[String(p.number)] ?? null,
       source: p.source, edition: p.edition ?? '2020/2024',
     };
     await prisma.bodParagraph.upsert({ where: { number: p.number }, update: data, create: { number: p.number, ...data } });
   }
-  console.log(`✓ BoD paragraphs: ${bod.length} (${Object.keys(fullText).length} with full text)`);
+  console.log(`✓ BoD paragraphs: ${bod.length} (${Object.keys(fullText).length} EN / ${Object.keys(fullTextEs).length} ES full text)`);
 
   // ── Tenants ──
   // Río Texas (tenant #1) reads from the seed-data root; each additional

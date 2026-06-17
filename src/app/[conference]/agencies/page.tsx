@@ -40,7 +40,7 @@ export default async function AgenciesIndex({
             <ul className="bare">
               {items.map((a) => (
                 <li key={a.id}>
-                  <Link href={`${base}/agencies/${a.slug}`}>{a.name}</Link>
+                  <Link href={`${base}/agencies/${a.slug}`}>{pick(lang, a.name, a.nameEs)}</Link>
                   {a.bodRefs.length > 0 && <span className="pill">{a.bodRefs.join(", ")}</span>}
                 </li>
               ))}

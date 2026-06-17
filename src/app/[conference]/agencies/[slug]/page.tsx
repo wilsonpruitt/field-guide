@@ -53,16 +53,16 @@ export default async function AgencyDetail({
   return (
     <>
       <p className="eyebrow">{body.type.toLowerCase().replace(/_/g, " ")}</p>
-      <h1>{body.name}</h1>
-      {body.alsoKnownAs && <p className="title-italic">{body.alsoKnownAs}</p>}
-      {body.summary && <p>{body.summary}</p>}
+      <h1>{pick(lang, body.name, body.nameEs)}</h1>
+      {body.alsoKnownAs && <p className="title-italic">{pick(lang, body.alsoKnownAs, body.alsoKnownAsEs)}</p>}
+      {body.summary && <p>{pick(lang, body.summary, body.summaryEs)}</p>}
 
       <dl className="spine-meta">
         {body.bodRefs.length > 0 && (
           <><dt>{pick(lang, "Book of Discipline", "Libro de Disciplina")}</dt><dd><BodRefs refs={body.bodRefs} paras={paras} disciplineBase={`${base}/discipline`} lang={lang} /></dd></>
         )}
         {body.membershipSize && (<><dt>{pick(lang, "Members", "Miembros")}</dt><dd>{body.membershipSize}</dd></>)}
-        {parent && (<><dt>{pick(lang, "Part of", "Parte de")}</dt><dd>{parent.name}</dd></>)}
+        {parent && (<><dt>{pick(lang, "Part of", "Parte de")}</dt><dd>{pick(lang, parent.name, parent.nameEs)}</dd></>)}
         {body.votesOn && (<><dt>{pick(lang, "At conference", "En la conferencia")}</dt><dd>{pick(lang, votesLabel(body.votesOn), votesLabelEs(body.votesOn))}</dd></>)}
         <dt>{pick(lang, "Accountable to", "Responde a")}</dt><dd>{body.accountableTo}</dd>
         {body.relatesTo.length > 0 && (<><dt>{pick(lang, "Relates to", "Se relaciona con")}</dt><dd>{body.relatesTo.join("; ")}</dd></>)}

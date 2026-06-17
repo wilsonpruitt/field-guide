@@ -40,9 +40,9 @@ export default async function AgendaIndex({
       <ul className="bare">
         {items.map((it) => (
           <li key={it.id}>
-            <Link href={`${base}/agenda/${it.slug}`}>{it.title}</Link>
+            <Link href={`${base}/agenda/${it.slug}`}>{pick(lang, it.title, it.titleEs)}</Link>
             {it.votesOn && <span className="pill">{votesLabel(lang, it.votesOn)}</span>}
-            <p className="muted" style={{ margin: ".25rem 0 0", fontSize: ".9rem" }}>{it.summary}</p>
+            <p className="muted" style={{ margin: ".25rem 0 0", fontSize: ".9rem" }}>{pick(lang, it.summary, it.summaryEs)}</p>
           </li>
         ))}
       </ul>

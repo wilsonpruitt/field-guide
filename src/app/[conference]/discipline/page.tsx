@@ -32,15 +32,21 @@ export default async function DisciplinePage({
           ` a los que se refiere la guía, en su totalidad. Las referencias en otras partes de ${conf.name} enlazan aquí.`,
         )}
       </p>
+      {lang === "es" && (
+        <p className="muted" style={{ fontSize: ".9rem" }}>
+          Traducción de cortesía hecha por la guía. El texto oficial es el del{" "}
+          <em>Libro de Disciplina</em> publicado por la Iglesia Metodista Unida.
+        </p>
+      )}
 
       <ul className="bod-list">
         {paras.map((p) => (
           <li key={p.number} id={`p${p.number}`} className="bod-entry">
             <p className="bod-head">
               ¶{p.number}
-              {p.title ? ` · ${p.title}` : ""}
+              {p.title || p.titleEs ? ` · ${pick(lang, p.title ?? "", p.titleEs) || p.title}` : ""}
             </p>
-            <p className="bod-text">{p.fullText ?? p.excerpt}</p>
+            <p className="bod-text">{pick(lang, p.fullText ?? p.excerpt, p.fullTextEs ?? p.excerptEs)}</p>
             <p className="bod-src">
               {pick(lang, "The Book of Discipline", "El Libro de Disciplina")} {p.edition}, ¶{p.number}
               {p.source === "PLENARY"

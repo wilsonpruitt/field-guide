@@ -60,7 +60,9 @@ model Body {
   conference     Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
   slug           String
   name           String
+  nameEs         String?    // Spanish display name
   alsoKnownAs    String?
+  alsoKnownAsEs  String?
   type           BodyType
   parentId       String?
   parent         Body?      @relation("BodyParent", fields: [parentId], references: [id])
@@ -74,6 +76,7 @@ model Body {
   agendaOrder    Int?
   accountableTo  String     @default("Annual Conference")
   summary        String?
+  summaryEs      String?
   sourcePage     Int?       // 1-based page in the conference handbook PDF (deep-link target)
 
   @@unique([conferenceId, slug])
@@ -148,9 +151,12 @@ model AgendaItem {
   conference   Conference  @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
   slug         String
   title        String
+  titleEs      String?
   order        Int
   summary      String
+  summaryEs    String?
   contentMd    String      @default("")
+  contentMdEs  String?
   votesOn      VotesOn?
   bodySlug     String?     // links to a Body in the same conference
   bodRefs      String[]    @default([])
@@ -169,9 +175,12 @@ model ProcessPage {
   conference   Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
   slug         String
   title        String
+  titleEs      String?
   order        Int        @default(0)
   summary      String
+  summaryEs    String?
   contentMd    String     @default("")
+  contentMdEs  String?
   bodRefs      String[]   @default([])
   rulesRefs    String[]   @default([])
   sourcePage   Int?       // 1-based page in the conference handbook PDF (deep-link target)
@@ -201,7 +210,9 @@ model Motion {
   conference   Conference     @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
   key          String
   intent       String
+  intentEs     String?
   say          String
+  sayEs        String?
   category     MotionCategory
   rank         Int?
   second       Boolean
@@ -209,6 +220,7 @@ model Motion {
   amendable    Boolean
   vote         MotionVote
   note         String?
+  noteEs       String?
 
   @@unique([conferenceId, key])
   @@index([conferenceId])
@@ -272,11 +284,14 @@ enum BodSource {
 }
 
 model BodParagraph {
-  number   Int       @id        // ¶ number
-  title    String?
-  excerpt  String               // short snippet for hover popovers
-  fullText String?              // complete paragraph text (from the BoD PDF), for the reference page
-  source   BodSource
+  number     Int       @id        // ¶ number
+  title      String?
+  titleEs    String?
+  excerpt    String               // short snippet for hover popovers
+  excerptEs  String?
+  fullText   String?              // complete paragraph text (from the BoD PDF), for the reference page
+  fullTextEs String?              // our Spanish rendering (unofficial; the UMC Libro de Disciplina is the official text)
+  source     BodSource
   edition  String    @default("2020/2024")
 }
 

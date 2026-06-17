@@ -34,8 +34,8 @@ export default async function ProcessIndex({
       <ul className="bare">
         {pages.map((p) => (
           <li key={p.id}>
-            <Link href={`${base}/process/${p.slug}`}>{p.title}</Link>
-            <p className="muted" style={{ margin: ".25rem 0 0", fontSize: ".9rem" }}>{p.summary}</p>
+            <Link href={`${base}/process/${p.slug}`}>{pick(lang, p.title, p.titleEs)}</Link>
+            <p className="muted" style={{ margin: ".25rem 0 0", fontSize: ".9rem" }}>{pick(lang, p.summary, p.summaryEs)}</p>
           </li>
         ))}
       </ul>

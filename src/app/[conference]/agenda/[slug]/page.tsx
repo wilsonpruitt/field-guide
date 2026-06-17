@@ -69,7 +69,7 @@ export default async function AgendaDetail({
       }),
       prisma.body.findMany({ where: { conferenceId: conf.id } }),
     ]);
-    const nameBySlug = new Map(bodies.map((b) => [b.slug, b.name]));
+    const nameBySlug = new Map(bodies.map((b) => [b.slug, pick(lang, b.name, b.nameEs)]));
     const boards: SlateBoard[] = rosters
       .filter((r) => r.members.some((m) => m.district || m.status)) // elected boards from the report
       .map((r) => ({
@@ -95,12 +95,12 @@ export default async function AgendaDetail({
   return (
     <>
       <p className="eyebrow">{pick(lang, "Agenda", "Agenda")} · {pick(lang, votesLabel(item.votesOn) || "On the agenda", votesLabelEs(item.votesOn) || "En la agenda")}</p>
-      <h1>{item.title}</h1>
-      <p>{item.summary}</p>
+      <h1>{pick(lang, item.title, item.titleEs)}</h1>
+      <p>{pick(lang, item.summary, item.summaryEs)}</p>
       {agencyBody && (
         <p>
           <span className="pill">
-            <Link href={`${base}/agencies/${agencyBody.slug}`}>{agencyBody.name}</Link>
+            <Link href={`${base}/agencies/${agencyBody.slug}`}>{pick(lang, agencyBody.name, agencyBody.nameEs)}</Link>
           </span>
         </p>
       )}
@@ -111,7 +111,7 @@ export default async function AgendaDetail({
       )}
 
       {item.contentMd && (
-        <SpineContent content={item.contentMd} anchors={anchors} lang={lang} />
+        <SpineContent content={pick(lang, item.contentMd, item.contentMdEs)} anchors={anchors} lang={lang} />
       )}
 
       {perYear}

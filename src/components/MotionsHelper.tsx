@@ -4,10 +4,10 @@ import { useMemo, useState } from "react";
 import { pick, type Lang } from "@/lib/lang";
 
 export type MotionData = {
-  key: string; intent: string; say: string;
+  key: string; intent: string; intentEs: string | null; say: string; sayEs: string | null;
   category: "PRIVILEGED" | "SUBSIDIARY" | "INCIDENTAL" | "MAIN" | "BRING_BACK";
   rank: number | null; second: boolean; debatable: boolean; amendable: boolean;
-  vote: "MAJORITY" | "TWO_THIRDS" | "NONE"; note: string | null;
+  vote: "MAJORITY" | "TWO_THIRDS" | "NONE"; note: string | null; noteEs: string | null;
 };
 
 const GROUPS = [
@@ -45,7 +45,8 @@ export default function MotionsHelper({ motions, lang }: { motions: MotionData[]
   const query = q.trim().toLowerCase();
   const shown = sorted.filter((m) => {
     const matchCat = cat === "all" || m.category === cat;
-    const matchText = query === "" || `${m.intent} ${m.say} ${m.note ?? ""}`.toLowerCase().includes(query);
+    const matchText = query === "" ||
+      `${m.intent} ${m.say} ${m.note ?? ""} ${m.intentEs ?? ""} ${m.sayEs ?? ""} ${m.noteEs ?? ""}`.toLowerCase().includes(query);
     return matchCat && matchText;
   });
 
@@ -104,20 +105,20 @@ export default function MotionsHelper({ motions, lang }: { motions: MotionData[]
         {shown.map((m) => (
           <li className="motion-card" key={m.key}>
             <div className="mc-head">
-              <h3>{m.intent}</h3>
+              <h3>{pick(lang, m.intent, m.intentEs)}</h3>
               <span className="pill">
                 {LABEL[m.category]}
                 {m.rank !== null && ` · #${m.rank}`}
               </span>
             </div>
-            <p className="mc-say">“{m.say}”</p>
+            <p className="mc-say">“{pick(lang, m.say, m.sayEs)}”</p>
             <ul className="mc-badges">
               <li className={m.second ? "yes" : "no"}>{m.second ? pick(lang, "Needs a second", "Requiere apoyo") : pick(lang, "No second needed", "No requiere apoyo")}</li>
               <li className={m.debatable ? "yes" : "no"}>{m.debatable ? pick(lang, "Debatable", "Debatible") : pick(lang, "Not debatable", "No debatible")}</li>
               <li className={m.amendable ? "yes" : "no"}>{m.amendable ? pick(lang, "Amendable", "Enmendable") : pick(lang, "Not amendable", "No enmendable")}</li>
               <li className="vote">{voteLabel(lang, m.vote)}</li>
             </ul>
-            {m.note && <p className="mc-note">{m.note}</p>}
+            {m.note && <p className="mc-note">{pick(lang, m.note, m.noteEs)}</p>}
           </li>
         ))}
       </ul>
@@ -134,7 +135,7 @@ export default function MotionsHelper({ motions, lang }: { motions: MotionData[]
         <ol className="ladder-list">
           {ladder.map((m) => (
             <li key={m.key}>
-              <span className="rank">{m.rank}</span> {m.intent}
+              <span className="rank">{m.rank}</span> {pick(lang, m.intent, m.intentEs)}
             </li>
           ))}
         </ol>
