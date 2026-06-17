@@ -11,7 +11,7 @@
           "date": "2026-06-17",
           "label": "Wednesday, June 17",
           "items": [
-            { "time": "4:00 pm", "title": "Clergy Executive Session", "type": "business" }
+            { "time": "4:00 pm", "title": "Clergy Executive Session", "type": "business", "note": "The clergy members meet on their own to vote on matters of ordination, character, and conference relationship. Closed to non-clergy.", "noteEs": "Los miembros del clero se reúnen aparte para votar sobre ordenación, conducta y relación con la conferencia. Cerrada a no clérigos." }
           ]
         },
         {
@@ -19,19 +19,19 @@
           "label": "Thursday, June 18",
           "items": [
             { "time": "8:00 am", "title": "Youth Members / Offering Assignments — Grand Hall 1", "type": "administrative" },
-            { "time": "8:30 am", "title": "Lay Candidate Forum — Grand Hall", "type": "information" },
+            { "time": "8:30 am", "title": "Lay Candidate Forum — Grand Hall", "type": "information", "note": "Lay people standing for election as delegates introduce themselves and answer questions before voting begins.", "noteEs": "Los laicos candidatos a delegados se presentan y responden preguntas antes de que comience la votación." },
             { "time": "9:45 am", "title": "Pre-Service Music", "type": "worship" },
             { "time": "10:00 am", "title": "Session One — Opening Worship (Preacher: Bishop Robin Dease)", "type": "worship" },
-            { "time": "10:45 am", "title": "Call to Order — 160th Session", "type": "business" },
-            { "time": "10:50 am", "title": "Organization of Conference", "type": "business" },
+            { "time": "10:45 am", "title": "Call to Order — 160th Session", "type": "business", "note": "The presiding bishop formally opens the session — the business meeting of the whole conference, clergy and laity together.", "noteEs": "El obispo que preside abre formalmente la sesión — la reunión de asuntos de toda la conferencia, clero y laicos juntos." },
+            { "time": "10:50 am", "title": "Organization of Conference", "type": "business", "note": "The opening business that formally constitutes the conference: setting the bar of the house, adopting the agenda, and seating its members.", "noteEs": "Los asuntos iniciales que constituyen formalmente la conferencia: fijar el recinto, adoptar la agenda y dar asiento a sus miembros." },
             { "time": "11:00 am", "title": "Standing Rules Committee — to present", "type": "business", "spine": "actions/standing-rules-2026" },
             { "time": "11:10 am", "title": "Consent Agenda — to present", "type": "business", "spine": "process/consent-agenda" },
             { "time": "11:20 am", "title": "Voting Demonstration & Ballot #1", "type": "voting", "spine": "actions/delegate-elections-2028" },
             { "time": "11:30 am", "title": "Board of Ordained Ministry: Presentation of Candidates", "type": "business", "spine": "agencies/board-of-ordained-ministry" },
-            { "time": "11:45 am", "title": "Historic Examination for Admission into Full Connection", "type": "business" },
+            { "time": "11:45 am", "title": "Historic Examination for Admission into Full Connection", "type": "business", "note": "The bishop puts Wesley's historic questions (“Have you faith in Christ? Are you going on to perfection?…”) to those being admitted as full clergy members — a tradition dating to the earliest Methodist conferences.", "noteEs": "El obispo plantea las preguntas históricas de Wesley (“¿Tienes fe en Cristo? ¿Vas en camino a la perfección?…”) a quienes son admitidos como miembros clérigos plenos — una tradición que data de las primeras conferencias metodistas." },
             { "time": "12:10 pm", "title": "Report of Ballot #1 · Ballot #2", "type": "voting", "spine": "actions/delegate-elections-2028" },
             { "time": "12:30 pm", "title": "Adjournment", "type": "closing" },
-            { "time": "2:00 pm", "title": "Session Two — Call to Order", "type": "business" },
+            { "time": "2:00 pm", "title": "Session Two — Call to Order", "type": "business", "note": "The bishop reconvenes the conference for the next block of business.", "noteEs": "El obispo reanuda la conferencia para el siguiente bloque de asuntos." },
             { "time": "2:15 pm", "title": "Reporting and Balloting continue", "type": "voting", "spine": "actions/delegate-elections-2028" },
             { "time": "2:30 pm", "title": "Committee on Nominations — to present", "type": "business", "spine": "actions/nominations-report-2026" },
             { "time": "2:50 pm", "title": "North Georgia Housing and Homeless", "type": "business" },
@@ -39,35 +39,35 @@
             { "time": "3:20 pm", "title": "Murphy Harpst", "type": "business" },
             { "time": "3:35 pm", "title": "Common Table Report: One Georgia Task Force", "type": "business", "spine": "actions/georgia-unification-plan" },
             { "time": "5:15 pm", "title": "Adjournment", "type": "closing" },
-            { "time": "7:30 pm", "title": "Session Three — Service of Licensure, Commissioning, and Ordination (Preacher: Bishop Héctor A. Burgos-Núñez)", "type": "worship" }
+            { "time": "7:30 pm", "title": "Session Three — Service of Licensure, Commissioning, and Ordination (Preacher: Bishop Héctor A. Burgos-Núñez)", "type": "worship", "note": "The service in which the bishop licenses local pastors, commissions candidates as provisional members, and ordains deacons and elders, laying hands on those entering ministry.", "noteEs": "El culto en que el obispo otorga licencia a pastores locales, comisiona a candidatos como miembros provisionales y ordena diáconos y presbíteros, imponiendo las manos sobre quienes entran al ministerio." }
           ]
         },
         {
           "date": "2026-06-19",
           "label": "Friday, June 19",
           "items": [
-            { "time": "7:30 am", "title": "Service of Holy Communion — Grand Hall 2-3", "type": "worship" },
+            { "time": "7:30 am", "title": "Service of Holy Communion — Grand Hall 2-3", "type": "worship", "note": "An early-morning communion service open to all before the day's business begins.", "noteEs": "Un culto de comunión a primera hora, abierto a todos antes de que comiencen los asuntos del día." },
             { "time": "8:15 am", "title": "Gathering Music", "type": "worship" },
-            { "time": "8:30 am", "title": "Session Four — Call to Order & Morning Devotion", "type": "business" },
+            { "time": "8:30 am", "title": "Session Four — Call to Order & Morning Devotion", "type": "business", "note": "The bishop reconvenes the conference and the day's business opens with a brief devotion.", "noteEs": "El obispo reanuda la conferencia y los asuntos del día comienzan con una breve devoción." },
             { "time": "8:45 am", "title": "Reporting and Balloting continue", "type": "voting", "spine": "actions/delegate-elections-2028" },
             { "time": "9:00 am", "title": "CFA Report (2027 Budget)", "type": "business", "spine": "actions/conference-budget-2027" },
             { "time": "9:30 am", "title": "Barnes Evaluation and Administration Team", "type": "business", "spine": "agencies/barnes-evaluation-administrative-team" },
             { "time": "9:45 am", "title": "Disaster Response", "type": "business", "spine": "agencies/disaster-response-ministries" },
-            { "time": "10:00 am", "title": "Blessing of Mari Ellyzsa Valencia (Global Ministries)", "type": "worship" },
+            { "time": "10:00 am", "title": "Blessing of Mari Ellyzsa Valencia (Global Ministries)", "type": "worship", "note": "The conference prays over and sends a missionary serving through the General Board of Global Ministries.", "noteEs": "La conferencia ora por una misionera y la envía a servir a través de la Junta General de Ministerios Globales." },
             { "time": "10:10 am", "title": "United Methodist Men & Scouting Ministry", "type": "business" },
             { "time": "10:25 am", "title": "United Women in Faith", "type": "business" },
             { "time": "10:40 am", "title": "Consent Agenda — remove any requested items", "type": "business", "spine": "process/consent-agenda" },
             { "time": "10:55 am", "title": "Pension and Health Benefits", "type": "business", "spine": "actions/pension-health-recommendations-2026" },
-            { "time": "11:30 am", "title": "Recognition of Retirees", "type": "recognition" },
+            { "time": "11:30 am", "title": "Recognition of Retirees", "type": "recognition", "note": "The conference honors the clergy retiring this year, marking their years of service and the close of their active appointments.", "noteEs": "La conferencia honra al clero que se jubila este año, reconociendo sus años de servicio y el fin de sus nombramientos activos." },
             { "time": "12:00 pm", "title": "Adjournment", "type": "closing" },
-            { "time": "2:00 pm", "title": "Session Five — Service of Remembrance (Preacher: Vance Ross) & Conference Special Offering", "type": "worship" },
-            { "time": "3:30 pm", "title": "Call to Order of Business Session", "type": "business" },
+            { "time": "2:00 pm", "title": "Session Five — Service of Remembrance (Preacher: Vance Ross) & Conference Special Offering", "type": "worship", "note": "A worship service honoring the clergy and lay members who have died since the last annual conference, with a special offering received.", "noteEs": "Un culto que honra a los miembros clérigos y laicos que han fallecido desde la última conferencia anual, con una ofrenda especial." },
+            { "time": "3:30 pm", "title": "Call to Order of Business Session", "type": "business", "note": "The bishop reconvenes the conference for the next block of business.", "noteEs": "El obispo reanuda la conferencia para el siguiente bloque de asuntos." },
             { "time": "3:40 pm", "title": "Trustees", "type": "business", "spine": "agencies/board-of-trustees" },
-            { "time": "3:55 pm", "title": "Conference Safe Sanctuary Policy", "type": "business" },
+            { "time": "3:55 pm", "title": "Conference Safe Sanctuary Policy", "type": "business", "note": "The conference's policy for protecting children, youth, and vulnerable adults from abuse in ministry settings.", "noteEs": "La política de la conferencia para proteger de abuso a niños, jóvenes y adultos vulnerables en los entornos ministeriales." },
             { "time": "4:10 pm", "title": "Equitable Compensation", "type": "business", "spine": "actions/equitable-compensation-2027" },
             { "time": "4:25 pm", "title": "Wellroot Family Services", "type": "business" },
             { "time": "4:35 pm", "title": "Wesley Woods", "type": "business" },
-            { "time": "4:45 pm", "title": "Laity Address", "type": "business" },
+            { "time": "4:45 pm", "title": "Laity Address", "type": "business", "note": "The Conference Lay Leader addresses the body on behalf of the laity — the church members who are not clergy.", "noteEs": "El Líder Laico de la Conferencia se dirige al cuerpo en nombre de los laicos — los miembros de la iglesia que no son clérigos." },
             { "time": "5:00 pm", "title": "Standing Rules", "type": "business", "spine": "actions/standing-rules-2026" },
             { "time": "5:10 pm", "title": "Property Resolutions", "type": "voting", "spine": "actions/property-resolutions" },
             { "time": "5:30 pm", "title": "Adjournment", "type": "closing" },
@@ -78,9 +78,9 @@
           "date": "2026-06-20",
           "label": "Saturday, June 20",
           "items": [
-            { "time": "7:30 am", "title": "Service of Holy Communion — Grand Hall 2-3", "type": "worship" },
+            { "time": "7:30 am", "title": "Service of Holy Communion — Grand Hall 2-3", "type": "worship", "note": "An early-morning communion service open to all before the day's business begins.", "noteEs": "Un culto de comunión a primera hora, abierto a todos antes de que comiencen los asuntos del día." },
             { "time": "8:20 am", "title": "Gathering Music", "type": "worship" },
-            { "time": "8:30 am", "title": "Session Seven — Call to Order & Morning Devotion (Bishop Dease)", "type": "business" },
+            { "time": "8:30 am", "title": "Session Seven — Call to Order & Morning Devotion (Bishop Dease)", "type": "business", "note": "The bishop reconvenes the conference for its final day, opening with a brief devotion.", "noteEs": "El obispo reanuda la conferencia para su último día, comenzando con una breve devoción." },
             { "time": "8:45 am", "title": "Episcopacy Committee", "type": "business", "spine": "agencies/committee-on-episcopacy" },
             { "time": "9:00 am", "title": "North Georgia Camping and Retreat Ministries", "type": "business" },
             { "time": "9:15 am", "title": "Committee on the Status and Role of Women", "type": "business", "spine": "agencies/commission-status-role-women" },
@@ -90,8 +90,8 @@
             { "time": "10:00 am", "title": "Future Dates & Sites of Annual Conference", "type": "information" },
             { "time": "10:15 am", "title": "Marian Wilder Award — Aldersgate Homes", "type": "recognition" },
             { "time": "10:20 am", "title": "Committee on Nominations — to Vote", "type": "voting", "spine": "actions/nominations-report-2026" },
-            { "time": "10:30 am", "title": "Service of Word and Table & Fixing of Appointments (Preacher: Max Vincent)", "type": "worship" },
-            { "time": "12:00 pm", "title": "Adjournment of the 160th Session", "type": "closing" }
+            { "time": "10:30 am", "title": "Service of Word and Table & Fixing of Appointments (Preacher: Max Vincent)", "type": "worship", "note": "Closing worship with Holy Communion (“Word and Table”) in which the bishop formally fixes the clergy appointments — who will serve which church — for the coming year.", "noteEs": "Culto de clausura con la Santa Comunión (“Palabra y Mesa”) en el que el obispo fija formalmente los nombramientos del clero — quién servirá en cada iglesia — para el próximo año." },
+            { "time": "12:00 pm", "title": "Adjournment of the 160th Session", "type": "closing", "note": "The bishop declares the annual conference closed until it gathers again next year.", "noteEs": "El obispo declara cerrada la conferencia anual hasta que vuelva a reunirse el próximo año." }
           ]
         }
       ]
