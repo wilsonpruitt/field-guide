@@ -343,6 +343,19 @@ ul.bare li:last-child { border-bottom: 0; }
 .sched-tag.t-information { color: var(--warn); border-color: transparent; background: var(--warn-bg); }
 .sched-tag.t-worship { color: var(--ok); border-color: transparent; background: var(--ok-bg); }
 
+/* Explanatory popover on schedule items that don't link to their own section.
+   Cloned from the BodRef popover, but the trigger wraps normally (titles can be
+   long) instead of nowrap. Shows on hover, focus, or focus-within (keyboard). */
+.sched-info { position: relative; border-bottom: 1px dotted var(--slate-200); cursor: help; }
+.sched-info-pop { position: absolute; left: 0; top: calc(100% + 6px); z-index: 20; width: min(20rem, 80vw);
+  display: none; background: var(--ivory); border: 1px solid var(--slate-200); border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(26, 33, 40, .1); padding: .6rem .75rem; white-space: normal;
+  text-align: left; font-family: var(--font-sans); font-weight: 400; cursor: auto; }
+.sched-info:hover .sched-info-pop, .sched-info:focus-within .sched-info-pop, .sched-info:focus .sched-info-pop { display: block; }
+.si-cat { display: block; font-weight: 600; color: var(--fen); font-size: .68rem; text-transform: uppercase;
+  letter-spacing: .04em; margin-bottom: .25rem; }
+.si-body { display: block; font-size: .82rem; line-height: 1.5; color: var(--ink); }
+
 /* ---------- Action items: where people stand (perspectives) ---------- */
 .stance-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-top: .6rem; }
 .stance-col h3 { display: flex; align-items: baseline; gap: .4rem; font-family: var(--font-sans); font-size: .82rem;
