@@ -26,14 +26,15 @@
   {
     "kind": "FINANCE",
     "year": 2025,
-    "source": "2026 CFA Addendum (208 + 208.d) — apportionment received and net assets unaudited",
+    "source": "2026 NGC Session Handbook §208.f budget table — 2025 approved budget vs. collected; net assets unaudited",
     "data": {
       "data_year": 2025,
-      "apportionment_rev": 9900000,
+      "apportionment_rev": 10009502,
       "apportionment_ask": 11043808,
-      "collection_rate": 89.7,
+      "collection_rate": 90.6,
       "net_assets_eoy": 170595172,
-      "source": "cfa-addendum-2026",
+      "source": "handbook-ngc-2026 §208.f + cfa-addendum-2026 (net assets)",
+      "note": "2025 approved apportionment budget $11,043,808; $10,009,502 collected (90.6%) per the CFA budget table. Net assets unaudited.",
       "preliminary": true
     }
   }
