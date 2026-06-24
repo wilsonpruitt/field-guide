@@ -12,6 +12,8 @@
 
 alter table "public"."Conference"            enable row level security;
 alter table "public"."Body"                  enable row level security;
+alter table "public"."ActionItem"            enable row level security;
+alter table "public"."InfoReport"            enable row level security;
 alter table "public"."AgendaItem"            enable row level security;
 alter table "public"."ProcessPage"           enable row level security;
 alter table "public"."Motion"                enable row level security;
