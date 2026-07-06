@@ -44,6 +44,9 @@ export default function RootLayout({
       lang="en"
       className={`${garamond.variable} ${inter.variable} h-full antialiased`}
     >
+      <head>
+        <script defer src="/_vercel/insights/script.js"></script>
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
